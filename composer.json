@@ -1,0 +1,18 @@
+{
+    "name": "adam.lambourne/content-sharing-dto",
+    "description": "Content Sharing DTO",
+    "autoload": {
+        "psr-4": {
+            "AdamLambourne\\ContentSharingDto\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Adam Lambourne",
+            "email": "adam.lambourne@immediate.co.uk"
+        }
+    ],
+    "require": {
+        "composer-runtime-api": "*"
+    }
+}
