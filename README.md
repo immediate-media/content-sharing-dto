@@ -17,8 +17,8 @@ $recipeDTO->setUpdatedDate('2023-02-08T17:00:39+00:00');
 $recipeDTO->setTitle('Example Recipe');
 $recipeDTO->setDescription('Example Recipe Description');
 $recipeDTO->setUrl('https://www.example.com/recipe');
-$recipeDTO->setHeroImage(new Image('https://www.example.com/image.jpg', 'Hero Image', 'Image description'));
-$recipeDTO->setThumbnailImage(new Image('https://www.example.com/image.jpg', 'Thumb Image', 'Image description'));
+$recipeDTO->setHeroImage(new Image('https://www.example.com/image.jpg', 'Hero Image', 'Image title'));
+$recipeDTO->setThumbnailImage(new Image('https://www.example.com/image.jpg', 'Thumb Image', 'Image title'));
 
 $recipeDTO->setIngredients(new Ingredient('first Ingredient', '1.5', 'kg', 'my-ingredient', 'My Notes'));
 $recipeDTO->setIngredients(new Ingredient('second Ingredient', '2', 'kg', 'my-ingredient', 'My Notes'));
@@ -32,6 +32,8 @@ $recipeDTO->setNutrition(new Nutrition('Salt', '100', 'g',false, false));
 $recipeDTO->setTags(new Tag('recipe tag 1', 'recipe-tag-1', 'tag notes'));
 $recipeDTO->setTags(new Tag('recipe tag 2', 'recipe-tag-2', 'tag notes'));
 
+$recipeDTO->setCategories(new Category('Recipes', 'recipes', 'category notes'));
+$recipeDTO->setCategories(new Category('Food', 'food', 'category notes'));
 
 $recipeDTO->toJSON();
 ```
@@ -61,13 +63,13 @@ $recipeDTO->toJSON();
   },
   "heroImage": {
     "url": "https:\/\/www.example.com\/image.jpg",
-    "alt": "My Image",
-    "title": "My Image"
+    "alt": "Hero Image",
+    "title": "Image title"
   },
   "thumbnailImage": {
     "url": "https:\/\/www.example.com\/image.jpg",
-    "alt": "My Image",
-    "title": "My Image"
+    "alt": "Thumb Image",
+    "title": "Image title"
   },
   "tags": [
     {
@@ -79,6 +81,18 @@ $recipeDTO->toJSON();
       "name": "recipe tag 2",
       "slug": "recipe-tag-2",
       "notes": "tag notes"
+    }
+  ],
+  "categories": [
+    {
+      "name": "Recipes",
+      "slug": "recipes",
+      "notes": "category notes"
+    },
+    {
+      "name": "Food",
+      "slug": "food",
+      "notes": "category notes"
     }
   ],
   "ingredients": [

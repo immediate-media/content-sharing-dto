@@ -3,8 +3,10 @@
 namespace AdamLambourne\ContentSharingDto;
 
 use AdamLambourne\ContentSharingDto\Generic\Author;
+use AdamLambourne\ContentSharingDto\Generic\Category;
 use AdamLambourne\ContentSharingDto\Generic\Image;
 use AdamLambourne\ContentSharingDto\Generic\Tag;
+
 
 class BaseDTO
 {
@@ -29,7 +31,18 @@ class BaseDTO
     public Image $thumbnailImage;
 
     public array $tags = [];
+    public array $categories = [];
 
+
+    public function getCategories(): array
+    {
+        return $this->categories;
+    }
+
+    public function setCategories(Category $categories): void
+    {
+        $this->categories[] = $categories;
+    }
 
     public function getTags(): array
     {
@@ -40,7 +53,6 @@ class BaseDTO
     {
         $this->tags[] = $tags;
     }
-
 
     public function getDescription(): string
     {

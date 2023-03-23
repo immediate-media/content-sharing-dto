@@ -10,6 +10,7 @@ use AdamLambourne\ContentSharingDto\Recipe\Ingredient;
 use AdamLambourne\ContentSharingDto\Recipe\MethodStep;
 use AdamLambourne\ContentSharingDto\Recipe\Nutrition;
 use AdamLambourne\ContentSharingDto\Generic\Tag;
+use AdamLambourne\ContentSharingDto\Generic\Category;
 
 $recipeDTO = new RecipeDTO();
 
@@ -36,6 +37,9 @@ $recipeDTO->setNutrition(new Nutrition('Salt', '100', 'g',false, false));
 
 $recipeDTO->setTags(new Tag('recipe tag 1', 'recipe-tag-1', 'tag notes'));
 $recipeDTO->setTags(new Tag('recipe tag 2', 'recipe-tag-2', 'tag notes'));
+
+$recipeDTO->setCategories(new Category('Recipes', 'recipes', 'category notes'));
+$recipeDTO->setCategories(new Category('Food', 'food', 'category notes'));
 
 
 
