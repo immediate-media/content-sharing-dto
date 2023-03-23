@@ -1,6 +1,6 @@
 <?php
 
-namespace AdamLambourne\ContentSharingDto\Base;
+namespace AdamLambourne\ContentSharingDto;
 
 use AdamLambourne\ContentSharingDto\Generic\Author;
 use AdamLambourne\ContentSharingDto\Generic\Image;

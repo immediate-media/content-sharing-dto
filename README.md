@@ -17,8 +17,8 @@ $recipeDTO->setUpdatedDate('2023-02-08T17:00:39+00:00');
 $recipeDTO->setTitle('Example Recipe');
 $recipeDTO->setDescription('Example Recipe Description');
 $recipeDTO->setUrl('https://www.example.com/recipe');
-$recipeDTO->setHeroImage(new Image('https://www.example.com/image.jpg', 'My Image', 'My Image'));
-$recipeDTO->setThumbnailImage(new Image('https://www.example.com/image.jpg', 'My Image', 'My Image'));
+$recipeDTO->setHeroImage(new Image('https://www.example.com/image.jpg', 'Hero Image', 'Image description'));
+$recipeDTO->setThumbnailImage(new Image('https://www.example.com/image.jpg', 'Thumb Image', 'Image description'));
 
 $recipeDTO->setIngredients(new Ingredient('first Ingredient', '1.5', 'kg', 'my-ingredient', 'My Notes'));
 $recipeDTO->setIngredients(new Ingredient('second Ingredient', '2', 'kg', 'my-ingredient', 'My Notes'));

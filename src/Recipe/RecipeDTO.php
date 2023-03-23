@@ -2,9 +2,7 @@
 
 namespace AdamLambourne\ContentSharingDto\Recipe;
 
-use AdamLambourne\ContentSharingDto\Base\BaseDTO;
-use AdamLambourne\ContentSharingDto\Recipe\Ingredient;
-use AdamLambourne\ContentSharingDto\Recipe\Nutrition;
+use AdamLambourne\ContentSharingDto\BaseDTO;
 
 class RecipeDTO extends BaseDTO
 {
