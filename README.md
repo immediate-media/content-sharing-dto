@@ -36,7 +36,10 @@ $recipeDTO->setTags(new Tag('recipe tag 2', 'recipe-tag-2', 'tag notes'));
 $recipeDTO->toJSON();
 ```
 
-## JSON Output
+
+## Example JSON Output
+<details>
+  <summary>Recipe DTO JSON Output</summary>
 
 ```json
 {
@@ -122,4 +125,5 @@ $recipeDTO->toJSON();
   ]
 }
 ```
+</details>
 
