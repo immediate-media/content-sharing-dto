@@ -4,6 +4,7 @@ namespace AdamLambourne\ContentSharingDto\Base;
 
 use AdamLambourne\ContentSharingDto\Generic\Author;
 use AdamLambourne\ContentSharingDto\Generic\Image;
+use AdamLambourne\ContentSharingDto\Generic\Tag;
 
 class BaseDTO
 {
@@ -26,6 +27,19 @@ class BaseDTO
     public Author $author;
     public Image $heroImage;
     public Image $thumbnailImage;
+
+    public array $tags = [];
+
+
+    public function getTags(): array
+    {
+        return $this->tags;
+    }
+
+    public function setTags(Tag $tags): void
+    {
+        $this->tags[] = $tags;
+    }
 
 
     public function getDescription(): string

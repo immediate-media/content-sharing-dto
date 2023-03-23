@@ -1,29 +1,36 @@
+# Content Sharing DTO
+DTO is a simple object that represents a complex object in a way that can be easily passed around between different applications. 
 
+These DTOs have been designed specifically for use with the Content Sharing API.
 
-# RecipeDTO example
+## RecipeDTO example
 
 ```php
 $recipeDTO = new RecipeDTO();
 
 $recipeDTO->setAuthor(new Author('Adam Lambourne', 'adam.lambourne@immediate.co.uk', 'https://www.example.com', 'https://www.example.com/image.jpg'));
-$recipeDTO->setClientRef('123');
+$recipeDTO->setClientRef('ABC123');
 $recipeDTO->setSlug('example-recipe-slug');
 $recipeDTO->setSiteName('BBCGoodFood');
+$recipeDTO->setPublishedDate('2023-02-08T15:00:39+00:00');
+$recipeDTO->setUpdatedDate('2023-02-08T17:00:39+00:00');
 $recipeDTO->setTitle('Example Recipe');
-$recipeDTO->setUrl('https://www.example.com');
+$recipeDTO->setDescription('Example Recipe Description');
+$recipeDTO->setUrl('https://www.example.com/recipe');
 $recipeDTO->setHeroImage(new Image('https://www.example.com/image.jpg', 'My Image', 'My Image'));
 $recipeDTO->setThumbnailImage(new Image('https://www.example.com/image.jpg', 'My Image', 'My Image'));
+
 $recipeDTO->setIngredients(new Ingredient('first Ingredient', '1.5', 'kg', 'my-ingredient', 'My Notes'));
 $recipeDTO->setIngredients(new Ingredient('second Ingredient', '2', 'kg', 'my-ingredient', 'My Notes'));
 
 $recipeDTO->setMethodSteps(new MethodStep(1, 'first step'));
 $recipeDTO->setMethodSteps(new MethodStep(2, 'second step'));
-$recipeDTO->setMethodSteps(new MethodStep(3, 'third step'));
-
 
 $recipeDTO->setNutrition(new Nutrition('Calories', '100', 'g',false, false));
-$recipeDTO->setNutrition(new Nutrition('Salt', '5', 'g',false, false));
-$recipeDTO->setNutrition(new Nutrition('Sugar', '11', 'g',false, false));
+$recipeDTO->setNutrition(new Nutrition('Salt', '100', 'g',false, false));
+
+$recipeDTO->setTags(new Tag('recipe tag 1', 'recipe-tag-1', 'tag notes'));
+$recipeDTO->setTags(new Tag('recipe tag 2', 'recipe-tag-2', 'tag notes'));
 
 
 $recipeDTO->toJSON();
@@ -35,11 +42,14 @@ $recipeDTO->toJSON();
 {
   "DTO_VERSION": "1.0.0",
   "type": "recipe",
-  "clientRef": "123",
+  "clientRef": "ABC123",
   "title": "Example Recipe",
   "siteName": "BBCGoodFood",
-  "url": "https:\/\/www.example.com",
+  "url": "https:\/\/www.example.com\/recipe",
   "slug": "example-recipe-slug",
+  "description": "Example Recipe Description",
+  "publishedDate": "2023-02-08T15:00:39+00:00",
+  "updatedDate": "2023-02-08T17:00:39+00:00",
   "author": {
     "name": "Adam Lambourne",
     "email": "adam.lambourne@immediate.co.uk",
@@ -56,6 +66,18 @@ $recipeDTO->toJSON();
     "alt": "My Image",
     "title": "My Image"
   },
+  "tags": [
+    {
+      "name": "recipe tag 1",
+      "slug": "recipe-tag-1",
+      "notes": "tag notes"
+    },
+    {
+      "name": "recipe tag 2",
+      "slug": "recipe-tag-2",
+      "notes": "tag notes"
+    }
+  ],
   "ingredients": [
     {
       "name": "first Ingredient",
@@ -80,10 +102,6 @@ $recipeDTO->toJSON();
     {
       "stepNumber": 2,
       "description": "second step"
-    },
-    {
-      "stepNumber": 3,
-      "description": "third step"
     }
   ],
   "nutrition": [
@@ -96,14 +114,7 @@ $recipeDTO->toJSON();
     },
     {
       "label": "Salt",
-      "value": "5",
-      "unit": "g",
-      "high": false,
-      "low": false
-    },
-    {
-      "label": "Sugar",
-      "value": "11",
+      "value": "100",
       "unit": "g",
       "high": false,
       "low": false
