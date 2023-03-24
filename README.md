@@ -10,6 +10,7 @@ $recipeDTO = new RecipeDTO();
 
 $recipeDTO->setAuthor(new Author('Adam Lambourne', 'adam.lambourne@immediate.co.uk', 'https://www.example.com', 'https://www.example.com/image.jpg'));
 $recipeDTO->setClientRef('ABC123');
+$recipeDTO->setDrm(new DRM(3,'Can be used Worldwide'));
 $recipeDTO->setSlug('example-recipe-slug');
 $recipeDTO->setSiteName('BBCGoodFood');
 $recipeDTO->setPublishedDate('2023-02-08T15:00:39+00:00');
@@ -35,6 +36,7 @@ $recipeDTO->setTags(new Tag('recipe tag 2', 'recipe-tag-2', 'tag notes'));
 $recipeDTO->setCategories(new Category('Recipes', 'recipes', 'category notes'));
 $recipeDTO->setCategories(new Category('Food', 'food', 'category notes'));
 
+
 $recipeDTO->toJSON();
 ```
 
@@ -55,6 +57,10 @@ $recipeDTO->toJSON();
   "description": "Example Recipe Description",
   "publishedDate": "2023-02-08T15:00:39+00:00",
   "updatedDate": "2023-02-08T17:00:39+00:00",
+  "drm": {
+    "status": 3,
+    "notes": "Can be used Worldwide"
+  },
   "author": {
     "name": "Adam Lambourne",
     "email": "adam.lambourne@immediate.co.uk",

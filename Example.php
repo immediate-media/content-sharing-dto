@@ -11,11 +11,13 @@ use AdamLambourne\ContentSharingDto\Recipe\MethodStep;
 use AdamLambourne\ContentSharingDto\Recipe\Nutrition;
 use AdamLambourne\ContentSharingDto\Generic\Tag;
 use AdamLambourne\ContentSharingDto\Generic\Category;
+use AdamLambourne\ContentSharingDto\Generic\DRM;
 
 $recipeDTO = new RecipeDTO();
 
 $recipeDTO->setAuthor(new Author('Adam Lambourne', 'adam.lambourne@immediate.co.uk', 'https://www.example.com', 'https://www.example.com/image.jpg'));
 $recipeDTO->setClientRef('ABC123');
+$recipeDTO->setDrm(new DRM(3,'Can be used Worldwide'));
 $recipeDTO->setSlug('example-recipe-slug');
 $recipeDTO->setSiteName('BBCGoodFood');
 $recipeDTO->setPublishedDate('2023-02-08T15:00:39+00:00');

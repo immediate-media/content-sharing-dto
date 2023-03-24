@@ -4,6 +4,7 @@ namespace AdamLambourne\ContentSharingDto;
 
 use AdamLambourne\ContentSharingDto\Generic\Author;
 use AdamLambourne\ContentSharingDto\Generic\Category;
+use AdamLambourne\ContentSharingDto\Generic\DRM;
 use AdamLambourne\ContentSharingDto\Generic\Image;
 use AdamLambourne\ContentSharingDto\Generic\Tag;
 
@@ -26,6 +27,7 @@ class BaseDTO
     public string $publishedDate;
     public string $updatedDate;
 
+    public DRM $drm;
     public Author $author;
     public Image $heroImage;
     public Image $thumbnailImage;
@@ -33,6 +35,16 @@ class BaseDTO
     public array $tags = [];
     public array $categories = [];
 
+
+    public function getDrm(): DRM
+    {
+        return $this->drm;
+    }
+
+    public function setDrm(DRM $drm): void
+    {
+        $this->drm = $drm;
+    }
 
     public function getCategories(): array
     {
