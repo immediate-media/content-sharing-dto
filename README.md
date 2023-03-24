@@ -8,33 +8,37 @@ These DTOs have been designed specifically for use with the Content Sharing API.
 ```php
 $recipeDTO = new RecipeDTO();
 
-$recipeDTO->setAuthor(new Author('Adam Lambourne', 'adam.lambourne@immediate.co.uk', 'https://www.example.com', 'https://www.example.com/image.jpg'));
-$recipeDTO->setClientRef('ABC123');
-$recipeDTO->setDrm(new DRM(3,'Can be used Worldwide'));
-$recipeDTO->setSlug('example-recipe-slug');
-$recipeDTO->setSiteName('BBCGoodFood');
-$recipeDTO->setPublishedDate('2023-02-08T15:00:39+00:00');
-$recipeDTO->setUpdatedDate('2023-02-08T17:00:39+00:00');
-$recipeDTO->setTitle('Example Recipe');
-$recipeDTO->setDescription('Example Recipe Description');
-$recipeDTO->setUrl('https://www.example.com/recipe');
-$recipeDTO->setHeroImage(new Image('https://www.example.com/image.jpg', 'Hero Image', 'Image title'));
-$recipeDTO->setThumbnailImage(new Image('https://www.example.com/image.jpg', 'Thumb Image', 'Image title'));
+$recipeDTO->setAuthor(author: new Author(name: 'Adam Lambourne', email: 'adam.lambourne@immediate.co.uk', url: 'https://www.example.com', image: 'https://www.example.com/image.jpg'));
+$recipeDTO->setClientRef(clientRef: 'ABC123');
+$recipeDTO->setDrm(drm: new DRM(status: 3, notes: 'Can be used Worldwide'));
+$recipeDTO->setSlug(slug: 'example-recipe-slug');
+$recipeDTO->setSiteName(siteName: 'BBCGoodFood');
+$recipeDTO->setPublishedDate(publishedDate: '2023-02-08T15:00:39+00:00');
+$recipeDTO->setUpdatedDate(updatedDate: '2023-02-08T17:00:39+00:00');
+$recipeDTO->setTitle(title: 'Example Recipe');
+$recipeDTO->setDescription(description: 'Example Recipe Description');
+$recipeDTO->setUrl(url: 'https://www.example.com/recipe');
+$recipeDTO->setHeroImage(heroImage: new Image(url: 'https://www.example.com/image.jpg', alt: 'Hero Image', title: 'Image title'));
+$recipeDTO->setThumbnailImage(thumbnailImage: new Image(url: 'https://www.example.com/image.jpg', alt: 'Thumb Image', title: 'Image title'));
 
-$recipeDTO->setIngredients(new Ingredient('first Ingredient', '1.5', 'kg', 'my-ingredient', 'My Notes'));
-$recipeDTO->setIngredients(new Ingredient('second Ingredient', '2', 'kg', 'my-ingredient', 'My Notes'));
+$recipeDTO->setIngredients(ingredients: new Ingredient(name: 'first Ingredient', quantity: '1.5', unit: 'kg', slug: 'my-ingredient', notes: 'My Notes'));
+$recipeDTO->setIngredients(ingredients: new Ingredient(name: 'second Ingredient', quantity: '2', unit: 'kg', slug: 'my-ingredient', notes: 'My Notes'));
 
-$recipeDTO->setMethodSteps(new MethodStep(1, 'first step'));
-$recipeDTO->setMethodSteps(new MethodStep(2, 'second step'));
+$recipeDTO->setMethodSteps(methodSteps: new MethodStep(stepNumber: 1, description: 'first step'));
+$recipeDTO->setMethodSteps(methodSteps: new MethodStep(stepNumber: 2, description: 'second step'));
 
-$recipeDTO->setNutrition(new Nutrition('Calories', '100', 'g',false, false));
-$recipeDTO->setNutrition(new Nutrition('Salt', '100', 'g',false, false));
+$recipeDTO->setNutrition(nutrition: new Nutrition(label: 'Calories', value: '100', unit: 'g', high: false, low: false));
+$recipeDTO->setNutrition(nutrition: new Nutrition(label: 'Salt', value: '100', unit: 'g', high: false, low: false));
 
-$recipeDTO->setTags(new Tag('recipe tag 1', 'recipe-tag-1', 'tag notes'));
-$recipeDTO->setTags(new Tag('recipe tag 2', 'recipe-tag-2', 'tag notes'));
+$recipeDTO->setTags(tags: new Tag(name: 'recipe tag 1', slug: 'recipe-tag-1', notes: 'tag notes'));
+$recipeDTO->setTags(tags: new Tag(name: 'recipe tag 2', slug: 'recipe-tag-2', notes: 'tag notes'));
 
-$recipeDTO->setCategories(new Category('Recipes', 'recipes', 'category notes'));
-$recipeDTO->setCategories(new Category('Food', 'food', 'category notes'));
+$recipeDTO->setCategories(categories: new Category(name: 'Recipes', slug: 'recipes', notes: 'category notes'));
+$recipeDTO->setCategories(categories: new Category(name: 'Food', slug: 'food', notes: 'category notes'));
+
+$recipeDTO->setTiming(timing: new Timing(cookingMax: 20, maxCookingTime: 20, cookingMin: 10, minCookingTime: 10, preparationMax: 5, maxPreparationTime: 5, preparationMin: 3, minPreparationTime: 3, note: '', total: 45, totalTime: 45));
+
+
 
 
 $recipeDTO->toJSON();
@@ -142,7 +146,20 @@ $recipeDTO->toJSON();
       "high": false,
       "low": false
     }
-  ]
+  ],
+  "timing": {
+    "cookingMax": 20,
+    "maxCookingTime": 20,
+    "cookingMin": 10,
+    "minCookingTime": 10,
+    "preparationMax": 5,
+    "maxPreparationTime": 5,
+    "preparationMin": 3,
+    "minPreparationTime": 3,
+    "note": "",
+    "total": 45,
+    "totalTime": 45
+  }
 }
 ```
 </details>

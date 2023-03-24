@@ -3,6 +3,7 @@
 namespace AdamLambourne\ContentSharingDto\Recipe;
 
 use AdamLambourne\ContentSharingDto\BaseDTO;
+use AdamLambourne\ContentSharingDto\Recipe\Timing;
 
 class RecipeDTO extends BaseDTO
 {
@@ -12,6 +13,7 @@ class RecipeDTO extends BaseDTO
     public array $ingredients;
     public array $methodSteps;
     public array $nutrition;
+    public Timing $timing;
 
 
     public function getNutrition(): array
@@ -48,6 +50,19 @@ class RecipeDTO extends BaseDTO
     {
         $this->methodSteps[] = $methodSteps;
     }
+
+
+    public function getTiming(): Timing
+    {
+        return $this->timing;
+    }
+
+
+    public function setTiming(Timing $timing): void
+    {
+        $this->timing = $timing;
+    }
+
 
 
 }
