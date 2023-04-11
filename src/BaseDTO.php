@@ -9,7 +9,7 @@ use ImmediateMedia\ContentSharingDto\Generic\Image;
 use ImmediateMedia\ContentSharingDto\Generic\Tag;
 
 
-class BaseDTO
+abstract class BaseDTO
 {
     // Bump this version when you make a breaking change to the DTO
     public const DTO_VERSION = '1.0.0';
@@ -36,6 +36,21 @@ class BaseDTO
     public array $tags = [];
     public array $categories = [];
 
+    protected array $baseValidators = ['clientRef', 'title', 'siteName', 'url', 'slug', 'description', 'publishedDate',
+        'updatedDate', 'locale', 'drm', 'author', 'heroImage', 'thumbnailImage', 'tags', 'categories'];
+
+    public function validate(): bool
+    {
+        $fields = array_merge($this->baseValidators, $this->validators);
+
+        foreach($fields as $field) {
+            if (empty($this->$field)) {
+                throw new \Exception("Field $field is empty");
+            }
+        }
+
+        return true;
+    }
 
     public function getLocale(): string
     {
@@ -187,9 +202,9 @@ class BaseDTO
         $this->updatedDate = $updatedDate;
     }
 
-    public function toJSON(): string
+    public function toJSON($flags = 0): string
     {
-        return json_encode($this, JSON_PRETTY_PRINT);
+        return json_encode($this, $flags);
     }
 
 }

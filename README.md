@@ -39,7 +39,10 @@ $recipeDTO->setCategories(new Category(name: 'Food', slug: 'food', notes: 'categ
 
 $recipeDTO->setTiming(new Timing(cookingMax: 20, maxCookingTime: 20, cookingMin: 10, minCookingTime: 10, preparationMax: 5, maxPreparationTime: 5, preparationMin: 3, minPreparationTime: 3, note: '', total: 45, totalTime: 45));
 
+// Throws exception if the DTO is not valid
+$recipeDTO->validate();
 
+// Returns the DTO as a JSON string
 echo $recipeDTO->toJSON();
 ```
 

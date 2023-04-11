@@ -15,6 +15,8 @@ class RecipeDTO extends BaseDTO
     public array $nutrition;
     public Timing $timing;
 
+    protected array $validators = ['ingredients', 'methodSteps', 'nutrition', 'timing'];
+
 
     public function getNutrition(): array
     {
