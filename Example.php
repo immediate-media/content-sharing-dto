@@ -18,7 +18,7 @@ $recipeDTO = new RecipeDTO();
 
 $recipeDTO->setAuthor(new Author(name: 'Adam Lambourne', email: 'example@email.com', url: 'https://www.example.com', image: 'https://www.example.com/image.jpg'));
 $recipeDTO->setClientRef('ABC123');
-$recipeDTO->setDrm(new DRM(status: 3, notes: 'Can be used Worldwide'));
+$recipeDTO->setDrm(new DRM(status: DRM::GREEN, notes: 'Can be used Worldwide'));
 $recipeDTO->setLocale('en');
 $recipeDTO->setSlug('example-recipe-slug');
 $recipeDTO->setSiteName('Good Food');
