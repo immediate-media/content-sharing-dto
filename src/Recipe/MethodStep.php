@@ -1,8 +1,8 @@
 <?php
 
-namespace AdamLambourne\ContentSharingDto\Recipe;
+namespace ImmediateMedia\ContentSharingDto\Recipe;
 
-use AdamLambourne\ContentSharingDto\Generic\Image;
+use ImmediateMedia\ContentSharingDto\Generic\Image;
 
 class MethodStep
 {

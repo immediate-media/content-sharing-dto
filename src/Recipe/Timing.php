@@ -1,6 +1,6 @@
 <?php
 
-namespace AdamLambourne\ContentSharingDto\Recipe;
+namespace ImmediateMedia\ContentSharingDto\Recipe;
 
 class Timing
 {

@@ -1,9 +1,9 @@
 <?php
 
-namespace AdamLambourne\ContentSharingDto\Recipe;
+namespace ImmediateMedia\ContentSharingDto\Recipe;
 
-use AdamLambourne\ContentSharingDto\BaseDTO;
-use AdamLambourne\ContentSharingDto\Recipe\Timing;
+use ImmediateMedia\ContentSharingDto\BaseDTO;
+use ImmediateMedia\ContentSharingDto\Recipe\Timing;
 
 class RecipeDTO extends BaseDTO
 {

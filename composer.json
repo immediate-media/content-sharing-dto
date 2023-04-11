@@ -1,9 +1,9 @@
 {
-    "name": "adam.lambourne/content-sharing-dto",
+    "name": "immediate-media/content-sharing-dto",
     "description": "Content Sharing DTO",
     "autoload": {
         "psr-4": {
-            "AdamLambourne\\ContentSharingDto\\": "src/"
+            "ImmediateMedia\\ContentSharingDto\\": "src/"
         }
     },
     "authors": [

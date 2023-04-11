@@ -1,6 +1,6 @@
 <?php
 
-namespace AdamLambourne\ContentSharingDto\Generic;
+namespace ImmediateMedia\ContentSharingDto\Generic;
 
 class Author
 {

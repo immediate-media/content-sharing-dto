@@ -3,24 +3,25 @@
 require 'vendor/autoload.php';
 
 
-use AdamLambourne\ContentSharingDto\Recipe\RecipeDTO;
-use AdamLambourne\ContentSharingDto\Generic\Author;
-use AdamLambourne\ContentSharingDto\Generic\Image;
-use AdamLambourne\ContentSharingDto\Recipe\Ingredient;
-use AdamLambourne\ContentSharingDto\Recipe\MethodStep;
-use AdamLambourne\ContentSharingDto\Recipe\Nutrition;
-use AdamLambourne\ContentSharingDto\Generic\Tag;
-use AdamLambourne\ContentSharingDto\Generic\Category;
-use AdamLambourne\ContentSharingDto\Generic\DRM;
-use AdamLambourne\ContentSharingDto\Recipe\Timing;
+use ImmediateMedia\ContentSharingDto\Recipe\RecipeDTO;
+use ImmediateMedia\ContentSharingDto\Generic\Author;
+use ImmediateMedia\ContentSharingDto\Generic\Image;
+use ImmediateMedia\ContentSharingDto\Recipe\Ingredient;
+use ImmediateMedia\ContentSharingDto\Recipe\MethodStep;
+use ImmediateMedia\ContentSharingDto\Recipe\Nutrition;
+use ImmediateMedia\ContentSharingDto\Generic\Tag;
+use ImmediateMedia\ContentSharingDto\Generic\Category;
+use ImmediateMedia\ContentSharingDto\Generic\DRM;
+use ImmediateMedia\ContentSharingDto\Recipe\Timing;
 
 $recipeDTO = new RecipeDTO();
 
-$recipeDTO->setAuthor(new Author(name: 'Adam Lambourne', email: 'adam.lambourne@immediate.co.uk', url: 'https://www.example.com', image: 'https://www.example.com/image.jpg'));
+$recipeDTO->setAuthor(new Author(name: 'Adam Lambourne', email: 'example@email.com', url: 'https://www.example.com', image: 'https://www.example.com/image.jpg'));
 $recipeDTO->setClientRef('ABC123');
 $recipeDTO->setDrm(new DRM(status: 3, notes: 'Can be used Worldwide'));
+$recipeDTO->setLocale('en');
 $recipeDTO->setSlug('example-recipe-slug');
-$recipeDTO->setSiteName('BBCGoodFood');
+$recipeDTO->setSiteName('Good Food');
 $recipeDTO->setPublishedDate('2023-02-08T15:00:39+00:00');
 $recipeDTO->setUpdatedDate('2023-02-08T17:00:39+00:00');
 $recipeDTO->setTitle('Example Recipe');

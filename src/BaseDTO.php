@@ -1,18 +1,18 @@
 <?php
 
-namespace AdamLambourne\ContentSharingDto;
+namespace ImmediateMedia\ContentSharingDto;
 
-use AdamLambourne\ContentSharingDto\Generic\Author;
-use AdamLambourne\ContentSharingDto\Generic\Category;
-use AdamLambourne\ContentSharingDto\Generic\DRM;
-use AdamLambourne\ContentSharingDto\Generic\Image;
-use AdamLambourne\ContentSharingDto\Generic\Tag;
+use ImmediateMedia\ContentSharingDto\Generic\Author;
+use ImmediateMedia\ContentSharingDto\Generic\Category;
+use ImmediateMedia\ContentSharingDto\Generic\DRM;
+use ImmediateMedia\ContentSharingDto\Generic\Image;
+use ImmediateMedia\ContentSharingDto\Generic\Tag;
 
 
 class BaseDTO
 {
     // Bump this version when you make a breaking change to the DTO
-    const DTO_VERSION = '1.0.0';
+    public const DTO_VERSION = '1.0.0';
 
     public string $DTO_VERSION = self::DTO_VERSION;
 
@@ -26,6 +26,7 @@ class BaseDTO
     public string $description;
     public string $publishedDate;
     public string $updatedDate;
+    public string $locale;
 
     public DRM $drm;
     public Author $author;
@@ -35,6 +36,16 @@ class BaseDTO
     public array $tags = [];
     public array $categories = [];
 
+
+    public function getLocale(): string
+    {
+        return $this->locale;
+    }
+
+    public function setLocale(string $locale): void
+    {
+        $this->locale = $locale;
+    }
 
     public function getDrm(): DRM
     {

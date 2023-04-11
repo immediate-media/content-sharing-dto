@@ -8,11 +8,12 @@ These DTOs have been designed specifically for use with the Content Sharing API.
 ```php
 $recipeDTO = new RecipeDTO();
 
-$recipeDTO->setAuthor(new Author(name: 'Adam Lambourne', email: 'adam.lambourne@immediate.co.uk', url: 'https://www.example.com', image: 'https://www.example.com/image.jpg'));
+$recipeDTO->setAuthor(new Author(name: 'Adam Lambourne', email: 'example@email.com', url: 'https://www.example.com', image: 'https://www.example.com/image.jpg'));
 $recipeDTO->setClientRef('ABC123');
 $recipeDTO->setDrm(new DRM(status: 3, notes: 'Can be used Worldwide'));
+$recipeDTO->setLocale('en');
 $recipeDTO->setSlug('example-recipe-slug');
-$recipeDTO->setSiteName('BBCGoodFood');
+$recipeDTO->setSiteName('Good Food');
 $recipeDTO->setPublishedDate('2023-02-08T15:00:39+00:00');
 $recipeDTO->setUpdatedDate('2023-02-08T17:00:39+00:00');
 $recipeDTO->setTitle('Example Recipe');
@@ -38,6 +39,7 @@ $recipeDTO->setCategories(new Category(name: 'Food', slug: 'food', notes: 'categ
 
 $recipeDTO->setTiming(new Timing(cookingMax: 20, maxCookingTime: 20, cookingMin: 10, minCookingTime: 10, preparationMax: 5, maxPreparationTime: 5, preparationMin: 3, minPreparationTime: 3, note: '', total: 45, totalTime: 45));
 
+
 echo $recipeDTO->toJSON();
 ```
 
@@ -52,19 +54,20 @@ echo $recipeDTO->toJSON();
   "type": "recipe",
   "clientRef": "ABC123",
   "title": "Example Recipe",
-  "siteName": "BBCGoodFood",
+  "siteName": "Good Food",
   "url": "https:\/\/www.example.com\/recipe",
   "slug": "example-recipe-slug",
   "description": "Example Recipe Description",
   "publishedDate": "2023-02-08T15:00:39+00:00",
   "updatedDate": "2023-02-08T17:00:39+00:00",
+  "locale": "en",
   "drm": {
     "status": 3,
     "notes": "Can be used Worldwide"
   },
   "author": {
     "name": "Adam Lambourne",
-    "email": "adam.lambourne@immediate.co.uk",
+    "email": "example@email.com",
     "url": "https:\/\/www.example.com",
     "image": "https:\/\/www.example.com\/image.jpg"
   },
