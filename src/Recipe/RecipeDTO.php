@@ -14,8 +14,10 @@ class RecipeDTO extends BaseDTO
     public array $methodSteps;
     public array $nutrition;
     public Timing $timing;
+    public string $skillLevel;
+    public int $servings;
 
-    protected array $validators = ['ingredients', 'methodSteps', 'nutrition', 'timing'];
+    protected array $validators = ['ingredients', 'methodSteps', 'nutrition', 'timing', 'skillLevel', 'servings'];
 
 
     public function getNutrition(): array
@@ -64,6 +66,31 @@ class RecipeDTO extends BaseDTO
     {
         $this->timing = $timing;
     }
+
+
+    public function getSkillLevel(): string
+    {
+        return $this->skillLevel;
+    }
+
+
+    public function setSkillLevel(string $skillLevel): void
+    {
+        $this->skillLevel = $skillLevel;
+    }
+
+
+    public function getServings(): int
+    {
+        return $this->servings;
+    }
+
+    public function setServings(int $servings): void
+    {
+        $this->servings = $servings;
+    }
+
+
 
 
 

@@ -12,6 +12,7 @@ use ImmediateMedia\ContentSharingDto\Recipe\Nutrition;
 use ImmediateMedia\ContentSharingDto\Generic\Tag;
 use ImmediateMedia\ContentSharingDto\Generic\Category;
 use ImmediateMedia\ContentSharingDto\Generic\DRM;
+use ImmediateMedia\ContentSharingDto\Recipe\Skill;
 use ImmediateMedia\ContentSharingDto\Recipe\Timing;
 
 $recipeDTO = new RecipeDTO();
@@ -46,6 +47,9 @@ $recipeDTO->setCategories(new Category(name: 'Recipes', slug: 'recipes', notes: 
 $recipeDTO->setCategories(new Category(name: 'Food', slug: 'food', notes: 'category notes'));
 
 $recipeDTO->setTiming(new Timing(cookingMax: 20, maxCookingTime: 20, cookingMin: 10, minCookingTime: 10, preparationMax: 5, maxPreparationTime: 5, preparationMin: 3, minPreparationTime: 3, note: '', total: 45, totalTime: 45));
+
+$recipeDTO->setSkillLevel(SKILL::EASY);
+$recipeDTO->setServings(4);
 
 
 // Throws exception if the DTO is not valid
