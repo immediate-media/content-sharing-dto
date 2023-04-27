@@ -3,6 +3,7 @@
 require 'vendor/autoload.php';
 
 
+use ImmediateMedia\ContentSharingDto\Article\ArticleDTO;
 use ImmediateMedia\ContentSharingDto\Recipe\RecipeDTO;
 use ImmediateMedia\ContentSharingDto\Generic\Author;
 use ImmediateMedia\ContentSharingDto\Generic\Image;
@@ -15,6 +16,12 @@ use ImmediateMedia\ContentSharingDto\Generic\DRM;
 use ImmediateMedia\ContentSharingDto\Recipe\Skill;
 use ImmediateMedia\ContentSharingDto\Recipe\Timing;
 
+
+/**
+ * =====================================================================================================================
+ * Example use of the Recipe DTO
+ * =====================================================================================================================
+ */
 $recipeDTO = new RecipeDTO();
 
 $recipeDTO->setAuthor(new Author(name: 'Adam Lambourne', email: 'example@email.com', url: 'https://www.example.com', image: 'https://www.example.com/image.jpg'));
@@ -57,5 +64,44 @@ $recipeDTO->validate();
 
 // Returns the DTO as a JSON string
 echo $recipeDTO->toJSON(JSON_PRETTY_PRINT);
+
+
+
+/**
+ * =====================================================================================================================
+ * Example use of the Article DTO
+ * =====================================================================================================================
+ */
+$articleDTO = new ArticleDTO();
+
+$articleDTO->setAuthor(new Author(name: 'Adam Lambourne', email: 'example@email.com', url: 'https://www.example.com', image: 'https://www.example.com/image.jpg'));
+$articleDTO->setClientRef('ABC123');
+$articleDTO->setDrm(new DRM(status: DRM::GREEN, notes: 'Can be used Worldwide'));
+$articleDTO->setLocale('en');
+$articleDTO->setSlug('example-recipe-slug');
+$articleDTO->setSiteName('Good Food');
+$articleDTO->setPublishedDate('2023-02-08T15:00:39+00:00');
+$articleDTO->setUpdatedDate('2023-02-08T17:00:39+00:00');
+$articleDTO->setTitle('Example Recipe');
+$articleDTO->setDescription('Example Recipe Description');
+$articleDTO->setUrl('https://www.example.com/recipe');
+$articleDTO->setHeroImage(new Image(url: 'https://www.example.com/image.jpg', alt: 'Hero Image', title: 'Image title'));
+$articleDTO->setThumbnailImage(new Image(url: 'https://www.example.com/image.jpg', alt: 'Thumb Image', title: 'Image title'));
+
+$articleDTO->setTags(new Tag(name: 'recipe tag 1', slug: 'recipe-tag-1', notes: 'tag notes'));
+$articleDTO->setTags(new Tag(name: 'recipe tag 2', slug: 'recipe-tag-2', notes: 'tag notes'));
+
+$articleDTO->setCategories(new Category(name: 'Recipes', slug: 'recipes', notes: 'category notes'));
+$articleDTO->setCategories(new Category(name: 'Food', slug: 'food', notes: 'category notes'));
+
+$articleDTO->setContentHtml('<p>Example Article Body with full markup</p>');
+$articleDTO->setContentText('Example Article Body with no markup');
+
+
+// Throws exception if the DTO is not valid
+$articleDTO->validate();
+
+// Returns the DTO as a JSON string
+echo $articleDTO->toJSON(JSON_PRETTY_PRINT);
 
 

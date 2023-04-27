@@ -8,13 +8,14 @@ use ImmediateMedia\ContentSharingDto\Generic\DRM;
 use ImmediateMedia\ContentSharingDto\Generic\Image;
 use ImmediateMedia\ContentSharingDto\Generic\Tag;
 
-
+/**
+ * Class BaseDTO
+ * @package ImmediateMedia\ContentSharingDto
+ */
 abstract class BaseDTO
 {
     // Bump this version when you make a breaking change to the DTO
-    public const DTO_VERSION = '1.0.0';
-
-    public string $DTO_VERSION = self::DTO_VERSION;
+    public string $BASE_DTO_VERSION = '1.0.0';
 
     public string $type = 'base';
 
@@ -205,6 +206,11 @@ abstract class BaseDTO
     public function toJSON($flags = 0): string
     {
         return json_encode($this, $flags);
+    }
+
+    public function toArray(): array
+    {
+        return get_object_vars($this);
     }
 
 }

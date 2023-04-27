@@ -5,11 +5,17 @@ namespace ImmediateMedia\ContentSharingDto\Recipe;
 use ImmediateMedia\ContentSharingDto\BaseDTO;
 use ImmediateMedia\ContentSharingDto\Recipe\Timing;
 
+/**
+ * Class RecipeDTO
+ * @package ImmediateMedia\ContentSharingDto\Recipe
+ */
 class RecipeDTO extends BaseDTO
 {
 
-    public string $type = 'recipe';
+    // Bump this version when you make a breaking change to the DTO
+    public string $RECIPE_DTO_VERSION = '1.0.0';
 
+    public string $type = 'recipe';
     public array $ingredients;
     public array $methodSteps;
     public array $nutrition;
