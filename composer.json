@@ -14,5 +14,6 @@
     ],
     "require": {
         "composer-runtime-api": "*"
-    }
+    },
+    "php": ">=8.0"
 }
