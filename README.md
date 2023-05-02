@@ -16,8 +16,6 @@ composer require immediate-media/content-sharing-dto "^1.0.0"
 ```php
 $recipeDTO = new RecipeDTO();
 
-$recipeDTO = new RecipeDTO();
-
 $recipeDTO->setAuthor(new Author(name: 'Firstname Lastname', email: 'example@email.com', url: 'https://www.example.com', image: 'https://www.example.com/image.jpg'));
 $recipeDTO->setClientRef('ABC123');
 $recipeDTO->setDrm(new DRM(status: DRM::GREEN, notes: 'Can be used Worldwide'));
