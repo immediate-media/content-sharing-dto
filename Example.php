@@ -102,6 +102,6 @@ $articleDTO->setContentText('Example Article Body with no markup');
 $articleDTO->validate();
 
 // Returns the DTO as a JSON string
-//echo $articleDTO->toJSON(JSON_PRETTY_PRINT);
+echo $articleDTO->toJSON(JSON_PRETTY_PRINT);
 
 
