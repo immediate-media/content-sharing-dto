@@ -3,12 +3,20 @@ DTO is a simple object that represents a complex object in a way that can be eas
 
 These DTOs have been designed specifically for use with the Content Sharing API.
 
+## Installation
+
+```bash
+composer config repositories.content-sharing-dto vcs https://www.github.com/immediate-media/content-sharing-dto.git
+composer require immediate-media/content-sharing-dto "^1.0.0"
+```
+
+
 ## RecipeDTO example
 
 ```php
 $recipeDTO = new RecipeDTO();
 
-$recipeDTO->setAuthor(new Author(name: 'Adam Lambourne', email: 'example@email.com', url: 'https://www.example.com', image: 'https://www.example.com/image.jpg'));
+$recipeDTO->setAuthor(new Author(name: 'Firstname Lastname', email: 'example@email.com', url: 'https://www.example.com', image: 'https://www.example.com/image.jpg'));
 $recipeDTO->setClientRef('ABC123');
 $recipeDTO->setDrm(new DRM(status: DRM::GREEN, notes: 'Can be used Worldwide'));
 $recipeDTO->setLocale('en');
@@ -72,7 +80,7 @@ echo $recipeDTO->toJSON();
     "notes": "Can be used Worldwide"
   },
   "author": {
-    "name": "Adam Lambourne",
+    "name": "Firstname Lastname",
     "email": "example@email.com",
     "url": "https:\/\/www.example.com",
     "image": "https:\/\/www.example.com\/image.jpg"

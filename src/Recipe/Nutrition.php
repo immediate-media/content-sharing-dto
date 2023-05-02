@@ -4,11 +4,15 @@ namespace ImmediateMedia\ContentSharingDto\Recipe;
 
 class Nutrition
 {
-  public string $label;
-  public string $value;
-  public string $unit;
-  public bool $high;
-  public bool $low;
+
+    public const GRAMS = 'g';
+    public const KCALS = 'kcal';
+
+    public string $label;
+    public string $value;
+    public string $unit;
+    public bool $high;
+    public bool $low;
 
     public function __construct(string $label, string $value, string $unit, bool $high, bool $low)
     {
