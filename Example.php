@@ -24,12 +24,12 @@ use ImmediateMedia\ContentSharingDto\Recipe\Timing;
  */
 $recipeDTO = new RecipeDTO();
 
-$recipeDTO->setAuthor(new Author(name: 'Adam Lambourne', email: 'example@email.com', url: 'https://www.example.com', image: 'https://www.example.com/image.jpg'));
+$recipeDTO->setAuthor(new Author(name: 'Firstname Lastname', email: 'example@email.com', url: 'https://www.example.com', image: 'https://www.example.com/image.jpg'));
 $recipeDTO->setClientRef('ABC123');
 $recipeDTO->setDrm(new DRM(status: DRM::GREEN, notes: 'Can be used Worldwide'));
 $recipeDTO->setLocale('en');
 $recipeDTO->setSlug('example-recipe-slug');
-$recipeDTO->setSiteName('Good Food');
+$recipeDTO->setSiteName('Best Food Site');
 $recipeDTO->setPublishedDate('2023-02-08T15:00:39+00:00');
 $recipeDTO->setUpdatedDate('2023-02-08T17:00:39+00:00');
 $recipeDTO->setTitle('Example Recipe');
@@ -44,8 +44,8 @@ $recipeDTO->setIngredients(new Ingredient(name: 'second Ingredient', quantity: '
 $recipeDTO->setMethodSteps(new MethodStep(stepNumber: 1, description: 'first step'));
 $recipeDTO->setMethodSteps(new MethodStep(stepNumber: 2, description: 'second step'));
 
-$recipeDTO->setNutrition(new Nutrition(label: 'Calories', value: '100', unit: 'g', high: false, low: false));
-$recipeDTO->setNutrition(new Nutrition(label: 'Salt', value: '100', unit: 'g', high: false, low: false));
+$recipeDTO->setNutrition(new Nutrition(label: 'Calories', value: '100', unit: Nutrition::KCALS, high: false, low: false));
+$recipeDTO->setNutrition(new Nutrition(label: 'Salt', value: '100', unit: Nutrition::GRAMS, high: false, low: false));
 
 $recipeDTO->setTags(new Tag(name: 'recipe tag 1', slug: 'recipe-tag-1', notes: 'tag notes'));
 $recipeDTO->setTags(new Tag(name: 'recipe tag 2', slug: 'recipe-tag-2', notes: 'tag notes'));

@@ -16,4 +16,39 @@ class Image
         $this->title = $title;
     }
 
+
+    public function getUrl(): string
+    {
+        return $this->url;
+    }
+
+
+    public function setUrl(string $url): void
+    {
+        $this->url = $url;
+    }
+
+
+    public function getAlt(): string
+    {
+        return $this->alt;
+    }
+
+
+    public function setAlt(string $alt): void
+    {
+        $this->alt = $alt;
+    }
+
+
+    public function getTitle(): string
+    {
+        return $this->title;
+    }
+
+    public function setTitle(string $title): void
+    {
+        $this->title = $title;
+    }
+
 }
