@@ -13,7 +13,7 @@ class RecipeDTO extends BaseDTO
 {
 
     // Bump this version when you make a breaking change to the DTO
-    public string $RECIPE_DTO_VERSION = '1.0.0';
+    public string $RECIPE_DTO_VERSION = '1.0.2';
 
     public string $type = 'recipe';
     public array $ingredients;
@@ -23,7 +23,7 @@ class RecipeDTO extends BaseDTO
     public string $skillLevel;
     public int $servings;
 
-    protected array $validators = ['ingredients', 'methodSteps', 'nutrition', 'timing', 'skillLevel', 'servings'];
+    protected array $validators = ['ingredients', 'methodSteps', 'timing', 'skillLevel', 'servings'];
 
 
     public function getNutrition(): array
