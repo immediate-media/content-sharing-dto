@@ -34,8 +34,22 @@ class RecipeDTOTest extends TestCase
         $recipeDTO->setTitle('Example Recipe');
         $recipeDTO->setDescription('Example Recipe Description');
         $recipeDTO->setUrl('https://www.example.com/recipe');
-        $recipeDTO->setHeroImage(new Image(url: 'https://www.example.com/image.jpg', alt: 'Hero Image', title: 'Image title', width: 800,height: 600, drm: new DRM(status: DRM::GREEN, notes: 'Free to use worldwide')));
-        $recipeDTO->setThumbnailImage(new Image(url: 'https://www.example.com/image.jpg', alt: 'Thumb Image', title: 'Image title', width: 80,height: 60, drm: new DRM(status: DRM::YELLOW, notes: 'Restricted to UK only')));
+
+        $recipeDTO->setHeroImage(new Image(
+            url: 'https://www.example.com/image.jpg',
+            alt: 'Hero Image',
+            title: 'Image title',
+            width: 800, height: 600,
+            drm: new DRM(status: DRM::GREEN, notes: 'Free to use worldwide', creator: 'Copyright Holder', agency: 'Copyright Agency')));
+
+        $recipeDTO->setThumbnailImage(new Image(
+            url: 'https://www.example.com/image.jpg',
+            alt: 'Thumb Image',
+            title: 'Image title',
+            width: 80, height: 60,
+            drm: new DRM(status: DRM::YELLOW, notes: 'Restricted to UK only', creator: 'Copyright Holder', agency: 'Copyright Agency')));
+
+
         $recipeDTO->setTags(new Tag(name: 'first tag', slug: 'first-tag',notes: 'first tag notes'));
         $recipeDTO->setTags(new Tag(name: 'second tag', slug: 'second-tag', notes: 'second tag notes'));
         $recipeDTO->setCategories(new Category(name: 'Recipes', slug: 'recipes-slug', notes: 'category notes'));
@@ -59,6 +73,7 @@ class RecipeDTOTest extends TestCase
         $this->assertEquals('https://www.example.com/image.jpg', $recipeDTO->getHeroImage()->url);
         $this->assertEquals('https://www.example.com/image.jpg', $recipeDTO->getThumbnailImage()->url);
 
+
         $this->assertEquals(800, $recipeDTO->getHeroImage()->getWidth());
         $this->assertEquals(600, $recipeDTO->getHeroImage()->getHeight());
 
@@ -70,6 +85,9 @@ class RecipeDTOTest extends TestCase
 
         $this->assertEquals(DRM::YELLOW, $recipeDTO->getThumbnailImage()->getDrm()->getStatus());
         $this->assertEquals('Restricted to UK only', $recipeDTO->getThumbnailImage()->getDrm()->getNotes());
+
+        $this->assertEquals('Copyright Holder', $recipeDTO->getHeroImage()->getDrm()->getCreator());
+        $this->assertEquals('Copyright Agency', $recipeDTO->getHeroImage()->getDrm()->getAgency());
 
         $this->assertEquals('first tag', $recipeDTO->getTags()[0]->getName());
         $this->assertEquals('first-tag', $recipeDTO->getTags()[0]->getSlug());

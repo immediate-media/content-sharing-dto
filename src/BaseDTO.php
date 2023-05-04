@@ -190,7 +190,7 @@ abstract class BaseDTO
 
     public function setPublishedDate(string $publishedDate): void
     {
-        $this->publishedDate = $publishedDate;
+        $this->publishedDate = date(DATE_W3C,strtotime($publishedDate));
     }
 
     public function getUpdatedDate(): string
@@ -200,7 +200,7 @@ abstract class BaseDTO
 
     public function setUpdatedDate(string $updatedDate): void
     {
-        $this->updatedDate = $updatedDate;
+        $this->updatedDate = date(DATE_W3C,strtotime($updatedDate));
     }
 
     public function toJSON($flags = 0): string
