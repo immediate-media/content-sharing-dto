@@ -29,8 +29,8 @@ class ArticleDTOTest extends TestCase
         $articleDTO->setTitle('Example Recipe');
         $articleDTO->setDescription('Example Recipe Description');
         $articleDTO->setUrl('https://www.example.com/recipe');
-        $articleDTO->setHeroImage(new Image(url: 'https://www.example.com/image.jpg', alt: 'Hero Image', title: 'Image title', drm: new DRM(status: DRM::GREEN, notes: 'Free to use worldwide')));
-        $articleDTO->setThumbnailImage(new Image(url: 'https://www.example.com/image.jpg', alt: 'Thumb Image', title: 'Image title', drm: new DRM(status: DRM::YELLOW, notes: 'Restricted to UK only')));
+        $articleDTO->setHeroImage(new Image(url: 'https://www.example.com/image.jpg', alt: 'Hero Image', title: 'Image title', width: 800,height: 600, drm: new DRM(status: DRM::GREEN, notes: 'Free to use worldwide')));
+        $articleDTO->setThumbnailImage(new Image(url: 'https://www.example.com/image.jpg', alt: 'Thumb Image', title: 'Image title', width: 80,height: 60, drm: new DRM(status: DRM::YELLOW, notes: 'Restricted to UK only')));
         $articleDTO->setTags(new Tag(name: 'first tag', slug: 'first-tag',notes: 'first tag notes'));
         $articleDTO->setTags(new Tag(name: 'second tag', slug: 'second-tag', notes: 'second tag notes'));
         $articleDTO->setCategories(new Category(name: 'Recipes', slug: 'recipes-slug', notes: 'category notes'));
@@ -53,6 +53,12 @@ class ArticleDTOTest extends TestCase
 
         $this->assertEquals('https://www.example.com/image.jpg', $articleDTO->getHeroImage()->url);
         $this->assertEquals('https://www.example.com/image.jpg', $articleDTO->getThumbnailImage()->url);
+
+        $this->assertEquals(800, $articleDTO->getHeroImage()->getWidth());
+        $this->assertEquals(600, $articleDTO->getHeroImage()->getHeight());
+
+        $this->assertEquals(80, $articleDTO->getThumbnailImage()->getWidth());
+        $this->assertEquals(60, $articleDTO->getThumbnailImage()->getHeight());
 
         $this->assertEquals(DRM::GREEN, $articleDTO->getHeroImage()->getDrm()->getStatus());
         $this->assertEquals('Free to use worldwide', $articleDTO->getHeroImage()->getDrm()->getNotes());
