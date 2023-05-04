@@ -29,8 +29,21 @@ class ArticleDTOTest extends TestCase
         $articleDTO->setTitle('Example Recipe');
         $articleDTO->setDescription('Example Recipe Description');
         $articleDTO->setUrl('https://www.example.com/recipe');
-        $articleDTO->setHeroImage(new Image(url: 'https://www.example.com/image.jpg', alt: 'Hero Image', title: 'Image title', width: 800,height: 600, drm: new DRM(status: DRM::GREEN, notes: 'Free to use worldwide')));
-        $articleDTO->setThumbnailImage(new Image(url: 'https://www.example.com/image.jpg', alt: 'Thumb Image', title: 'Image title', width: 80,height: 60, drm: new DRM(status: DRM::YELLOW, notes: 'Restricted to UK only')));
+
+        $articleDTO->setHeroImage(new Image(
+            url: 'https://www.example.com/image.jpg',
+            alt: 'Hero Image',
+            title: 'Image title',
+            width: 800, height: 600,
+            drm: new DRM(status: DRM::GREEN, notes: 'Free to use worldwide', creator: 'Copyright Holder', agency: 'Copyright Agency')));
+
+        $articleDTO->setThumbnailImage(new Image(
+            url: 'https://www.example.com/image.jpg',
+            alt: 'Thumb Image',
+            title: 'Image title',
+            width: 80, height: 60,
+            drm: new DRM(status: DRM::YELLOW, notes: 'Restricted to UK only', creator: 'Copyright Holder', agency: 'Copyright Agency')));
+
         $articleDTO->setTags(new Tag(name: 'first tag', slug: 'first-tag',notes: 'first tag notes'));
         $articleDTO->setTags(new Tag(name: 'second tag', slug: 'second-tag', notes: 'second tag notes'));
         $articleDTO->setCategories(new Category(name: 'Recipes', slug: 'recipes-slug', notes: 'category notes'));
@@ -65,6 +78,9 @@ class ArticleDTOTest extends TestCase
 
         $this->assertEquals(DRM::YELLOW, $articleDTO->getThumbnailImage()->getDrm()->getStatus());
         $this->assertEquals('Restricted to UK only', $articleDTO->getThumbnailImage()->getDrm()->getNotes());
+
+        $this->assertEquals('Copyright Holder', $articleDTO->getHeroImage()->getDrm()->getCreator());
+        $this->assertEquals('Copyright Agency', $articleDTO->getHeroImage()->getDrm()->getAgency());
 
         $this->assertEquals('first tag', $articleDTO->getTags()[0]->getName());
         $this->assertEquals('first-tag', $articleDTO->getTags()[0]->getSlug());
