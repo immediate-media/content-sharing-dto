@@ -35,8 +35,20 @@ $recipeDTO->setUpdatedDate('2023-02-08T17:00:39+00:00');
 $recipeDTO->setTitle('Example Recipe');
 $recipeDTO->setDescription('Example Recipe Description');
 $recipeDTO->setUrl('https://www.example.com/recipe');
-$recipeDTO->setHeroImage(new Image(url: 'https://www.example.com/image.jpg', alt: 'Hero Image', title: 'Image title', width: 800,height: 600, drm: new DRM(status: DRM::GREEN, notes: 'Free to use worldwide')));
-$recipeDTO->setThumbnailImage(new Image(url: 'https://www.example.com/image.jpg', alt: 'Thumb Image', title: 'Image title', width: 80,height: 60, drm: new DRM(status: DRM::YELLOW, notes: 'Restricted to UK only')));
+
+$recipeDTO->setHeroImage(new Image(
+    url: 'https://www.example.com/image.jpg',
+    alt: 'Hero Image',
+    title: 'Image title',
+    width: 800, height: 600,
+    drm: new DRM(status: DRM::GREEN, notes: 'Free to use worldwide', creator: 'Copyright Holder', agency: 'Copyright Agency')));
+
+$recipeDTO->setThumbnailImage(new Image(
+    url: 'https://www.example.com/image.jpg',
+    alt: 'Thumb Image',
+    title: 'Image title',
+    width: 80, height: 60,
+    drm: new DRM(status: DRM::YELLOW, notes: 'Restricted to UK only', creator: 'Copyright Holder', agency: 'Copyright Agency')));
 
 $recipeDTO->setIngredients(new Ingredient(name: 'first Ingredient', quantity: '1.5', unit: 'kg', slug: 'my-ingredient', notes: 'My Notes'));
 $recipeDTO->setIngredients(new Ingredient(name: 'second Ingredient', quantity: '2', unit: 'kg', slug: 'my-ingredient', notes: 'My Notes'));
@@ -66,7 +78,6 @@ $recipeDTO->validate();
 echo $recipeDTO->toJSON(JSON_PRETTY_PRINT);
 
 
-
 /**
  * =====================================================================================================================
  * Example use of the Article DTO
@@ -85,8 +96,20 @@ $articleDTO->setUpdatedDate('2023-02-08T17:00:39+00:00');
 $articleDTO->setTitle('Example Recipe');
 $articleDTO->setDescription('Example Recipe Description');
 $articleDTO->setUrl('https://www.example.com/recipe');
-$articleDTO->setHeroImage(new Image(url: 'https://www.example.com/image.jpg', alt: 'Hero Image', title: 'Image title', width: 800,height: 600, drm: new DRM(status: DRM::GREEN, notes: 'Free to use worldwide')));
-$articleDTO->setThumbnailImage(new Image(url: 'https://www.example.com/image.jpg', alt: 'Thumb Image', title: 'Image title', width: 80,height: 60, drm: new DRM(status: DRM::YELLOW, notes: 'Restricted to UK only')));
+
+$articleDTO->setHeroImage(new Image(
+    url: 'https://www.example.com/image.jpg',
+    alt: 'Hero Image',
+    title: 'Image title',
+    width: 800, height: 600,
+    drm: new DRM(status: DRM::GREEN, notes: 'Free to use worldwide', creator: 'Copyright Holder', agency: 'Copyright Agency')));
+
+$articleDTO->setThumbnailImage(new Image(
+    url: 'https://www.example.com/image.jpg',
+    alt: 'Thumb Image',
+    title: 'Image title',
+    width: 80, height: 60,
+    drm: new DRM(status: DRM::YELLOW, notes: 'Restricted to UK only', creator: 'Copyright Holder', agency: 'Copyright Agency')));
 
 $articleDTO->setTags(new Tag(name: 'recipe tag 1', slug: 'recipe-tag-1', notes: 'tag notes'));
 $articleDTO->setTags(new Tag(name: 'recipe tag 2', slug: 'recipe-tag-2', notes: 'tag notes'));
