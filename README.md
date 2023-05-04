@@ -18,7 +18,7 @@ $recipeDTO = new RecipeDTO();
 
 $recipeDTO->setAuthor(new Author(name: 'Firstname Lastname', email: 'example@email.com', url: 'https://www.example.com', image: 'https://www.example.com/image.jpg'));
 $recipeDTO->setClientRef('ABC123');
-$recipeDTO->setDrm(new DRM(status: DRM::GREEN, notes: 'Can be used Worldwide'));
+$recipeDTO->setDrm(new DRM(status: DRM::GREEN, notes: 'Recipe can be used Worldwide'));
 $recipeDTO->setLocale('en');
 $recipeDTO->setSlug('example-recipe-slug');
 $recipeDTO->setSiteName('Best Food Site');
@@ -27,8 +27,8 @@ $recipeDTO->setUpdatedDate('2023-02-08T17:00:39+00:00');
 $recipeDTO->setTitle('Example Recipe');
 $recipeDTO->setDescription('Example Recipe Description');
 $recipeDTO->setUrl('https://www.example.com/recipe');
-$recipeDTO->setHeroImage(new Image(url: 'https://www.example.com/image.jpg', alt: 'Hero Image', title: 'Image title'));
-$recipeDTO->setThumbnailImage(new Image(url: 'https://www.example.com/image.jpg', alt: 'Thumb Image', title: 'Image title'));
+$recipeDTO->setHeroImage(new Image(url: 'https://www.example.com/image.jpg', alt: 'Hero Image', title: 'Image title', drm: new DRM(status: DRM::GREEN, notes: 'Free to use worldwide')));
+$recipeDTO->setThumbnailImage(new Image(url: 'https://www.example.com/image.jpg', alt: 'Thumb Image', title: 'Image title', drm: new DRM(status: DRM::YELLOW, notes: 'Restricted to UK only')));
 
 $recipeDTO->setIngredients(new Ingredient(name: 'first Ingredient', quantity: '1.5', unit: 'kg', slug: 'my-ingredient', notes: 'My Notes'));
 $recipeDTO->setIngredients(new Ingredient(name: 'second Ingredient', quantity: '2', unit: 'kg', slug: 'my-ingredient', notes: 'My Notes'));
@@ -64,7 +64,7 @@ echo $recipeDTO->toJSON();
 
 ```json
 {
-  "BASE_DTO_VERSION": "1.0.0",
+  "BASE_DTO_VERSION": "1.0.1",
   "type": "recipe",
   "clientRef": "ABC123",
   "title": "Example Recipe",
@@ -77,7 +77,7 @@ echo $recipeDTO->toJSON();
   "locale": "en",
   "drm": {
     "status": 1,
-    "notes": "Can be used Worldwide"
+    "notes": "Recipe can be used Worldwide"
   },
   "author": {
     "name": "Firstname Lastname",
@@ -88,12 +88,20 @@ echo $recipeDTO->toJSON();
   "heroImage": {
     "url": "https:\/\/www.example.com\/image.jpg",
     "alt": "Hero Image",
-    "title": "Image title"
+    "title": "Image title",
+    "drm": {
+      "status": 1,
+      "notes": "Free to use worldwide"
+    }
   },
   "thumbnailImage": {
     "url": "https:\/\/www.example.com\/image.jpg",
     "alt": "Thumb Image",
-    "title": "Image title"
+    "title": "Image title",
+    "drm": {
+      "status": 2,
+      "notes": "Restricted to UK only"
+    }
   },
   "tags": [
     {
@@ -119,7 +127,7 @@ echo $recipeDTO->toJSON();
       "notes": "category notes"
     }
   ],
-  "RECIPE_DTO_VERSION": "1.0.0",
+  "RECIPE_DTO_VERSION": "1.0.2",
   "ingredients": [
     {
       "name": "first Ingredient",
@@ -150,7 +158,7 @@ echo $recipeDTO->toJSON();
     {
       "label": "Calories",
       "value": "100",
-      "unit": "g",
+      "unit": "kcal",
       "high": false,
       "low": false
     },

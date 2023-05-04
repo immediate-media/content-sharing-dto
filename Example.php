@@ -26,7 +26,7 @@ $recipeDTO = new RecipeDTO();
 
 $recipeDTO->setAuthor(new Author(name: 'Firstname Lastname', email: 'example@email.com', url: 'https://www.example.com', image: 'https://www.example.com/image.jpg'));
 $recipeDTO->setClientRef('ABC123');
-$recipeDTO->setDrm(new DRM(status: DRM::GREEN, notes: 'Can be used Worldwide'));
+$recipeDTO->setDrm(new DRM(status: DRM::GREEN, notes: 'Recipe can be used Worldwide'));
 $recipeDTO->setLocale('en');
 $recipeDTO->setSlug('example-recipe-slug');
 $recipeDTO->setSiteName('Best Food Site');
@@ -35,8 +35,8 @@ $recipeDTO->setUpdatedDate('2023-02-08T17:00:39+00:00');
 $recipeDTO->setTitle('Example Recipe');
 $recipeDTO->setDescription('Example Recipe Description');
 $recipeDTO->setUrl('https://www.example.com/recipe');
-$recipeDTO->setHeroImage(new Image(url: 'https://www.example.com/image.jpg', alt: 'Hero Image', title: 'Image title'));
-$recipeDTO->setThumbnailImage(new Image(url: 'https://www.example.com/image.jpg', alt: 'Thumb Image', title: 'Image title'));
+$recipeDTO->setHeroImage(new Image(url: 'https://www.example.com/image.jpg', alt: 'Hero Image', title: 'Image title', drm: new DRM(status: DRM::GREEN, notes: 'Free to use worldwide')));
+$recipeDTO->setThumbnailImage(new Image(url: 'https://www.example.com/image.jpg', alt: 'Thumb Image', title: 'Image title', drm: new DRM(status: DRM::YELLOW, notes: 'Restricted to UK only')));
 
 $recipeDTO->setIngredients(new Ingredient(name: 'first Ingredient', quantity: '1.5', unit: 'kg', slug: 'my-ingredient', notes: 'My Notes'));
 $recipeDTO->setIngredients(new Ingredient(name: 'second Ingredient', quantity: '2', unit: 'kg', slug: 'my-ingredient', notes: 'My Notes'));
@@ -76,7 +76,7 @@ $articleDTO = new ArticleDTO();
 
 $articleDTO->setAuthor(new Author(name: 'Adam Lambourne', email: 'example@email.com', url: 'https://www.example.com', image: 'https://www.example.com/image.jpg'));
 $articleDTO->setClientRef('ABC123');
-$articleDTO->setDrm(new DRM(status: DRM::GREEN, notes: 'Can be used Worldwide'));
+$articleDTO->setDrm(new DRM(status: DRM::GREEN, notes: 'Article can be used Worldwide'));
 $articleDTO->setLocale('en');
 $articleDTO->setSlug('example-recipe-slug');
 $articleDTO->setSiteName('Good Food');
@@ -85,8 +85,8 @@ $articleDTO->setUpdatedDate('2023-02-08T17:00:39+00:00');
 $articleDTO->setTitle('Example Recipe');
 $articleDTO->setDescription('Example Recipe Description');
 $articleDTO->setUrl('https://www.example.com/recipe');
-$articleDTO->setHeroImage(new Image(url: 'https://www.example.com/image.jpg', alt: 'Hero Image', title: 'Image title'));
-$articleDTO->setThumbnailImage(new Image(url: 'https://www.example.com/image.jpg', alt: 'Thumb Image', title: 'Image title'));
+$articleDTO->setHeroImage(new Image(url: 'https://www.example.com/image.jpg', alt: 'Hero Image', title: 'Image title', drm: new DRM(status: DRM::GREEN, notes: 'Free to use worldwide')));
+$articleDTO->setThumbnailImage(new Image(url: 'https://www.example.com/image.jpg', alt: 'Thumb Image', title: 'Image title', drm: new DRM(status: DRM::YELLOW, notes: 'Restricted to UK only')));
 
 $articleDTO->setTags(new Tag(name: 'recipe tag 1', slug: 'recipe-tag-1', notes: 'tag notes'));
 $articleDTO->setTags(new Tag(name: 'recipe tag 2', slug: 'recipe-tag-2', notes: 'tag notes'));
