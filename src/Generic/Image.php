@@ -8,12 +8,14 @@ class Image
     public string $url;
     public string $alt;
     public string $title;
+    public DRM $drm;
 
-    public function __construct(string $url, string $alt, string $title)
+    public function __construct(string $url, string $alt, string $title, DRM $drm)
     {
         $this->url = $url;
         $this->alt = $alt;
         $this->title = $title;
+        $this->drm = $drm;
     }
 
 
@@ -49,6 +51,18 @@ class Image
     public function setTitle(string $title): void
     {
         $this->title = $title;
+    }
+
+
+    public function getDrm(): DRM
+    {
+        return $this->drm;
+    }
+
+
+    public function setDrm(DRM $drm): void
+    {
+        $this->drm = $drm;
     }
 
 }
