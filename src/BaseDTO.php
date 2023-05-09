@@ -15,7 +15,7 @@ use ImmediateMedia\ContentSharingDto\Generic\Tag;
 abstract class BaseDTO
 {
     // Bump this version when you make a breaking change to the DTO
-    public string $BASE_DTO_VERSION = '1.0.1';
+    public string $BASE_DTO_VERSION = '1.0.2';
 
     public string $type = 'base';
 
@@ -201,6 +201,42 @@ abstract class BaseDTO
     public function setUpdatedDate(string $updatedDate): void
     {
         $this->updatedDate = date(DATE_W3C,strtotime($updatedDate));
+    }
+
+
+    /**
+     * Map JSON Object to BaseDTO
+     * @param string $jsonData BaseJson
+     * @throws \JsonException
+     */
+    public function map(string $jsonData): void
+    {
+        $data = json_decode($jsonData, false, 512, JSON_THROW_ON_ERROR);
+
+        $this->setAuthor(new Author(name: $data->author->name, email: $data->author->email, url: $data->author->url, image: $data->author->image));
+        $this->setClientRef($data->clientRef);
+        $this->setDrm(new DRM(status: $data->drm->status, notes: $data->drm->notes));
+        $this->setLocale($data->locale);
+        $this->setSlug($data->slug);
+        $this->setSiteName($data->siteName);
+        $this->setPublishedDate($data->publishedDate);
+        $this->setUpdatedDate($data->updatedDate);
+        $this->setTitle($data->title);
+        $this->setDescription($data->description);
+        $this->setUrl($data->url);
+
+        $this->setHeroImage(new Image(url: $data->heroImage->url, alt: $data->heroImage->alt,
+            title: $data->heroImage->title,
+            width: $data->heroImage->width,
+            height: $data->heroImage->height,
+            drm: new DRM(status: $data->heroImage->drm->status, notes: $data->heroImage->drm->notes,
+                creator: $data->heroImage->drm->creator, agency: $data->heroImage->drm->agency)));
+        $this->setThumbnailImage(new Image(url: $data->thumbnailImage->url, alt: $data->thumbnailImage->alt,
+            title: $data->thumbnailImage->title,
+            width: $data->thumbnailImage->width,
+            height: $data->thumbnailImage->height,
+            drm: new DRM(status: $data->thumbnailImage->drm->status, notes: $data->thumbnailImage->drm->notes,
+                creator: $data->heroImage->drm->creator, agency: $data->heroImage->drm->agency)));
     }
 
     public function toJSON($flags = 0): string
