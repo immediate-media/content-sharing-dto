@@ -11,7 +11,7 @@ composer require immediate-media/content-sharing-dto "^1.0.0"
 ```
 
 
-## RecipeDTO example
+## RecipeDTO export example
 
 ```php
 $recipeDTO = new RecipeDTO();
@@ -67,6 +67,18 @@ $recipeDTO->validate();
 
 // Returns the DTO as a JSON string
 echo $recipeDTO->toJSON();
+
+
+
+
+```
+##  Map JSON to DTO example
+
+```php
+// To Map received JSON data to DTO
+$recipeDTO = new RecipeDTO();
+$recipeDTO->map($jsonData);
+$recipeDTO->validate();
 ```
 
 
@@ -76,7 +88,7 @@ echo $recipeDTO->toJSON();
 
 ```json
 {
-  "BASE_DTO_VERSION": "1.0.1",
+  "BASE_DTO_VERSION": "1.0.2",
   "type": "recipe",
   "clientRef": "ABC123",
   "title": "Example Recipe",
@@ -149,7 +161,7 @@ echo $recipeDTO->toJSON();
       "notes": "category notes"
     }
   ],
-  "RECIPE_DTO_VERSION": "1.0.2",
+  "RECIPE_DTO_VERSION": "1.0.3",
   "ingredients": [
     {
       "name": "first Ingredient",

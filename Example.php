@@ -75,7 +75,7 @@ $recipeDTO->setServings(4);
 $recipeDTO->validate();
 
 // Returns the DTO as a JSON string
-echo $recipeDTO->toJSON();
+echo $recipeDTO->toJSON(JSON_PRETTY_PRINT);
 
 
 /**
