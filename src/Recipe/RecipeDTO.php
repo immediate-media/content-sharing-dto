@@ -3,7 +3,10 @@
 namespace ImmediateMedia\ContentSharingDto\Recipe;
 
 use ImmediateMedia\ContentSharingDto\BaseDTO;
+use ImmediateMedia\ContentSharingDto\Generic\Category;
+use ImmediateMedia\ContentSharingDto\Generic\Tag;
 use ImmediateMedia\ContentSharingDto\Recipe\Timing;
+
 
 /**
  * Class RecipeDTO
@@ -13,7 +16,7 @@ class RecipeDTO extends BaseDTO
 {
 
     // Bump this version when you make a breaking change to the DTO
-    public string $RECIPE_DTO_VERSION = '1.0.2';
+    public string $RECIPE_DTO_VERSION = '1.0.3';
 
     public string $type = 'recipe';
     public array $ingredients;
@@ -91,11 +94,62 @@ class RecipeDTO extends BaseDTO
         return $this->servings;
     }
 
+
     public function setServings(int $servings): void
     {
         $this->servings = $servings;
     }
 
+
+    /**
+     * Map JSON Object to RecipeDTO
+     * @param string $jsonData RecipeJson
+     * @throws \JsonException
+     */
+    public function map(string $jsonData) : void
+    {
+        parent::map($jsonData);
+        $data = json_decode($jsonData, false, 512, JSON_THROW_ON_ERROR);
+
+        $this->setSkillLevel($data->skillLevel);
+        $this->setServings($data->servings);
+
+        foreach($data->tags as $tag) {
+            $this->setTags(new Tag(name: $tag->name, slug: $tag->slug, notes: $tag->notes));
+        }
+
+        foreach($data->categories as $category) {
+            $this->setCategories(new Category(name: $category->name, slug: $category->slug, notes: $category->notes));
+        }
+
+        foreach($data->ingredients as $ingredient) {
+            $this->setIngredients(new Ingredient(name: $ingredient->name, quantity: $ingredient->quantity, unit: $ingredient->unit, slug: $ingredient->slug, notes: $ingredient->notes));
+        }
+
+        foreach($data->methodSteps as $methodStep) {
+            $this->setMethodSteps(new MethodStep(stepNumber: $methodStep->stepNumber, description: $methodStep->description));
+        }
+
+        if(isset($data->nutrition)) {
+            foreach($data->nutrition as $nutrition) {
+                $this->setNutrition(new Nutrition(label: $nutrition->label, value: $nutrition->value, unit: $nutrition->unit, high: $nutrition->high, low: $nutrition->low));
+            }
+        }
+
+        $this->setTiming(new Timing(
+            cookingMax: $data->timing->cookingMax,
+            maxCookingTime: $data->timing->maxCookingTime,
+            cookingMin: $data->timing->cookingMin,
+            minCookingTime: $data->timing->minCookingTime,
+            preparationMax: $data->timing->preparationMax,
+            maxPreparationTime: $data->timing->maxPreparationTime,
+            preparationMin: $data->timing->preparationMin,
+            minPreparationTime: $data->timing->minPreparationTime,
+            note: $data->timing->note,
+            total: $data->timing->total,
+            totalTime: $data->timing->totalTime));
+
+    }
 
 
 
