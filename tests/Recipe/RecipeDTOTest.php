@@ -40,7 +40,10 @@ class RecipeDTOTest extends TestCase
             alt: 'Hero Image',
             title: 'Image title',
             width: 800, height: 600,
-            drm: new DRM(status: DRM::GREEN, notes: 'Free to use worldwide', creator: 'Copyright Holder', agency: 'Copyright Agency')));
+            drm: new DRM(status: DRM::GREEN, notes: 'Free to use worldwide', creator: 'Copyright Holder', agency: 'Copyright Agency'),
+            isUpscaled: true,
+            srcImage: 'https://www.example.com/src-image.jpg'
+        ));
 
         $recipeDTO->setThumbnailImage(new Image(
             url: 'https://www.example.com/image.jpg',
@@ -70,8 +73,13 @@ class RecipeDTOTest extends TestCase
         $this->assertEquals('Example Recipe Description', $recipeDTO->getDescription());
         $this->assertEquals('https://www.example.com/recipe', $recipeDTO->getUrl());
 
-        $this->assertEquals('https://www.example.com/image.jpg', $recipeDTO->getHeroImage()->url);
-        $this->assertEquals('https://www.example.com/image.jpg', $recipeDTO->getThumbnailImage()->url);
+        $this->assertEquals('https://www.example.com/image.jpg', $recipeDTO->getHeroImage()->getUrl());
+        $this->assertEquals('https://www.example.com/image.jpg', $recipeDTO->getThumbnailImage()->getUrl());
+
+        $this->assertEquals(true, $recipeDTO->getHeroImage()->isUpscaled());
+        $this->assertEquals(false, $recipeDTO->getThumbnailImage()->isUpscaled());
+
+        $this->assertEquals('https://www.example.com/src-image.jpg', $recipeDTO->getHeroImage()->getSrcImage());
 
 
         $this->assertEquals(800, $recipeDTO->getHeroImage()->getWidth());
@@ -193,7 +201,7 @@ class RecipeDTOTest extends TestCase
 
     public function testMapper()
     {
-        $jsonData = '{"BASE_DTO_VERSION":"1.0.2","type":"recipe","clientRef":"ABC123","title":"Example Recipe","siteName":"Best Food Site","url":"https:\/\/www.example.com\/recipe","slug":"example-recipe-slug","description":"Example Recipe Description","publishedDate":"2023-02-08T15:00:39+00:00","updatedDate":"2023-02-08T17:00:39+00:00","locale":"en","drm":{"status":1,"notes":"Recipe can be used Worldwide","creator":"unknown","agency":"unknown"},"author":{"name":"Firstname Lastname","email":"example@email.com","url":"https:\/\/www.example.com","image":"https:\/\/www.example.com\/image.jpg"},"heroImage":{"url":"https:\/\/www.example.com\/image.jpg","alt":"Hero Image","title":"Image title","width":800,"height":600,"drm":{"status":1,"notes":"Free to use worldwide","creator":"Copyright Holder","agency":"Copyright Agency"}},"thumbnailImage":{"url":"https:\/\/www.example.com\/image.jpg","alt":"Thumb Image","title":"Image title","width":80,"height":60,"drm":{"status":2,"notes":"Restricted to UK only","creator":"Copyright Holder","agency":"Copyright Agency"}},"tags":[{"name":"recipe tag 1","slug":"recipe-tag-1","notes":"tag notes"},{"name":"recipe tag 2","slug":"recipe-tag-2","notes":"tag notes"}],"categories":[{"name":"Recipes","slug":"recipes","notes":"category notes"},{"name":"Food","slug":"food","notes":"category notes"}],"RECIPE_DTO_VERSION":"1.0.3","ingredients":[{"name":"first Ingredient","quantity":"1.5","unit":"kg","slug":"my-ingredient","notes":"My Notes"},{"name":"second Ingredient","quantity":"2","unit":"kg","slug":"my-ingredient","notes":"My Notes"}],"methodSteps":[{"stepNumber":1,"description":"first step"},{"stepNumber":2,"description":"second step"}],"nutrition":[{"label":"Calories","value":"100","unit":"kcal","high":false,"low":false},{"label":"Salt","value":"100","unit":"g","high":false,"low":false}],"timing":{"cookingMax":20,"maxCookingTime":20,"cookingMin":10,"minCookingTime":10,"preparationMax":5,"maxPreparationTime":5,"preparationMin":3,"minPreparationTime":3,"note":"","total":45,"totalTime":45},"skillLevel":"easy","servings":4}';
+        $jsonData = '{"BASE_DTO_VERSION":"1.0.3","type":"recipe","clientRef":"ABC123","title":"Example Recipe","siteName":"Best Food Site","url":"https:\/\/www.example.com\/recipe","slug":"example-recipe-slug","description":"Example Recipe Description","publishedDate":"2023-02-08T15:00:39+00:00","updatedDate":"2023-02-08T17:00:39+00:00","locale":"en","drm":{"status":1,"notes":"Recipe can be used Worldwide","creator":"unknown","agency":"unknown"},"author":{"name":"Firstname Lastname","email":"example@email.com","url":"https:\/\/www.example.com","image":"https:\/\/www.example.com\/image.jpg"},"heroImage":{"url":"https:\/\/www.example.com\/image.jpg","alt":"Hero Image","title":"Image title","width":800,"height":600,"drm":{"status":1,"notes":"Free to use worldwide","creator":"Copyright Holder","agency":"Copyright Agency"},"isUpscaled":false,"srcImage":""},"thumbnailImage":{"url":"https:\/\/www.example.com\/image.jpg","alt":"Thumb Image","title":"Image title","width":80,"height":60,"drm":{"status":2,"notes":"Restricted to UK only","creator":"Copyright Holder","agency":"Copyright Agency"},"isUpscaled":false,"srcImage":""},"tags":[{"name":"recipe tag 1","slug":"recipe-tag-1","notes":"tag notes"},{"name":"recipe tag 2","slug":"recipe-tag-2","notes":"tag notes"}],"categories":[{"name":"Recipes","slug":"recipes","notes":"category notes"},{"name":"Food","slug":"food","notes":"category notes"}],"RECIPE_DTO_VERSION":"1.0.3","ingredients":[{"name":"first Ingredient","quantity":"1.5","unit":"kg","slug":"my-ingredient","notes":"My Notes"},{"name":"second Ingredient","quantity":"2","unit":"kg","slug":"my-ingredient","notes":"My Notes"}],"methodSteps":[{"stepNumber":1,"description":"first step"},{"stepNumber":2,"description":"second step"}],"nutrition":[{"label":"Calories","value":"100","unit":"kcal","high":false,"low":false},{"label":"Salt","value":"100","unit":"g","high":false,"low":false}],"timing":{"cookingMax":20,"maxCookingTime":20,"cookingMin":10,"minCookingTime":10,"preparationMax":5,"maxPreparationTime":5,"preparationMin":3,"minPreparationTime":3,"note":"","total":45,"totalTime":45},"skillLevel":"easy","servings":4}';
         $recipeDTO = new RecipeDTO();
         $recipeDTO->map($jsonData);
         $this->assertEquals($jsonData, $recipeDTO->toJson());
