@@ -11,9 +11,12 @@ class Image
     public int $width;
     public int $height;
     public DRM $drm;
+    public bool $isUpscaled;
+    public string $srcImage;
 
 
-    public function __construct(string $url, string $alt, string $title, int $width, int $height, DRM $drm)
+    public function __construct(string $url, string $alt, string $title, int $width, int $height, DRM $drm,
+                                bool $isUpscaled = false, string $srcImage = '')
     {
         $this->url = $url;
         $this->alt = $alt;
@@ -21,7 +24,10 @@ class Image
         $this->width = $width;
         $this->height = $height;
         $this->drm = $drm;
+        $this->isUpscaled = $isUpscaled;
+        $this->srcImage = $srcImage;
     }
+
 
 
     public function getUrl(): string
@@ -94,5 +100,31 @@ class Image
     {
         $this->drm = $drm;
     }
+
+
+    public function isUpscaled(): bool
+    {
+        return $this->isUpscaled;
+    }
+
+
+    public function setIsUpscaled(bool $isUpscaled): void
+    {
+        $this->isUpscaled = $isUpscaled;
+    }
+
+
+    public function getSrcImage(): string
+    {
+        return $this->srcImage;
+    }
+
+
+    public function setSrcImage(string $srcImage): void
+    {
+        $this->srcImage = $srcImage;
+    }
+
+
 
 }

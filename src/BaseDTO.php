@@ -15,7 +15,7 @@ use ImmediateMedia\ContentSharingDto\Generic\Tag;
 abstract class BaseDTO
 {
     // Bump this version when you make a breaking change to the DTO
-    public string $BASE_DTO_VERSION = '1.0.2';
+    public string $BASE_DTO_VERSION = '1.0.3';
 
     public string $type = 'base';
 
@@ -230,13 +230,18 @@ abstract class BaseDTO
             width: $data->heroImage->width,
             height: $data->heroImage->height,
             drm: new DRM(status: $data->heroImage->drm->status, notes: $data->heroImage->drm->notes,
-                creator: $data->heroImage->drm->creator, agency: $data->heroImage->drm->agency)));
+                creator: $data->heroImage->drm->creator, agency: $data->heroImage->drm->agency),
+            isUpscaled: $data->heroImage->isUpscaled ?? false,
+            srcImage: $data->heroImage->srcImage ?? ''));
         $this->setThumbnailImage(new Image(url: $data->thumbnailImage->url, alt: $data->thumbnailImage->alt,
             title: $data->thumbnailImage->title,
             width: $data->thumbnailImage->width,
             height: $data->thumbnailImage->height,
             drm: new DRM(status: $data->thumbnailImage->drm->status, notes: $data->thumbnailImage->drm->notes,
-                creator: $data->heroImage->drm->creator, agency: $data->heroImage->drm->agency)));
+                creator: $data->thumbnailImage->drm->creator, agency: $data->thumbnailImage->drm->agency),
+            isUpscaled: $data->thumbnailImage->isUpscaled ?? false,
+            srcImage: $data->thumbnailImage->srcImage ?? ''
+        ));
     }
 
     public function toJSON($flags = 0): string
