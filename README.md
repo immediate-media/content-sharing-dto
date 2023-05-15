@@ -88,7 +88,7 @@ $recipeDTO->validate();
 
 ```json
 {
-  "BASE_DTO_VERSION": "1.0.2",
+  "BASE_DTO_VERSION": "1.0.3",
   "type": "recipe",
   "clientRef": "ABC123",
   "title": "Example Recipe",
@@ -122,7 +122,9 @@ $recipeDTO->validate();
       "notes": "Free to use worldwide",
       "creator": "Copyright Holder",
       "agency": "Copyright Agency"
-    }
+    },
+    "isUpscaled": false,
+    "srcImage": ""
   },
   "thumbnailImage": {
     "url": "https:\/\/www.example.com\/image.jpg",
@@ -135,7 +137,9 @@ $recipeDTO->validate();
       "notes": "Restricted to UK only",
       "creator": "Copyright Holder",
       "agency": "Copyright Agency"
-    }
+    },
+    "isUpscaled": false,
+    "srcImage": ""
   },
   "tags": [
     {
@@ -161,7 +165,7 @@ $recipeDTO->validate();
       "notes": "category notes"
     }
   ],
-  "RECIPE_DTO_VERSION": "1.0.3",
+  "RECIPE_DTO_VERSION": "1.0.4",
   "ingredients": [
     {
       "name": "first Ingredient",
@@ -218,7 +222,11 @@ $recipeDTO->validate();
     "totalTime": 45
   },
   "skillLevel": "easy",
-  "servings": 4
+  "servings": 4,
+  "cuisines": [
+    "British",
+    "Indian"
+  ]
 }
 ```
 </details>
