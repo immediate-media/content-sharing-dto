@@ -53,11 +53,18 @@ abstract class BaseDTO
         return true;
     }
 
+    /**
+     * ISO 639-1 language code
+     */
     public function getLocale(): string
     {
         return $this->locale;
     }
 
+    /**
+     * ISO 639-1 language code
+     * @param string $locale
+     */
     public function setLocale(string $locale): void
     {
         $this->locale = $locale;
