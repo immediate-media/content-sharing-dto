@@ -16,7 +16,7 @@ class RecipeDTO extends BaseDTO
 {
 
     // Bump this version when you make a breaking change to the DTO
-    public string $RECIPE_DTO_VERSION = '1.0.3';
+    public string $RECIPE_DTO_VERSION = '1.0.4';
 
     public string $type = 'recipe';
     public array $ingredients;
@@ -25,6 +25,7 @@ class RecipeDTO extends BaseDTO
     public Timing $timing;
     public string $skillLevel;
     public int $servings;
+    public array $cuisines;
 
     protected array $validators = ['ingredients', 'methodSteps', 'timing', 'skillLevel', 'servings'];
 
@@ -101,6 +102,18 @@ class RecipeDTO extends BaseDTO
     }
 
 
+    public function getCuisines(): array
+    {
+        return $this->cuisines;
+    }
+
+
+    public function setCuisine(string $cuisine): void
+    {
+        $this->cuisines[] = $cuisine;
+    }
+
+
     /**
      * Map JSON Object to RecipeDTO
      * @param string $jsonData RecipeJson
@@ -133,6 +146,12 @@ class RecipeDTO extends BaseDTO
         if(isset($data->nutrition)) {
             foreach($data->nutrition as $nutrition) {
                 $this->setNutrition(new Nutrition(label: $nutrition->label, value: $nutrition->value, unit: $nutrition->unit, high: $nutrition->high, low: $nutrition->low));
+            }
+        }
+
+        if(isset($data->cuisines)) {
+            foreach ($data->cuisines as $cuisine){
+                $this->setCuisine($cuisine);
             }
         }
 
