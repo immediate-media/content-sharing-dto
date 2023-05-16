@@ -6,6 +6,10 @@ use ImmediateMedia\ContentSharingDto\BaseDTO;
 use ImmediateMedia\ContentSharingDto\Generic\Category;
 use ImmediateMedia\ContentSharingDto\Generic\Tag;
 use ImmediateMedia\ContentSharingDto\Recipe\Timing;
+use ImmediateMedia\ContentSharingDto\Recipe\Nutrition;
+use ImmediateMedia\ContentSharingDto\Recipe\Cuisine;
+use ImmediateMedia\ContentSharingDto\Recipe\Diet;
+
 
 
 /**
@@ -16,7 +20,7 @@ class RecipeDTO extends BaseDTO
 {
 
     // Bump this version when you make a breaking change to the DTO
-    public string $RECIPE_DTO_VERSION = '1.0.4';
+    public string $RECIPE_DTO_VERSION = '1.0.5';
 
     public string $type = 'recipe';
     public array $ingredients;
@@ -25,7 +29,10 @@ class RecipeDTO extends BaseDTO
     public Timing $timing;
     public string $skillLevel;
     public int $servings;
-    public array $cuisines;
+
+    // Optional Fields
+    public array $cuisines = [];
+    public array $diets = [];
 
     protected array $validators = ['ingredients', 'methodSteps', 'timing', 'skillLevel', 'servings'];
 
@@ -108,10 +115,22 @@ class RecipeDTO extends BaseDTO
     }
 
 
-    public function setCuisine(string $cuisine): void
+    public function setCuisine(Cuisine $cuisine): void
     {
         $this->cuisines[] = $cuisine;
     }
+
+
+    public function getDiets(): array
+    {
+        return $this->diets;
+    }
+
+    public function setDiet(Diet $diets): void
+    {
+        $this->diets[] = $diets;
+    }
+
 
 
     /**
@@ -151,7 +170,13 @@ class RecipeDTO extends BaseDTO
 
         if(isset($data->cuisines)) {
             foreach ($data->cuisines as $cuisine){
-                $this->setCuisine($cuisine);
+                $this->setCuisine(new Cuisine(name: $cuisine->name, slug: $cuisine->slug));
+            }
+        }
+
+        if(isset($data->diets)) {
+            foreach ($data->diets as $diet){
+                $this->setDiet(new Diet(name: $diet->name, slug: $diet->slug));
             }
         }
 
