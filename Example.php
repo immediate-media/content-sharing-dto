@@ -4,6 +4,8 @@ require 'vendor/autoload.php';
 
 
 use ImmediateMedia\ContentSharingDto\Article\ArticleDTO;
+use ImmediateMedia\ContentSharingDto\Recipe\Cuisine;
+use ImmediateMedia\ContentSharingDto\Recipe\Diet;
 use ImmediateMedia\ContentSharingDto\Recipe\RecipeDTO;
 use ImmediateMedia\ContentSharingDto\Generic\Author;
 use ImmediateMedia\ContentSharingDto\Generic\Image;
@@ -63,16 +65,20 @@ $recipeDTO->setNutrition(new Nutrition(label: 'Salt', value: '100', unit: Nutrit
 $recipeDTO->setTags(new Tag(name: 'recipe tag 1', slug: 'recipe-tag-1', notes: 'tag notes'));
 $recipeDTO->setTags(new Tag(name: 'recipe tag 2', slug: 'recipe-tag-2', notes: 'tag notes'));
 
-$recipeDTO->setCategories(new Category(name: 'Recipes', slug: 'recipes', notes: 'category notes'));
-$recipeDTO->setCategories(new Category(name: 'Food', slug: 'food', notes: 'category notes'));
+$recipeDTO->setCategories(new Category(name: 'Recipes', slug: 'recipes-slug', notes: 'category notes'));
+$recipeDTO->setCategories(new Category(name: 'Food', slug: 'food-slug', notes: 'category notes'));
 
 $recipeDTO->setTiming(new Timing(cookingMax: 20, maxCookingTime: 20, cookingMin: 10, minCookingTime: 10, preparationMax: 5, maxPreparationTime: 5, preparationMin: 3, minPreparationTime: 3, note: '', total: 45, totalTime: 45));
 
 $recipeDTO->setSkillLevel(SKILL::EASY);
 $recipeDTO->setServings(4);
 
-$recipeDTO->setCuisine('British');
-$recipeDTO->setCuisine('Indian');
+$recipeDTO->setCuisine(new Cuisine('British','british-cuisine'));
+$recipeDTO->setCuisine(new Cuisine('Indian','indian-cuisine'));
+
+$recipeDTO->setDiet(new Diet('Vegetarian','vegetarian-diet'));
+$recipeDTO->setDiet(new Diet('Vegan','vegan-diet'));
+
 
 
 // Throws exception if the DTO is not valid
@@ -88,7 +94,7 @@ echo $recipeDTO->toJSON(JSON_PRETTY_PRINT);
  * =====================================================================================================================
  */
 
-$jsonData = '{"BASE_DTO_VERSION":"1.0.3","type":"recipe","clientRef":"ABC123","title":"Example Recipe","siteName":"Best Food Site","url":"https:\/\/www.example.com\/recipe","slug":"example-recipe-slug","description":"Example Recipe Description","publishedDate":"2023-02-08T15:00:39+00:00","updatedDate":"2023-02-08T17:00:39+00:00","locale":"en","drm":{"status":1,"notes":"Recipe can be used Worldwide","creator":"unknown","agency":"unknown"},"author":{"name":"Firstname Lastname","email":"example@email.com","url":"https:\/\/www.example.com","image":"https:\/\/www.example.com\/image.jpg"},"heroImage":{"url":"https:\/\/www.example.com\/image.jpg","alt":"Hero Image","title":"Image title","width":800,"height":600,"drm":{"status":1,"notes":"Free to use worldwide","creator":"Copyright Holder","agency":"Copyright Agency"},"isUpscaled":false,"srcImage":""},"thumbnailImage":{"url":"https:\/\/www.example.com\/image.jpg","alt":"Thumb Image","title":"Image title","width":80,"height":60,"drm":{"status":2,"notes":"Restricted to UK only","creator":"Copyright Holder","agency":"Copyright Agency"},"isUpscaled":false,"srcImage":""},"tags":[{"name":"recipe tag 1","slug":"recipe-tag-1","notes":"tag notes"},{"name":"recipe tag 2","slug":"recipe-tag-2","notes":"tag notes"}],"categories":[{"name":"Recipes","slug":"recipes","notes":"category notes"},{"name":"Food","slug":"food","notes":"category notes"}],"RECIPE_DTO_VERSION":"1.0.4","ingredients":[{"name":"first Ingredient","quantity":"1.5","unit":"kg","slug":"my-ingredient","notes":"My Notes"},{"name":"second Ingredient","quantity":"2","unit":"kg","slug":"my-ingredient","notes":"My Notes"}],"methodSteps":[{"stepNumber":1,"description":"first step"},{"stepNumber":2,"description":"second step"}],"nutrition":[{"label":"Calories","value":"100","unit":"kcal","high":false,"low":false},{"label":"Salt","value":"100","unit":"g","high":false,"low":false}],"timing":{"cookingMax":20,"maxCookingTime":20,"cookingMin":10,"minCookingTime":10,"preparationMax":5,"maxPreparationTime":5,"preparationMin":3,"minPreparationTime":3,"note":"","total":45,"totalTime":45},"skillLevel":"easy","servings":4,"cuisines":["British","Indian"]}';
+$jsonData = '{"BASE_DTO_VERSION":"1.0.3","type":"recipe","clientRef":"ABC123","title":"Example Recipe","siteName":"Best Food Site","url":"https:\/\/www.example.com\/recipe","slug":"example-recipe-slug","description":"Example Recipe Description","publishedDate":"2023-02-08T15:00:39+00:00","updatedDate":"2023-02-08T17:00:39+00:00","locale":"en","drm":{"status":1,"notes":"Recipe can be used Worldwide","creator":"unknown","agency":"unknown"},"author":{"name":"Firstname Lastname","email":"example@email.com","url":"https:\/\/www.example.com","image":"https:\/\/www.example.com\/image.jpg"},"heroImage":{"url":"https:\/\/www.example.com\/image.jpg","alt":"Hero Image","title":"Image title","width":800,"height":600,"drm":{"status":1,"notes":"Free to use worldwide","creator":"Copyright Holder","agency":"Copyright Agency"},"isUpscaled":false,"srcImage":""},"thumbnailImage":{"url":"https:\/\/www.example.com\/image.jpg","alt":"Thumb Image","title":"Image title","width":80,"height":60,"drm":{"status":2,"notes":"Restricted to UK only","creator":"Copyright Holder","agency":"Copyright Agency"},"isUpscaled":false,"srcImage":""},"tags":[{"name":"recipe tag 1","slug":"recipe-tag-1","notes":"tag notes"},{"name":"recipe tag 2","slug":"recipe-tag-2","notes":"tag notes"}],"categories":[{"name":"Recipes","slug":"recipes-slug","notes":"category notes"},{"name":"Food","slug":"food-slug","notes":"category notes"}],"RECIPE_DTO_VERSION":"1.0.5","ingredients":[{"name":"first Ingredient","quantity":"1.5","unit":"kg","slug":"my-ingredient","notes":"My Notes"},{"name":"second Ingredient","quantity":"2","unit":"kg","slug":"my-ingredient","notes":"My Notes"}],"methodSteps":[{"stepNumber":1,"description":"first step"},{"stepNumber":2,"description":"second step"}],"nutrition":[{"label":"Calories","value":"100","unit":"kcal","high":false,"low":false},{"label":"Salt","value":"100","unit":"g","high":false,"low":false}],"timing":{"cookingMax":20,"maxCookingTime":20,"cookingMin":10,"minCookingTime":10,"preparationMax":5,"maxPreparationTime":5,"preparationMin":3,"minPreparationTime":3,"note":"","total":45,"totalTime":45},"skillLevel":"easy","servings":4,"cuisines":[{"name":"British","slug":"british-cuisine"},{"name":"Indian","slug":"indian-cuisine"}],"diets":[{"name":"Vegetarian","slug":"vegetarian-diet"},{"name":"Vegan","slug":"vegan-diet"}]}';
 $recipeDTO = new RecipeDTO();
 $recipeDTO->map($jsonData);
 $recipeDTO->validate();
