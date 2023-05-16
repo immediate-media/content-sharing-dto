@@ -62,6 +62,12 @@ $recipeDTO->setTiming(new Timing(cookingMax: 20, maxCookingTime: 20, cookingMin:
 $recipeDTO->setSkillLevel(SKILL::EASY);
 $recipeDTO->setServings(4);
 
+$recipeDTO->setCuisine(new Cuisine('British','british-cuisine'));
+$recipeDTO->setCuisine(new Cuisine('Indian','indian-cuisine'));
+
+$recipeDTO->setDiet(new Diet('Vegetarian','vegetarian-diet'));
+$recipeDTO->setDiet(new Diet('Vegan','vegan-diet'));
+
 // Throws exception if the DTO is not valid
 $recipeDTO->validate();
 
@@ -156,16 +162,16 @@ $recipeDTO->validate();
   "categories": [
     {
       "name": "Recipes",
-      "slug": "recipes",
+      "slug": "recipes-slug",
       "notes": "category notes"
     },
     {
       "name": "Food",
-      "slug": "food",
+      "slug": "food-slug",
       "notes": "category notes"
     }
   ],
-  "RECIPE_DTO_VERSION": "1.0.4",
+  "RECIPE_DTO_VERSION": "1.0.5",
   "ingredients": [
     {
       "name": "first Ingredient",
@@ -224,8 +230,24 @@ $recipeDTO->validate();
   "skillLevel": "easy",
   "servings": 4,
   "cuisines": [
-    "British",
-    "Indian"
+    {
+      "name": "British",
+      "slug": "british-cuisine"
+    },
+    {
+      "name": "Indian",
+      "slug": "indian-cuisine"
+    }
+  ],
+  "diets": [
+    {
+      "name": "Vegetarian",
+      "slug": "vegetarian-diet"
+    },
+    {
+      "name": "Vegan",
+      "slug": "vegan-diet"
+    }
   ]
 }
 ```
