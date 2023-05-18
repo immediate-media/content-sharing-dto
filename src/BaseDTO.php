@@ -15,7 +15,7 @@ use ImmediateMedia\ContentSharingDto\Generic\Tag;
 abstract class BaseDTO
 {
     // Bump this version when you make a breaking change to the DTO
-    public string $BASE_DTO_VERSION = '1.0.3';
+    public string $BASE_DTO_VERSION = '1.0.4';
 
     public string $type = 'base';
 
@@ -237,7 +237,8 @@ abstract class BaseDTO
             width: $data->heroImage->width,
             height: $data->heroImage->height,
             drm: new DRM(status: $data->heroImage->drm->status, notes: $data->heroImage->drm->notes,
-                creator: $data->heroImage->drm->creator, agency: $data->heroImage->drm->agency),
+                creator: $data->heroImage->drm->creator, agency: $data->heroImage->drm->agency,
+                damId: $data->heroImage->drm->damId ?? ''),
             isUpscaled: $data->heroImage->isUpscaled ?? false,
             srcImage: $data->heroImage->srcImage ?? ''));
         $this->setThumbnailImage(new Image(url: $data->thumbnailImage->url, alt: $data->thumbnailImage->alt,
@@ -245,10 +246,20 @@ abstract class BaseDTO
             width: $data->thumbnailImage->width,
             height: $data->thumbnailImage->height,
             drm: new DRM(status: $data->thumbnailImage->drm->status, notes: $data->thumbnailImage->drm->notes,
-                creator: $data->thumbnailImage->drm->creator, agency: $data->thumbnailImage->drm->agency),
+                creator: $data->thumbnailImage->drm->creator, agency: $data->thumbnailImage->drm->agency,
+                damId: $data->thumbnailImage->drm->damId ?? ''),
             isUpscaled: $data->thumbnailImage->isUpscaled ?? false,
             srcImage: $data->thumbnailImage->srcImage ?? ''
         ));
+
+        foreach($data->tags as $tag) {
+            $this->setTags(new Tag(name: $tag->name, slug: $tag->slug, notes: $tag->notes));
+        }
+
+        foreach($data->categories as $category) {
+            $this->setCategories(new Category(name: $category->name, slug: $category->slug, notes: $category->notes));
+        }
+
     }
 
     public function toJSON($flags = 0): string

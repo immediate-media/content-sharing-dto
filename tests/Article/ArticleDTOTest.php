@@ -35,14 +35,14 @@ class ArticleDTOTest extends TestCase
             alt: 'Hero Image',
             title: 'Image title',
             width: 800, height: 600,
-            drm: new DRM(status: DRM::GREEN, notes: 'Free to use worldwide', creator: 'Copyright Holder', agency: 'Copyright Agency')));
+            drm: new DRM(status: DRM::GREEN, notes: 'Free to use worldwide', creator: 'Copyright Holder', agency: 'Copyright Agency', damId: '123')));
 
         $articleDTO->setThumbnailImage(new Image(
             url: 'https://www.example.com/image.jpg',
             alt: 'Thumb Image',
             title: 'Image title',
             width: 80, height: 60,
-            drm: new DRM(status: DRM::YELLOW, notes: 'Restricted to UK only', creator: 'Copyright Holder', agency: 'Copyright Agency')));
+            drm: new DRM(status: DRM::YELLOW, notes: 'Restricted to UK only', creator: 'Copyright Holder', agency: 'Copyright Agency', damId: '124')));
 
         $articleDTO->setTags(new Tag(name: 'first tag', slug: 'first-tag',notes: 'first tag notes'));
         $articleDTO->setTags(new Tag(name: 'second tag', slug: 'second-tag', notes: 'second tag notes'));
@@ -100,11 +100,10 @@ class ArticleDTOTest extends TestCase
     public function testAddContent()
     {
         $articleDTO = new ArticleDTO();
-        $articleDTO->setContentHtml('<p>Example Content</p>');
-        $articleDTO->setContentText('Example Content');
+        $articleDTO->setHtml('<p>Example Content</p>');
 
-        $this->assertEquals('<p>Example Content</p>', $articleDTO->getContentHtml());
-        $this->assertEquals('Example Content', $articleDTO->getContentText());
+        $this->assertEquals('<p>Example Content</p>', $articleDTO->getHtml());
+        $this->assertEquals(strip_tags('<p>Example Content</p>'), $articleDTO->getText());
 
     }
 

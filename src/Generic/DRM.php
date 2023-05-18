@@ -13,13 +13,15 @@ class DRM
     public string $notes;
     public string $creator;
     public string $agency;
+    public string $damId;
 
-    public function __construct(int $status, string $notes, string $creator = 'unknown', string $agency = 'unknown')
+    public function __construct(int $status, string $notes, string $creator = 'unknown', string $agency = 'unknown', string $damId = '')
     {
         $this->status = $status;
         $this->notes = $notes;
         $this->creator = $creator;
         $this->agency = $agency;
+        $this->damId = $damId;
     }
 
     public function getStatus(): int
@@ -61,6 +63,18 @@ class DRM
     {
         $this->agency = $agency;
     }
+
+    public function getDamId(): string
+    {
+        return $this->damId;
+    }
+
+    public function setDamId(string $damId): void
+    {
+        $this->damId = $damId;
+    }
+
+
 
 
 
