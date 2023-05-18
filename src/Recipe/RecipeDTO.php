@@ -20,7 +20,7 @@ class RecipeDTO extends BaseDTO
 {
 
     // Bump this version when you make a breaking change to the DTO
-    public string $RECIPE_DTO_VERSION = '1.0.5';
+    public string $RECIPE_DTO_VERSION = '1.0.6';
 
     public string $type = 'recipe';
     public array $ingredients;
@@ -146,13 +146,7 @@ class RecipeDTO extends BaseDTO
         $this->setSkillLevel($data->skillLevel);
         $this->setServings($data->servings);
 
-        foreach($data->tags as $tag) {
-            $this->setTags(new Tag(name: $tag->name, slug: $tag->slug, notes: $tag->notes));
-        }
 
-        foreach($data->categories as $category) {
-            $this->setCategories(new Category(name: $category->name, slug: $category->slug, notes: $category->notes));
-        }
 
         foreach($data->ingredients as $ingredient) {
             $this->setIngredients(new Ingredient(name: $ingredient->name, quantity: $ingredient->quantity, unit: $ingredient->unit, slug: $ingredient->slug, notes: $ingredient->notes));
