@@ -3,6 +3,8 @@
 namespace ImmediateMedia\ContentSharingDto\Article;
 
 use ImmediateMedia\ContentSharingDto\BaseDTO;
+use ImmediateMedia\ContentSharingDto\Generic\DRM;
+use ImmediateMedia\ContentSharingDto\Generic\Image;
 
 /**
  * Class ArticleDTO
@@ -12,33 +14,92 @@ class ArticleDTO extends BaseDTO
 {
 
     // Bump this version when you make a breaking change to the DTO
-    public string $ARTICLE_DTO_VERSION = '1.0.0';
+    public string $ARTICLE_DTO_VERSION = '1.0.1';
 
     public string $type = 'article';
-    public string $contentHtml;
-    public string $contentText;
+    public string $text;
+    public string $html;
+    public string $markdown;
+    public array $images = [];
 
-    protected array $validators = ['contentHtml', 'contentText'];
+    protected array $validators = ['html'];
 
-
-    public function getContentHtml(): string
+    public function getText(): string
     {
-        return $this->contentHtml;
+        return $this->text;
     }
 
-    public function setContentHtml(string $contentHtml): void
+    public function setText(string $text): void
     {
-        $this->contentHtml = $contentHtml;
+        $this->text = $text;
     }
 
-    public function getContentText(): string
+    public function getHtml(): string
     {
-        return $this->contentText;
+        return $this->html;
     }
 
-    public function setContentText(string $contentText): void
+    public function setHtml(string $html): void
     {
-        $this->contentText = $contentText;
+        $this->html = $html;
+        $this->setText(strip_tags($html));
     }
+
+    public function getMarkdown(): string
+    {
+        return $this->markdown;
+    }
+
+    public function setMarkdown(string $markdown): void
+    {
+        $this->markdown = $markdown;
+    }
+
+    public function getImages(): array
+    {
+        return $this->images;
+    }
+
+    public function setImage(Image $images): void
+    {
+        $this->images[] = $images;
+    }
+
+
+
+
+    /**
+     * Map JSON Object to ArticleDTO
+     * @param string $jsonData ArticleJson
+     * @throws \JsonException
+     */
+    public function map(string $jsonData) : void
+    {
+        parent::map($jsonData);
+        $data = json_decode($jsonData, false, 512, JSON_THROW_ON_ERROR);
+
+        if(isset($data->html)) {
+            $this->setHtml($data->html);
+        }
+
+        if(isset($data->text)) {
+            $this->setText($data->text);
+        }
+
+        if(isset($data->markdown)) {
+            $this->setMarkdown($data->markdown);
+        }
+
+        if(isset($data->images)) {
+            foreach ($data->images as $image)
+            $this->setImage(new Image( $image->url, $image->alt, $image->title, $image->width, $image->height,
+                new DRM( $image->drm->status, $image->drm->notes, $image->drm->creator, $image->drm->agency, $image->drm->damId),
+                $image->isUpscaled, $image->srcImage
+            ));
+        }
+
+    }
+
+
 
 }
