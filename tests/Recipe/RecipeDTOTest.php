@@ -245,10 +245,8 @@ class RecipeDTOTest extends TestCase
         ));
 
         $recipeDTO->getHeroImage()->setExif(['camera'=>'Canon EOS 5D Mark IV', 'lens'=>'EF24-70mm f/2.8L II USM']);
-        $recipeDTO->getHeroImage()->setLabel('cake');
-        $recipeDTO->getHeroImage()->setLabel('dessert');
-        $recipeDTO->getHeroImage()->setObject('knife');
-        $recipeDTO->getHeroImage()->setObject('fork');
+        $recipeDTO->getHeroImage()->setLabels(['cake', 'dessert']);
+        $recipeDTO->getHeroImage()->setObjects(['knife', 'fork']);
 
 
         $this->assertEquals('cake', $recipeDTO->getHeroImage()->getLabels()[0]);

@@ -127,9 +127,9 @@ class Image
         return $this->labels;
     }
 
-    public function setLabel(string $label): void
+    public function setLabels(array $labels): void
     {
-        $this->labels[] = $label;
+        $this->labels = $labels;
     }
 
     public function getObjects(): array
@@ -137,9 +137,9 @@ class Image
         return $this->objects;
     }
 
-    public function setObject(string $object): void
+    public function setObjects(array $objects): void
     {
-        $this->objects[] = $object;
+        $this->objects = $objects;
     }
 
 }
