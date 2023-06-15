@@ -124,15 +124,18 @@ $recipeDTO->validate();
     "title": "Image title",
     "width": 800,
     "height": 600,
+    "isUpscaled": false,
+    "srcImage": "",
+    "exif": [],
+    "labels": [],
+    "objects": [],
     "drm": {
       "status": 1,
       "notes": "Free to use worldwide",
       "creator": "Copyright Holder",
       "agency": "Copyright Agency",
       "damId": "12345"
-    },
-    "isUpscaled": false,
-    "srcImage": ""
+    }
   },
   "thumbnailImage": {
     "url": "https:\/\/www.example.com\/image.jpg",
@@ -140,15 +143,18 @@ $recipeDTO->validate();
     "title": "Image title",
     "width": 80,
     "height": 60,
+    "isUpscaled": false,
+    "srcImage": "",
+    "exif": [],
+    "labels": [],
+    "objects": [],
     "drm": {
       "status": 2,
       "notes": "Restricted to UK only",
       "creator": "Copyright Holder",
       "agency": "Copyright Agency",
       "damId": "12346"
-    },
-    "isUpscaled": false,
-    "srcImage": ""
+    }
   },
   "tags": [
     {
