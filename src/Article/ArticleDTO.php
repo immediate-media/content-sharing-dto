@@ -5,6 +5,7 @@ namespace ImmediateMedia\ContentSharingDto\Article;
 use ImmediateMedia\ContentSharingDto\BaseDTO;
 use ImmediateMedia\ContentSharingDto\Generic\DRM;
 use ImmediateMedia\ContentSharingDto\Generic\Image;
+use ImmediateMedia\ContentSharingDto\Generic\Video;
 
 /**
  * Class ArticleDTO
@@ -21,6 +22,7 @@ class ArticleDTO extends BaseDTO
     public string $html;
     public string $markdown;
     public array $images = [];
+    public array $videos = [];
 
     protected array $validators = ['html'];
 
@@ -65,6 +67,18 @@ class ArticleDTO extends BaseDTO
         $this->images[] = $images;
     }
 
+    public function getVideos(): array
+    {
+        return $this->videos;
+    }
+
+    public function setVideo(Video $videos): void
+    {
+        $this->videos[] = $videos;
+    }
+
+
+
 
 
 
@@ -98,6 +112,13 @@ class ArticleDTO extends BaseDTO
             ));
         }
 
+        if(isset($data->videos)) {
+            foreach ($data->videos as $video)
+            $this->setVideo(new Video($video->title, $video->description, $video->url, $video->videoId, $video->embedCode,
+                $video->channelId, $video->channelName, $video->channelUrl, $video->thumbnailUrl, $video->isEmbeddable, $video->isHero,
+                new DRM( $video->drm->status, $video->drm->notes, $video->drm->creator, $video->drm->agency, $video->drm->damId)
+            ));
+        }
     }
 
 
