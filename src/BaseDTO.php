@@ -240,7 +240,12 @@ abstract class BaseDTO
                 creator: $data->heroImage->drm->creator, agency: $data->heroImage->drm->agency,
                 damId: $data->heroImage->drm->damId ?? ''),
             isUpscaled: $data->heroImage->isUpscaled ?? false,
-            srcImage: $data->heroImage->srcImage ?? ''));
+            srcImage: $data->heroImage->srcImage ?? '',
+            exif: $data->heroImage->exif ?? [],
+            labels: $data->heroImage->labels ?? [],
+            objects: $data->heroImage->objects ?? []
+        ));
+
         $this->setThumbnailImage(new Image(url: $data->thumbnailImage->url, alt: $data->thumbnailImage->alt,
             title: $data->thumbnailImage->title,
             width: $data->thumbnailImage->width,
@@ -249,7 +254,10 @@ abstract class BaseDTO
                 creator: $data->thumbnailImage->drm->creator, agency: $data->thumbnailImage->drm->agency,
                 damId: $data->thumbnailImage->drm->damId ?? ''),
             isUpscaled: $data->thumbnailImage->isUpscaled ?? false,
-            srcImage: $data->thumbnailImage->srcImage ?? ''
+            srcImage: $data->thumbnailImage->srcImage ?? '',
+            exif: $data->thumbnailImage->exif ?? [],
+            labels: $data->thumbnailImage->labels ?? [],
+            objects: $data->thumbnailImage->objects ?? []
         ));
 
         foreach($data->tags as $tag) {

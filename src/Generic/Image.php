@@ -19,7 +19,8 @@ class Image
 
 
     public function __construct(string $url, string $alt, string $title, int $width, int $height, DRM $drm,
-                                bool $isUpscaled = false, string $srcImage = '')
+                                bool $isUpscaled = false, string $srcImage = '', array $exif = [],
+                                array $labels = [], array $objects = [])
     {
         $this->url = $url;
         $this->alt = $alt;
@@ -29,6 +30,9 @@ class Image
         $this->drm = $drm;
         $this->isUpscaled = $isUpscaled;
         $this->srcImage = $srcImage;
+        $this->exif = $exif;
+        $this->labels = $labels;
+        $this->objects = $objects;
     }
 
 
