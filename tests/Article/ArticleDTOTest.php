@@ -132,4 +132,12 @@ class ArticleDTOTest extends TestCase
 
     }
 
+    public function testArticleMapper()
+    {
+        $jsonData = '{"BASE_DTO_VERSION":"1.0.4","type":"article","clientRef":"ABC123","title":"Example Article Title","siteName":"Good News Site","url":"https:\/\/www.example.com\/recipe","slug":"example-article-slug","description":"Example Article Description","publishedDate":"2023-02-08T15:00:39+00:00","updatedDate":"2023-02-08T17:00:39+00:00","locale":"en","drm":{"status":1,"notes":"Article can be used Worldwide","creator":"unknown","agency":"unknown","damId":""},"author":{"name":"Firstname Lastname","email":"example@email.com","url":"https:\/\/www.example.com","image":"https:\/\/www.example.com\/image.jpg"},"heroImage":{"url":"https:\/\/www.example.com\/image.jpg","alt":"Hero Image","title":"Image title","width":800,"height":600,"isUpscaled":false,"srcImage":"","exif":[],"labels":[],"objects":[],"drm":{"status":1,"notes":"Free to use worldwide","creator":"Copyright Holder","agency":"Copyright Agency","damId":"12345"}},"thumbnailImage":{"url":"https:\/\/www.example.com\/image.jpg","alt":"Thumb Image","title":"Image title","width":80,"height":60,"isUpscaled":false,"srcImage":"","exif":[],"labels":[],"objects":[],"drm":{"status":2,"notes":"Restricted to UK only","creator":"Copyright Holder","agency":"Copyright Agency","damId":"12346"}},"tags":[{"name":"article tag 1","slug":"article-tag-1","notes":"optional tag notes"},{"name":"article tag 2","slug":"article-tag-2","notes":"optional tag notes"}],"categories":[{"name":"TV","slug":"tv","notes":"optional category notes"},{"name":"News","slug":"news","notes":"optional category notes"}],"ARTICLE_DTO_VERSION":"1.0.1","text":"Example Article Body with full markup","html":"<p>Example Article Body with full markup<\/p>","embedImages":[{"url":"https:\/\/www.example.com\/image.jpg","alt":"Article Image","title":"Article title","width":800,"height":600,"isUpscaled":false,"srcImage":"","exif":[],"labels":[],"objects":[],"drm":{"status":1,"notes":"Free to use worldwide","creator":"Copyright Holder","agency":"Copyright Agency","damId":"12345"}}]}';
+        $articleDTO = new ArticleDTO();
+        $articleDTO->map($jsonData);
+        $this->assertEquals($jsonData, $articleDTO->toJson());
+    }
+
 }
