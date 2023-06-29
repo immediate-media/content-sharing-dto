@@ -107,4 +107,29 @@ class ArticleDTOTest extends TestCase
 
     }
 
+
+    public function testEmbedImages()
+    {
+        $articleDTO = new ArticleDTO();
+        $articleDTO->setEmbedImage(new Image(
+            url: 'https://www.example.com/image.jpg',
+            alt: 'Embed Image',
+            title: 'Image title',
+            width: 800, height: 600,
+            drm: new DRM(status: DRM::GREEN, notes: 'Free to use worldwide', creator: 'Creator', agency: 'Agency', damId: '123')));
+
+        $this->assertEquals('https://www.example.com/image.jpg', $articleDTO->getEmbedImages()[0]->url);
+        $this->assertEquals('Embed Image', $articleDTO->getEmbedImages()[0]->alt);
+        $this->assertEquals('Image title', $articleDTO->getEmbedImages()[0]->title);
+        $this->assertEquals(800, $articleDTO->getEmbedImages()[0]->getWidth());
+        $this->assertEquals(600, $articleDTO->getEmbedImages()[0]->getHeight());
+        $this->assertEquals(DRM::GREEN, $articleDTO->getEmbedImages()[0]->getDrm()->getStatus());
+        $this->assertEquals('Free to use worldwide', $articleDTO->getEmbedImages()[0]->getDrm()->getNotes());
+        $this->assertEquals('Creator', $articleDTO->getEmbedImages()[0]->getDrm()->getCreator());
+        $this->assertEquals('Agency', $articleDTO->getEmbedImages()[0]->getDrm()->getAgency());
+        $this->assertEquals('123', $articleDTO->getEmbedImages()[0]->getDrm()->getDamId());
+
+
+    }
+
 }

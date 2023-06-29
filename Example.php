@@ -107,7 +107,7 @@ $recipeDTO->validate();
  */
 $articleDTO = new ArticleDTO();
 
-$articleDTO->setAuthor(new Author(name: 'Adam Lambourne', email: 'example@email.com', url: 'https://www.example.com', image: 'https://www.example.com/image.jpg'));
+$articleDTO->setAuthor(new Author(name: 'Firstname Lastname', email: 'example@email.com', url: 'https://www.example.com', image: 'https://www.example.com/image.jpg'));
 $articleDTO->setClientRef('ABC123');
 $articleDTO->setDrm(new DRM(status: DRM::GREEN, notes: 'Article can be used Worldwide'));
 $articleDTO->setLocale('en');
@@ -141,7 +141,7 @@ $articleDTO->setCategories(new Category(name: 'News', slug: 'news', notes: 'opti
 
 $articleDTO->setHtml('<p>Example Article Body with full markup</p>');
 
-$articleDTO->setImage(new Image(
+$articleDTO->setEmbedImage(new Image(
     url: 'https://www.example.com/image.jpg',
     alt: 'Article Image',
     title: 'Article title',
