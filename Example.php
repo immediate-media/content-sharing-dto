@@ -111,12 +111,12 @@ $articleDTO->setAuthor(new Author(name: 'Adam Lambourne', email: 'example@email.
 $articleDTO->setClientRef('ABC123');
 $articleDTO->setDrm(new DRM(status: DRM::GREEN, notes: 'Article can be used Worldwide'));
 $articleDTO->setLocale('en');
-$articleDTO->setSlug('example-recipe-slug');
-$articleDTO->setSiteName('Good Food');
+$articleDTO->setSlug('example-article-slug');
+$articleDTO->setSiteName('Good News Site');
 $articleDTO->setPublishedDate('2023-02-08T15:00:39+00:00');
 $articleDTO->setUpdatedDate('2023-02-08T17:00:39+00:00');
-$articleDTO->setTitle('Example Recipe');
-$articleDTO->setDescription('Example Recipe Description');
+$articleDTO->setTitle('Example Article Title');
+$articleDTO->setDescription('Example Article Description');
 $articleDTO->setUrl('https://www.example.com/recipe');
 
 $articleDTO->setHeroImage(new Image(
@@ -133,11 +133,11 @@ $articleDTO->setThumbnailImage(new Image(
     width: 80, height: 60,
     drm: new DRM(status: DRM::YELLOW, notes: 'Restricted to UK only', creator: 'Copyright Holder', agency: 'Copyright Agency', damId: '12346')));
 
-$articleDTO->setTags(new Tag(name: 'recipe tag 1', slug: 'recipe-tag-1', notes: 'tag notes'));
-$articleDTO->setTags(new Tag(name: 'recipe tag 2', slug: 'recipe-tag-2', notes: 'tag notes'));
+$articleDTO->setTags(new Tag(name: 'article tag 1', slug: 'article-tag-1', notes: 'optional tag notes'));
+$articleDTO->setTags(new Tag(name: 'article tag 2', slug: 'article-tag-2', notes: 'optional tag notes'));
 
-$articleDTO->setCategories(new Category(name: 'Recipes', slug: 'recipes', notes: 'category notes'));
-$articleDTO->setCategories(new Category(name: 'Food', slug: 'food', notes: 'category notes'));
+$articleDTO->setCategories(new Category(name: 'TV', slug: 'tv', notes: 'optional category notes'));
+$articleDTO->setCategories(new Category(name: 'News', slug: 'news', notes: 'optional category notes'));
 
 $articleDTO->setHtml('<p>Example Article Body with full markup</p>');
 
@@ -147,7 +147,6 @@ $articleDTO->setImage(new Image(
     title: 'Article title',
     width: 800, height: 600,
     drm: new DRM(status: DRM::GREEN, notes: 'Free to use worldwide', creator: 'Copyright Holder', agency: 'Copyright Agency', damId: '12345')));
-
 
 
 // Throws exception if the DTO is not valid
