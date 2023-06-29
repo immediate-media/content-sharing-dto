@@ -20,7 +20,7 @@ class ArticleDTO extends BaseDTO
     public string $text;
     public string $html;
     public string $markdown;
-    public array $images = [];
+    public array $embedImages = [];
 
     protected array $validators = ['html'];
 
@@ -55,14 +55,14 @@ class ArticleDTO extends BaseDTO
         $this->markdown = $markdown;
     }
 
-    public function getImages(): array
+    public function getEmbedImages(): array
     {
-        return $this->images;
+        return $this->embedImages;
     }
 
-    public function setImage(Image $images): void
+    public function setEmbedImage(Image $image): void
     {
-        $this->images[] = $images;
+        $this->embedImages[] = $image;
     }
 
 
