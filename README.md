@@ -18,7 +18,7 @@ composer require immediate-media/content-sharing-dto "^1.0.0"
 
 ---
 
-<details>
+<details open>
   <summary>Recipe DTO </summary>
 
 ```php
@@ -274,7 +274,7 @@ echo $recipeDTO->toJSON();
 ```php
 $articleDTO = new ArticleDTO();
 
-$articleDTO->setAuthor(new Author(name: 'Adam Lambourne', email: 'example@email.com', url: 'https://www.example.com', image: 'https://www.example.com/image.jpg'));
+$articleDTO->setAuthor(new Author(name: 'Firstname Lastname', email: 'example@email.com', url: 'https://www.example.com', image: 'https://www.example.com/image.jpg'));
 $articleDTO->setClientRef('ABC123');
 $articleDTO->setDrm(new DRM(status: DRM::GREEN, notes: 'Article can be used Worldwide'));
 $articleDTO->setLocale('en');
@@ -308,19 +308,18 @@ $articleDTO->setCategories(new Category(name: 'News', slug: 'news', notes: 'opti
 
 $articleDTO->setHtml('<p>Example Article Body with full markup</p>');
 
-$articleDTO->setImage(new Image(
+$articleDTO->setEmbedImage(new Image(
     url: 'https://www.example.com/image.jpg',
     alt: 'Article Image',
     title: 'Article title',
     width: 800, height: 600,
     drm: new DRM(status: DRM::GREEN, notes: 'Free to use worldwide', creator: 'Copyright Holder', agency: 'Copyright Agency', damId: '12345')));
 
-
 // Throws exception if the DTO is not valid
 $articleDTO->validate();
 
 // Returns the DTO as a JSON string
-echo $articleDTO->toJSON(JSON_PRETTY_PRINT);
+echo $articleDTO->toJSON();
 
 
 
@@ -352,7 +351,7 @@ echo $articleDTO->toJSON(JSON_PRETTY_PRINT);
     "damId": ""
   },
   "author": {
-    "name": "Adam Lambourne",
+    "name": "Firstname Lastname",
     "email": "example@email.com",
     "url": "https:\/\/www.example.com",
     "image": "https:\/\/www.example.com\/image.jpg"
@@ -422,7 +421,7 @@ echo $articleDTO->toJSON(JSON_PRETTY_PRINT);
   "ARTICLE_DTO_VERSION": "1.0.1",
   "text": "Example Article Body with full markup",
   "html": "<p>Example Article Body with full markup<\/p>",
-  "images": [
+  "embedImages": [
     {
       "url": "https:\/\/www.example.com\/image.jpg",
       "alt": "Article Image",
@@ -452,11 +451,12 @@ echo $articleDTO->toJSON(JSON_PRETTY_PRINT);
 
 ###  Map JSON to DTO
 
+<details>
+  <summary>Map received JSON to DTO </summary>
+
 ```php
-// To Map received JSON data to DTO
 $recipeDTO = new RecipeDTO();
 $recipeDTO->map($jsonData);
 $recipeDTO->validate();
 ```
-
-
+</details>
