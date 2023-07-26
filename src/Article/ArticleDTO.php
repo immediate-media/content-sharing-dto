@@ -90,9 +90,9 @@ class ArticleDTO extends BaseDTO
             $this->setMarkdown($data->markdown);
         }
 
-        if(isset($data->images)) {
-            foreach ($data->images as $image)
-            $this->setImage(new Image( $image->url, $image->alt, $image->title, $image->width, $image->height,
+        if(isset($data->embedImages)) {
+            foreach ($data->embedImages as $image)
+            $this->setEmbedImage(new Image( $image->url, $image->alt, $image->title, $image->width, $image->height,
                 new DRM( $image->drm->status, $image->drm->notes, $image->drm->creator, $image->drm->agency, $image->drm->damId),
                 $image->isUpscaled, $image->srcImage
             ));
