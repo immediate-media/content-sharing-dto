@@ -18,11 +18,12 @@ abstract class BaseDTO
     public string $BASE_DTO_VERSION = '1.0.4';
 
     public string $type = 'base';
-
+    public string $trackingId;
     public string $clientRef;
     public string $title;
     public string $siteName;
     public string $url;
+
     public string $slug;
     public string $description;
     public string $publishedDate;
@@ -168,6 +169,7 @@ abstract class BaseDTO
     public function setUrl(string $url): void
     {
         $this->url = $url;
+        $this->setTrackingId($url);
     }
 
     public function getSlug(): string
@@ -209,6 +211,18 @@ abstract class BaseDTO
     {
         $this->updatedDate = date(DATE_W3C,strtotime($updatedDate));
     }
+
+    public function getTrackingId(): string
+    {
+        return $this->trackingId;
+    }
+
+    public function setTrackingId(string $url): void
+    {
+        $this->trackingId = 'CS-' . md5($url);
+    }
+
+
 
 
     /**
