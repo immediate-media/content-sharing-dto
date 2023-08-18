@@ -15,7 +15,7 @@ use ImmediateMedia\ContentSharingDto\Generic\Tag;
 abstract class BaseDTO
 {
     // Bump this version when you make a breaking change to the DTO
-    public string $BASE_DTO_VERSION = '1.0.4';
+    public string $BASE_DTO_VERSION = '1.0.5';
 
     public string $type = 'base';
     public string $trackingId;
