@@ -10,14 +10,16 @@ class Ingredient
     public string $unit;
     public string $slug;
     public string $notes;
+    public string $group;
 
-    public function __construct(string $name, string $quantity, string $unit, string $slug, string $notes)
+    public function __construct(string $name, string $quantity, string $unit, string $slug, string $notes, string $group = '')
     {
         $this->name = $name;
         $this->quantity = $quantity;
         $this->unit = $unit;
         $this->slug = $slug;
         $this->notes = $notes;
+        $this->group = $group;
     }
 
     /**
@@ -100,6 +102,20 @@ class Ingredient
         $this->notes = $notes;
     }
 
+    /**
+     * @return string
+     */
+    public function getGroup(): string
+    {
+        return $this->group;
+    }
 
+    /**
+     * @param string $group
+     */
+    public function setGroup(string $group): void
+    {
+        $this->group = $group;
+    }
 
 }
