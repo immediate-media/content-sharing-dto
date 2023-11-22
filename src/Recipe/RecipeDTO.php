@@ -33,6 +33,7 @@ class RecipeDTO extends BaseDTO
     // Optional Fields
     public array $cuisines = [];
     public array $diets = [];
+    public array $ingredientsGroups = [];
 
     protected array $validators = ['ingredients', 'methodSteps', 'timing', 'skillLevel', 'servings'];
 
@@ -131,6 +132,15 @@ class RecipeDTO extends BaseDTO
         $this->diets[] = $diets;
     }
 
+    public function getIngredientsGroups(): array
+    {
+        return $this->ingredientsGroups;
+    }
+
+    public function setIngredientsGroups(array $ingredientsGroups): void
+    {
+        $this->ingredientsGroups = $ingredientsGroups;
+    }
 
 
     /**
@@ -144,12 +154,12 @@ class RecipeDTO extends BaseDTO
         $data = json_decode($jsonData, false, 512, JSON_THROW_ON_ERROR);
 
         $this->setSkillLevel($data->skillLevel);
+
         $this->setServings($data->servings);
 
-
-
         foreach($data->ingredients as $ingredient) {
-            $this->setIngredients(new Ingredient(name: $ingredient->name, quantity: $ingredient->quantity, unit: $ingredient->unit, slug: $ingredient->slug, notes: $ingredient->notes));
+            $this->setIngredients(new Ingredient(name: $ingredient->name, quantity: $ingredient->quantity,
+                unit: $ingredient->unit, slug: $ingredient->slug, notes: $ingredient->notes, group: $ingredient->group ?? ''));
         }
 
         foreach($data->methodSteps as $methodStep) {
@@ -171,6 +181,12 @@ class RecipeDTO extends BaseDTO
         if(isset($data->diets)) {
             foreach ($data->diets as $diet){
                 $this->setDiet(new Diet(name: $diet->name, slug: $diet->slug));
+            }
+        }
+
+        if(isset($data->ingredientsGroups)) {
+            foreach ($data->ingredientsGroups as $ingredientsGroup){
+                $this->setIngredientsGroups($ingredientsGroup);
             }
         }
 

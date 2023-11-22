@@ -53,8 +53,9 @@ $recipeDTO->setThumbnailImage(new Image(
     width: 80, height: 60,
     drm: new DRM(status: DRM::YELLOW, notes: 'Restricted to UK only', creator: 'Copyright Holder', agency: 'Copyright Agency',  damId: '12346')));
 
-$recipeDTO->setIngredients(new Ingredient(name: 'first Ingredient', quantity: '1.5', unit: 'kg', slug: 'my-ingredient', notes: 'My Notes'));
-$recipeDTO->setIngredients(new Ingredient(name: 'second Ingredient', quantity: '2', unit: 'kg', slug: 'my-ingredient', notes: 'My Notes'));
+$recipeDTO->setIngredientsGroups(['sauce', 'pasta']);
+$recipeDTO->setIngredients(new Ingredient(name: 'first Ingredient', quantity: '1.5', unit: 'kg', slug: 'my-ingredient', notes: 'My Notes', group: 'sauce'));
+$recipeDTO->setIngredients(new Ingredient(name: 'second Ingredient', quantity: '2', unit: 'kg', slug: 'my-ingredient', notes: 'My Notes', group: 'pasta'));
 
 $recipeDTO->setMethodSteps(new MethodStep(stepNumber: 1, description: 'first step'));
 $recipeDTO->setMethodSteps(new MethodStep(stepNumber: 2, description: 'second step'));

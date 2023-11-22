@@ -50,8 +50,9 @@ $recipeDTO->setThumbnailImage(new Image(
     width: 80, height: 60,
     drm: new DRM(status: DRM::YELLOW, notes: 'Restricted to UK only', creator: 'Copyright Holder', agency: 'Copyright Agency',  damId: '12346')));
 
-$recipeDTO->setIngredients(new Ingredient(name: 'first Ingredient', quantity: '1.5', unit: 'kg', slug: 'my-ingredient', notes: 'My Notes'));
-$recipeDTO->setIngredients(new Ingredient(name: 'second Ingredient', quantity: '2', unit: 'kg', slug: 'my-ingredient', notes: 'My Notes'));
+$recipeDTO->setIngredientsGroups(['sauce', 'pasta']);
+$recipeDTO->setIngredients(new Ingredient(name: 'first Ingredient', quantity: '1.5', unit: 'kg', slug: 'my-ingredient', notes: 'My Notes', group: 'sauce'));
+$recipeDTO->setIngredients(new Ingredient(name: 'second Ingredient', quantity: '2', unit: 'kg', slug: 'my-ingredient', notes: 'My Notes', group: 'pasta'));
 
 $recipeDTO->setMethodSteps(new MethodStep(stepNumber: 1, description: 'first step'));
 $recipeDTO->setMethodSteps(new MethodStep(stepNumber: 2, description: 'second step'));
@@ -93,8 +94,9 @@ echo $recipeDTO->toJSON();
 
 ```json
 {
-  "BASE_DTO_VERSION": "1.0.4",
+  "BASE_DTO_VERSION": "1.0.5",
   "type": "recipe",
+  "trackingId": "CS-2d5bf4a54bd6a70411bbe0fd0eea85fc",
   "clientRef": "ABC123",
   "title": "Example Recipe",
   "siteName": "Best Food Site",
@@ -186,14 +188,16 @@ echo $recipeDTO->toJSON();
       "quantity": "1.5",
       "unit": "kg",
       "slug": "my-ingredient",
-      "notes": "My Notes"
+      "notes": "My Notes",
+      "group": "sauce"
     },
     {
       "name": "second Ingredient",
       "quantity": "2",
       "unit": "kg",
       "slug": "my-ingredient",
-      "notes": "My Notes"
+      "notes": "My Notes",
+      "group": "pasta"
     }
   ],
   "methodSteps": [
@@ -256,7 +260,8 @@ echo $recipeDTO->toJSON();
       "name": "Vegan",
       "slug": "vegan-diet"
     }
-  ]
+  ],
+  "ingredientsGroups": ["sauce", "pasta"]
 }
 ```
 </details>
@@ -332,8 +337,9 @@ echo $articleDTO->toJSON();
 
 ```json
 {
-  "BASE_DTO_VERSION": "1.0.4",
+  "BASE_DTO_VERSION": "1.0.5",
   "type": "article",
+  "trackingId": "CS-2d5bf4a54bd6a70411bbe0fd0eea85fc",
   "clientRef": "ABC123",
   "title": "Example Article Title",
   "siteName": "Good News Site",
