@@ -185,9 +185,7 @@ class RecipeDTO extends BaseDTO
         }
 
         if(isset($data->ingredientsGroups)) {
-            foreach ($data->ingredientsGroups as $ingredientsGroup){
-                $this->setIngredientsGroups($ingredientsGroup);
-            }
+            $this->setIngredientsGroups($data->ingredientsGroups);
         }
 
         $this->setTiming(new Timing(
