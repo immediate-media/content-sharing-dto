@@ -134,10 +134,57 @@ class ArticleDTOTest extends TestCase
 
     public function testArticleMapper()
     {
-        $jsonData = '{"BASE_DTO_VERSION":"1.0.5","type":"article","trackingId":"CS-2d5bf4a54bd6a70411bbe0fd0eea85fc","clientRef":"ABC123","title":"Example Article Title","siteName":"Good News Site","url":"https:\/\/www.example.com\/recipe","slug":"example-article-slug","description":"Example Article Description","publishedDate":"2023-02-08T15:00:39+00:00","updatedDate":"2023-02-08T17:00:39+00:00","locale":"en","drm":{"status":1,"notes":"Article can be used Worldwide","creator":"unknown","agency":"unknown","damId":""},"author":{"name":"Firstname Lastname","email":"example@email.com","url":"https:\/\/www.example.com","image":"https:\/\/www.example.com\/image.jpg"},"heroImage":{"url":"https:\/\/www.example.com\/image.jpg","alt":"Hero Image","title":"Image title","width":800,"height":600,"isUpscaled":false,"srcImage":"","exif":[],"labels":[],"objects":[],"drm":{"status":1,"notes":"Free to use worldwide","creator":"Copyright Holder","agency":"Copyright Agency","damId":"12345"}},"thumbnailImage":{"url":"https:\/\/www.example.com\/image.jpg","alt":"Thumb Image","title":"Image title","width":80,"height":60,"isUpscaled":false,"srcImage":"","exif":[],"labels":[],"objects":[],"drm":{"status":2,"notes":"Restricted to UK only","creator":"Copyright Holder","agency":"Copyright Agency","damId":"12346"}},"tags":[{"name":"article tag 1","slug":"article-tag-1","notes":"optional tag notes"},{"name":"article tag 2","slug":"article-tag-2","notes":"optional tag notes"}],"categories":[{"name":"TV","slug":"tv","notes":"optional category notes"},{"name":"News","slug":"news","notes":"optional category notes"}],"ARTICLE_DTO_VERSION":"1.0.1","text":"Example Article Body with full markup","html":"<p>Example Article Body with full markup<\/p>","embedImages":[{"url":"https:\/\/www.example.com\/image.jpg","alt":"Article Image","title":"Article title","width":800,"height":600,"isUpscaled":false,"srcImage":"","exif":[],"labels":[],"objects":[],"drm":{"status":1,"notes":"Free to use worldwide","creator":"Copyright Holder","agency":"Copyright Agency","damId":"12345"}}]}';
         $articleDTO = new ArticleDTO();
-        $articleDTO->map($jsonData);
-        $this->assertEquals($jsonData, $articleDTO->toJson());
+
+        $articleDTO->setAuthor(new Author(name: 'Firstname Lastname', email: 'example@email.com', url: 'https://www.example.com', image: 'https://www.example.com/image.jpg'));
+        $articleDTO->setClientRef('ABC123');
+        $articleDTO->setDrm(new DRM(status: DRM::GREEN, notes: 'Article can be used Worldwide'));
+        $articleDTO->setLocale('en');
+        $articleDTO->setSlug('example-article-slug');
+        $articleDTO->setSiteName('Good News Site');
+        $articleDTO->setPublishedDate('2023-02-08T15:00:39+00:00');
+        $articleDTO->setUpdatedDate('2023-02-08T17:00:39+00:00');
+        $articleDTO->setTitle('Example Article Title');
+        $articleDTO->setDescription('Example Article Description');
+        $articleDTO->setUrl('https://www.example.com/recipe');
+
+        $articleDTO->setHeroImage(new Image(
+            url: 'https://www.example.com/image.jpg',
+            alt: 'Hero Image',
+            title: 'Image title',
+            width: 800, height: 600,
+            drm: new DRM(status: DRM::GREEN, notes: 'Free to use worldwide', creator: 'Copyright Holder', agency: 'Copyright Agency', damId: '12345')));
+
+        $articleDTO->setThumbnailImage(new Image(
+            url: 'https://www.example.com/image.jpg',
+            alt: 'Thumb Image',
+            title: 'Image title',
+            width: 80, height: 60,
+            drm: new DRM(status: DRM::YELLOW, notes: 'Restricted to UK only', creator: 'Copyright Holder', agency: 'Copyright Agency', damId: '12346')));
+
+        $articleDTO->setTags(new Tag(name: 'article tag 1', slug: 'article-tag-1', notes: 'optional tag notes'));
+        $articleDTO->setTags(new Tag(name: 'article tag 2', slug: 'article-tag-2', notes: 'optional tag notes'));
+
+        $articleDTO->setCategories(new Category(name: 'TV', slug: 'tv', notes: 'optional category notes'));
+        $articleDTO->setCategories(new Category(name: 'News', slug: 'news', notes: 'optional category notes'));
+
+        $articleDTO->setHtml('<p>Example Article Body with full markup</p>');
+
+        $articleDTO->setEmbedImage(new Image(
+            url: 'https://www.example.com/image.jpg',
+            alt: 'Article Image',
+            title: 'Article title',
+            width: 800, height: 600,
+            drm: new DRM(status: DRM::GREEN, notes: 'Free to use worldwide', creator: 'Copyright Holder', agency: 'Copyright Agency', damId: '12345')));
+
+
+
+        $jsonData = $articleDTO->toJSON();
+
+        $mappedDTO = new ArticleDTO();
+
+        $mappedDTO->map($jsonData);
+        $this->assertEquals($jsonData, $mappedDTO->toJson());
     }
 
 }

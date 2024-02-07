@@ -4,6 +4,7 @@ require 'vendor/autoload.php';
 
 
 use ImmediateMedia\ContentSharingDto\Article\ArticleDTO;
+use ImmediateMedia\ContentSharingDto\Image\ImageDTO;
 use ImmediateMedia\ContentSharingDto\Recipe\Cuisine;
 use ImmediateMedia\ContentSharingDto\Recipe\Diet;
 use ImmediateMedia\ContentSharingDto\Recipe\RecipeDTO;
@@ -156,3 +157,40 @@ $articleDTO->validate();
 // Returns the DTO as a JSON string
 echo $articleDTO->toJSON(JSON_PRETTY_PRINT);
 
+/**
+ * =====================================================================================================================
+ * Example use of the Image DTO
+ * =====================================================================================================================
+ */
+$imageDTO = new ImageDTO();
+
+$imageDTO->setAuthor(new Author(name: 'Firstname Lastname', email: 'example@email.com', url: 'https://www.example.com', image: 'https://www.example.com/image.jpg'));
+$imageDTO->setClientRef('ABC123');
+$imageDTO->setDrm(new DRM(status: DRM::GREEN, notes: 'Image can be used Worldwide'));
+$imageDTO->setLocale('en');
+$imageDTO->setSiteName('Good News Site');
+$imageDTO->setPublishedDate('2023-02-08T15:00:39+00:00');
+$imageDTO->setUpdatedDate('2023-02-08T17:00:39+00:00');
+$imageDTO->setTitle('Example Image Title');
+$imageDTO->setDescription('Example Image Description');
+$imageDTO->setUrl('https://www.example.com/recipe');
+
+$imageDTO->setImage(new Image(
+    url: 'https://www.example.com/image.jpg',
+    alt: 'Example Image',
+    title: 'Example title',
+    width: 800,
+    height: 600,
+    drm: new DRM(status: DRM::GREEN, notes: 'Free to use worldwide', creator: 'Copyright Holder', agency: 'Copyright Agency', damId: '12345'),
+    isUpscaled: false,
+    srcImage: '',
+    exif: [],
+    labels: [],
+    objects: []
+));
+
+// Throws exception if the DTO is not valid
+$imageDTO->validate();
+
+// Returns the DTO as a JSON string
+echo $imageDTO->toJSON(JSON_PRETTY_PRINT);

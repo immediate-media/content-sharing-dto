@@ -269,10 +269,69 @@ class RecipeDTOTest extends TestCase
 
     public function testMapper()
     {
-        $jsonData = '{"BASE_DTO_VERSION":"1.0.5","type":"recipe","trackingId":"CS-2d5bf4a54bd6a70411bbe0fd0eea85fc","clientRef":"ABC123","title":"Example Recipe","siteName":"Best Food Site","url":"https:\/\/www.example.com\/recipe","slug":"example-recipe-slug","description":"Example Recipe Description","publishedDate":"2023-02-08T15:00:39+00:00","updatedDate":"2023-02-08T17:00:39+00:00","locale":"en","drm":{"status":1,"notes":"Recipe can be used Worldwide","creator":"unknown","agency":"unknown","damId":""},"author":{"name":"Firstname Lastname","email":"example@email.com","url":"https:\/\/www.example.com","image":"https:\/\/www.example.com\/image.jpg"},"heroImage":{"url":"https:\/\/www.example.com\/image.jpg","alt":"Hero Image","title":"Image title","width":800,"height":600,"isUpscaled":false,"srcImage":"","exif":[],"labels":[],"objects":[],"drm":{"status":1,"notes":"Free to use worldwide","creator":"Copyright Holder","agency":"Copyright Agency","damId":"12345"}},"thumbnailImage":{"url":"https:\/\/www.example.com\/image.jpg","alt":"Thumb Image","title":"Image title","width":80,"height":60,"isUpscaled":false,"srcImage":"","exif":[],"labels":[],"objects":[],"drm":{"status":2,"notes":"Restricted to UK only","creator":"Copyright Holder","agency":"Copyright Agency","damId":"12346"}},"tags":[{"name":"recipe tag 1","slug":"recipe-tag-1","notes":"tag notes"},{"name":"recipe tag 2","slug":"recipe-tag-2","notes":"tag notes"}],"categories":[{"name":"Recipes","slug":"recipes-slug","notes":"category notes"},{"name":"Food","slug":"food-slug","notes":"category notes"}],"RECIPE_DTO_VERSION":"1.0.6","ingredients":[{"name":"first Ingredient","quantity":"1.5","unit":"kg","slug":"my-ingredient","notes":"My Notes","group":"sauce"},{"name":"second Ingredient","quantity":"2","unit":"kg","slug":"my-ingredient","notes":"My Notes","group":"pasta"}],"methodSteps":[{"stepNumber":1,"description":"first step"},{"stepNumber":2,"description":"second step"}],"nutrition":[{"label":"Calories","value":"100","unit":"kcal","high":false,"low":false},{"label":"Salt","value":"100","unit":"g","high":false,"low":false}],"timing":{"cookingMax":20,"maxCookingTime":20,"cookingMin":10,"minCookingTime":10,"preparationMax":5,"maxPreparationTime":5,"preparationMin":3,"minPreparationTime":3,"note":"","total":45,"totalTime":45},"skillLevel":"easy","servings":4,"cuisines":[{"name":"British","slug":"british-cuisine"},{"name":"Indian","slug":"indian-cuisine"}],"diets":[{"name":"Vegetarian","slug":"vegetarian-diet"},{"name":"Vegan","slug":"vegan-diet"}],"ingredientsGroups":["sauce","pasta"]}';
         $recipeDTO = new RecipeDTO();
-        $recipeDTO->map($jsonData);
-        $this->assertEquals($jsonData, $recipeDTO->toJson());
+
+        $recipeDTO->setAuthor(new Author(name: 'Firstname Lastname', email: 'example@email.com', url: 'https://www.example.com', image: 'https://www.example.com/image.jpg'));
+        $recipeDTO->setClientRef('ABC123');
+        $recipeDTO->setDrm(new DRM(status: DRM::GREEN, notes: 'Recipe can be used Worldwide'));
+        $recipeDTO->setLocale('en');
+        $recipeDTO->setSlug('example-recipe-slug');
+        $recipeDTO->setSiteName('Best Food Site');
+        $recipeDTO->setPublishedDate('2023-02-08T15:00:39+00:00');
+        $recipeDTO->setUpdatedDate('2023-02-08T17:00:39+00:00');
+        $recipeDTO->setTitle('Example Recipe');
+        $recipeDTO->setDescription('Example Recipe Description');
+        $recipeDTO->setUrl('https://www.example.com/recipe');
+
+
+        $recipeDTO->setHeroImage(new Image(
+            url: 'https://www.example.com/image.jpg',
+            alt: 'Hero Image',
+            title: 'Image title',
+            width: 800, height: 600,
+            drm: new DRM(status: DRM::GREEN, notes: 'Free to use worldwide', creator: 'Copyright Holder', agency: 'Copyright Agency', damId: '12345')));
+
+        $recipeDTO->setThumbnailImage(new Image(
+            url: 'https://www.example.com/image.jpg',
+            alt: 'Thumb Image',
+            title: 'Image title',
+            width: 80, height: 60,
+            drm: new DRM(status: DRM::YELLOW, notes: 'Restricted to UK only', creator: 'Copyright Holder', agency: 'Copyright Agency',  damId: '12346')));
+
+        $recipeDTO->setIngredientsGroups(['sauce', 'pasta']);
+        $recipeDTO->setIngredients(new Ingredient(name: 'first Ingredient', quantity: '1.5', unit: 'kg', slug: 'my-ingredient', notes: 'My Notes', group: 'sauce'));
+        $recipeDTO->setIngredients(new Ingredient(name: 'second Ingredient', quantity: '2', unit: 'kg', slug: 'my-ingredient', notes: 'My Notes', group: 'pasta'));
+
+        $recipeDTO->setMethodSteps(new MethodStep(stepNumber: 1, description: 'first step'));
+        $recipeDTO->setMethodSteps(new MethodStep(stepNumber: 2, description: 'second step'));
+
+        $recipeDTO->setNutrition(new Nutrition(label: 'Calories', value: '100', unit: Nutrition::KCALS, high: false, low: false));
+        $recipeDTO->setNutrition(new Nutrition(label: 'Salt', value: '100', unit: Nutrition::GRAMS, high: false, low: false));
+
+        $recipeDTO->setTags(new Tag(name: 'recipe tag 1', slug: 'recipe-tag-1', notes: 'tag notes'));
+        $recipeDTO->setTags(new Tag(name: 'recipe tag 2', slug: 'recipe-tag-2', notes: 'tag notes'));
+
+        $recipeDTO->setCategories(new Category(name: 'Recipes', slug: 'recipes-slug', notes: 'category notes'));
+        $recipeDTO->setCategories(new Category(name: 'Food', slug: 'food-slug', notes: 'category notes'));
+
+        $recipeDTO->setTiming(new Timing(cookingMax: 20, maxCookingTime: 20, cookingMin: 10, minCookingTime: 10, preparationMax: 5, maxPreparationTime: 5, preparationMin: 3, minPreparationTime: 3, note: '', total: 45, totalTime: 45));
+
+        $recipeDTO->setSkillLevel(SKILL::EASY);
+        $recipeDTO->setServings(4);
+
+        $recipeDTO->setCuisine(new Cuisine(name: 'British', slug: 'british-cuisine'));
+        $recipeDTO->setCuisine(new Cuisine(name: 'Indian', slug: 'indian-cuisine'));
+
+        $recipeDTO->setDiet(new Diet(name: 'Vegetarian', slug: 'vegetarian-diet'));
+        $recipeDTO->setDiet(new Diet(name: 'Vegan', slug: 'vegan-diet'));
+
+
+        $jsonData =  $recipeDTO->toJSON();
+
+        $mappedDTO = new RecipeDTO();
+
+        $mappedDTO->map($jsonData);
+        $this->assertEquals($jsonData, $mappedDTO->toJson());
     }
 
 

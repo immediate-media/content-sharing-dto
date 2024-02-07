@@ -2,7 +2,7 @@
 
 namespace ImmediateMedia\ContentSharingDto\Article;
 
-use ImmediateMedia\ContentSharingDto\BaseDTO;
+use ImmediateMedia\ContentSharingDto\DTO;
 use ImmediateMedia\ContentSharingDto\Generic\DRM;
 use ImmediateMedia\ContentSharingDto\Generic\Image;
 
@@ -10,19 +10,43 @@ use ImmediateMedia\ContentSharingDto\Generic\Image;
  * Class ArticleDTO
  * @package ImmediateMedia\ContentSharingDto\Article
  */
-class ArticleDTO extends BaseDTO
+class ArticleDTO extends DTO
 {
 
     // Bump this version when you make a breaking change to the DTO
-    public string $ARTICLE_DTO_VERSION = '1.0.1';
+    public string $ARTICLE_DTO_VERSION = '2.0.0';
 
     public string $type = 'article';
+
+    public Image $heroImage;
+    public Image $thumbnailImage;
+
     public string $text;
     public string $html;
     public string $markdown;
     public array $embedImages = [];
 
-    protected array $validators = ['html'];
+    protected array $validators = ['heroImage', 'thumbnailImage', 'tags', 'categories',  'slug','html'];
+
+    public function getHeroImage(): Image
+    {
+        return $this->heroImage;
+    }
+
+    public function setHeroImage(Image $heroImage): void
+    {
+        $this->heroImage = $heroImage;
+    }
+
+    public function getThumbnailImage(): Image
+    {
+        return $this->thumbnailImage;
+    }
+
+    public function setThumbnailImage(Image $thumbnailImage): void
+    {
+        $this->thumbnailImage = $thumbnailImage;
+    }
 
     public function getText(): string
     {
@@ -77,6 +101,34 @@ class ArticleDTO extends BaseDTO
     {
         parent::map($jsonData);
         $data = json_decode($jsonData, false, 512, JSON_THROW_ON_ERROR);
+
+        $this->setHeroImage(new Image(url: $data->heroImage->url, alt: $data->heroImage->alt,
+            title: $data->heroImage->title,
+            width: $data->heroImage->width,
+            height: $data->heroImage->height,
+            drm: new DRM(status: $data->heroImage->drm->status, notes: $data->heroImage->drm->notes,
+                creator: $data->heroImage->drm->creator, agency: $data->heroImage->drm->agency,
+                damId: $data->heroImage->drm->damId ?? ''),
+            isUpscaled: $data->heroImage->isUpscaled ?? false,
+            srcImage: $data->heroImage->srcImage ?? '',
+            exif: $data->heroImage->exif ?? [],
+            labels: $data->heroImage->labels ?? [],
+            objects: $data->heroImage->objects ?? []
+        ));
+
+        $this->setThumbnailImage(new Image(url: $data->thumbnailImage->url, alt: $data->thumbnailImage->alt,
+            title: $data->thumbnailImage->title,
+            width: $data->thumbnailImage->width,
+            height: $data->thumbnailImage->height,
+            drm: new DRM(status: $data->thumbnailImage->drm->status, notes: $data->thumbnailImage->drm->notes,
+                creator: $data->thumbnailImage->drm->creator, agency: $data->thumbnailImage->drm->agency,
+                damId: $data->thumbnailImage->drm->damId ?? ''),
+            isUpscaled: $data->thumbnailImage->isUpscaled ?? false,
+            srcImage: $data->thumbnailImage->srcImage ?? '',
+            exif: $data->thumbnailImage->exif ?? [],
+            labels: $data->thumbnailImage->labels ?? [],
+            objects: $data->thumbnailImage->objects ?? []
+        ));
 
         if(isset($data->html)) {
             $this->setHtml($data->html);

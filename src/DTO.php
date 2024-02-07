@@ -9,19 +9,21 @@ use ImmediateMedia\ContentSharingDto\Generic\Image;
 use ImmediateMedia\ContentSharingDto\Generic\Tag;
 
 /**
- * Class BaseDTO
+ * Class DTO
  * @package ImmediateMedia\ContentSharingDto
  */
-abstract class BaseDTO
+abstract class DTO
 {
     // Bump this version when you make a breaking change to the DTO
-    public string $BASE_DTO_VERSION = '1.0.5';
+    public string $BASE_DTO_VERSION = '2.0.0';
 
     public string $type = 'base';
     public string $trackingId;
+    public int $version = 1;
     public string $clientRef;
     public string $title;
     public string $siteName;
+
     public string $url;
 
     public string $slug;
@@ -32,14 +34,11 @@ abstract class BaseDTO
 
     public DRM $drm;
     public Author $author;
-    public Image $heroImage;
-    public Image $thumbnailImage;
-
     public array $tags = [];
     public array $categories = [];
 
-    protected array $baseValidators = ['clientRef', 'title', 'siteName', 'url', 'slug', 'description', 'publishedDate',
-        'updatedDate', 'locale', 'drm', 'author', 'heroImage', 'thumbnailImage', 'tags', 'categories'];
+    protected array $baseValidators = ['clientRef', 'title', 'siteName', 'url', 'description', 'publishedDate',
+        'updatedDate', 'locale', 'drm', 'author'];
 
     public function validate(): bool
     {
@@ -47,12 +46,18 @@ abstract class BaseDTO
 
         foreach($fields as $field) {
             if (empty($this->$field)) {
-                throw new \Exception("Field $field is empty");
+                throw new \Exception("DTO validation error :: Field $field is empty");
             }
         }
 
         return true;
     }
+
+    public function getType(): string
+    {
+        return $this->type;
+    }
+
 
     /**
      * ISO 639-1 language code
@@ -222,6 +227,17 @@ abstract class BaseDTO
         $this->trackingId = 'CS-' . md5($url);
     }
 
+    public function getVersion(): int
+    {
+        return $this->version;
+    }
+
+    public function setVersion(int $version): void
+    {
+        $this->version = $version;
+    }
+
+
 
 
 
@@ -245,34 +261,6 @@ abstract class BaseDTO
         $this->setTitle($data->title);
         $this->setDescription($data->description);
         $this->setUrl($data->url);
-
-        $this->setHeroImage(new Image(url: $data->heroImage->url, alt: $data->heroImage->alt,
-            title: $data->heroImage->title,
-            width: $data->heroImage->width,
-            height: $data->heroImage->height,
-            drm: new DRM(status: $data->heroImage->drm->status, notes: $data->heroImage->drm->notes,
-                creator: $data->heroImage->drm->creator, agency: $data->heroImage->drm->agency,
-                damId: $data->heroImage->drm->damId ?? ''),
-            isUpscaled: $data->heroImage->isUpscaled ?? false,
-            srcImage: $data->heroImage->srcImage ?? '',
-            exif: $data->heroImage->exif ?? [],
-            labels: $data->heroImage->labels ?? [],
-            objects: $data->heroImage->objects ?? []
-        ));
-
-        $this->setThumbnailImage(new Image(url: $data->thumbnailImage->url, alt: $data->thumbnailImage->alt,
-            title: $data->thumbnailImage->title,
-            width: $data->thumbnailImage->width,
-            height: $data->thumbnailImage->height,
-            drm: new DRM(status: $data->thumbnailImage->drm->status, notes: $data->thumbnailImage->drm->notes,
-                creator: $data->thumbnailImage->drm->creator, agency: $data->thumbnailImage->drm->agency,
-                damId: $data->thumbnailImage->drm->damId ?? ''),
-            isUpscaled: $data->thumbnailImage->isUpscaled ?? false,
-            srcImage: $data->thumbnailImage->srcImage ?? '',
-            exif: $data->thumbnailImage->exif ?? [],
-            labels: $data->thumbnailImage->labels ?? [],
-            objects: $data->thumbnailImage->objects ?? []
-        ));
 
         foreach($data->tags as $tag) {
             $this->setTags(new Tag(name: $tag->name, slug: $tag->slug, notes: $tag->notes));
