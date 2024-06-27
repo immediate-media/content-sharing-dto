@@ -37,21 +37,45 @@ $recipeDTO->setUpdatedDate('2023-02-08T17:00:39+00:00');
 $recipeDTO->setTitle('Example Recipe');
 $recipeDTO->setDescription('Example Recipe Description');
 $recipeDTO->setUrl('https://www.example.com/recipe');
+$recipeDTO->setVersion(2);
 
 
 $recipeDTO->setHeroImage(new Image(
     url: 'https://www.example.com/image.jpg',
     alt: 'Hero Image',
     title: 'Image title',
-    width: 800, height: 600,
-    drm: new DRM(status: DRM::GREEN, notes: 'Free to use worldwide', creator: 'Copyright Holder', agency: 'Copyright Agency', damId: '12345')));
+    width: 800,
+    height: 600,
+    drm: new DRM(
+        status: DRM::GREEN,
+        notes: 'Free to use worldwide',
+        creator: 'Copyright Holder',
+        agency: 'Copyright Agency',
+        damId: '12345'
+    ),
+    isUpscaled: false,
+    srcImage: 'https://www.example.com/src-image.jpg',
+    exif: ['camera' => 'Canon EOS 5D Mark IV', 'lens' => 'EF24-70mm f/2.8L II USM'],
+    labels: ['food', 'recipe'],
+    objects: ['plate', 'fork'],
+    assetId: 'CS-12345',
+    isPlaceholder: false
+));
 
 $recipeDTO->setThumbnailImage(new Image(
-    url: 'https://www.example.com/image.jpg',
-    alt: 'Thumb Image',
-    title: 'Image title',
-    width: 80, height: 60,
-    drm: new DRM(status: DRM::YELLOW, notes: 'Restricted to UK only', creator: 'Copyright Holder', agency: 'Copyright Agency',  damId: '12346')));
+    url: 'https://www.example.com/thumb-image.jpg',
+    alt: 'Thumbnail Image',
+    title: 'Thumbnail Image title',
+    width: 80,
+    height: 60,
+    drm: new DRM(
+        status: DRM::YELLOW,
+        notes: 'Restricted to UK only',
+        creator: 'Copyright Holder',
+        agency: 'Copyright Agency',
+        damId: '12346'
+    )
+));
 
 $recipeDTO->setIngredientsGroups(['sauce', 'pasta']);
 $recipeDTO->setIngredients(new Ingredient(name: 'first Ingredient', quantity: '1.5', unit: 'kg', slug: 'my-ingredient', notes: 'My Notes', group: 'sauce'));
@@ -80,6 +104,8 @@ $recipeDTO->setCuisine(new Cuisine(name: 'Indian', slug: 'indian-cuisine'));
 $recipeDTO->setDiet(new Diet(name: 'Vegetarian', slug: 'vegetarian-diet'));
 $recipeDTO->setDiet(new Diet(name: 'Vegan', slug: 'vegan-diet'));
 
+$recipeDTO->setIntroduction('Introduction to the recipe');
+$recipeDTO->setSummary('Summary of the recipe');
 
 
 // Throws exception if the DTO is not valid
@@ -119,20 +145,44 @@ $articleDTO->setUpdatedDate('2023-02-08T17:00:39+00:00');
 $articleDTO->setTitle('Example Article Title');
 $articleDTO->setDescription('Example Article Description');
 $articleDTO->setUrl('https://www.example.com/recipe');
+$articleDTO->setVersion(3);
 
 $articleDTO->setHeroImage(new Image(
     url: 'https://www.example.com/image.jpg',
     alt: 'Hero Image',
     title: 'Image title',
-    width: 800, height: 600,
-    drm: new DRM(status: DRM::GREEN, notes: 'Free to use worldwide', creator: 'Copyright Holder', agency: 'Copyright Agency', damId: '12345')));
+    width: 800,
+    height: 600,
+    drm: new DRM(
+        status: DRM::GREEN,
+        notes: 'Free to use worldwide',
+        creator: 'Copyright Holder',
+        agency: 'Copyright Agency',
+        damId: '12345'
+    ),
+    isUpscaled: false,
+    srcImage: 'https://www.example.com/src-image.jpg',
+    exif: ['camera' => 'Canon EOS 5D Mark IV', 'lens' => 'EF24-70mm f/2.8L II USM'],
+    labels: ['food', 'recipe'],
+    objects: ['plate', 'fork'],
+    assetId: 'asset-12345',
+    isPlaceholder: false
+));
 
 $articleDTO->setThumbnailImage(new Image(
-    url: 'https://www.example.com/image.jpg',
-    alt: 'Thumb Image',
-    title: 'Image title',
-    width: 80, height: 60,
-    drm: new DRM(status: DRM::YELLOW, notes: 'Restricted to UK only', creator: 'Copyright Holder', agency: 'Copyright Agency', damId: '12346')));
+    url: 'https://www.example.com/thumb-image.jpg',
+    alt: 'Thumbnail Image',
+    title: 'Thumbnail Image title',
+    width: 80,
+    height: 60,
+    drm: new DRM(
+        status: DRM::YELLOW,
+        notes: 'Restricted to UK only',
+        creator: 'Copyright Holder',
+        agency: 'Copyright Agency',
+        damId: '12346'
+    )
+));
 
 $articleDTO->setTags(new Tag(name: 'article tag 1', slug: 'article-tag-1', notes: 'optional tag notes'));
 $articleDTO->setTags(new Tag(name: 'article tag 2', slug: 'article-tag-2', notes: 'optional tag notes'));

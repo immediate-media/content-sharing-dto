@@ -10,17 +10,19 @@ class Image
     public string $title;
     public int $width;
     public int $height;
-    public bool $isUpscaled;
+    public bool $isUpscaled = false;
+    public bool $isPlaceholder = false;
     public string $srcImage;
     public array $exif = [];
     public array $labels = [];
     public array $objects = [];
+    public string $assetId = '';
     public DRM $drm;
 
 
     public function __construct(string $url, string $alt, string $title, int $width, int $height, DRM $drm,
                                 bool $isUpscaled = false, string $srcImage = '', array $exif = [],
-                                array $labels = [], array $objects = [])
+                                array $labels = [], array $objects = [], string $assetId = '', bool $isPlaceholder = false)
     {
         $this->url = $url;
         $this->alt = $alt;
@@ -33,6 +35,8 @@ class Image
         $this->exif = $exif;
         $this->labels = $labels;
         $this->objects = $objects;
+        $this->assetId = $assetId;
+        $this->isPlaceholder = $isPlaceholder;
     }
 
 
@@ -144,6 +148,26 @@ class Image
     public function setObjects(array $objects): void
     {
         $this->objects = $objects;
+    }
+
+    public function getAssetId(): string
+    {
+        return $this->assetId;
+    }
+
+    public function setAssetId(string $assetId): void
+    {
+        $this->assetId = $assetId;
+    }
+
+    public function isPlaceholder(): bool
+    {
+        return $this->isPlaceholder;
+    }
+
+    public function setIsPlaceholder(bool $isPlaceholder): void
+    {
+        $this->isPlaceholder = $isPlaceholder;
     }
 
 }

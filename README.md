@@ -94,174 +94,194 @@ echo $recipeDTO->toJSON();
 
 ```json
 {
-  "BASE_DTO_VERSION": "1.0.5",
-  "type": "recipe",
-  "trackingId": "CS-2d5bf4a54bd6a70411bbe0fd0eea85fc",
-  "clientRef": "ABC123",
-  "title": "Example Recipe",
-  "siteName": "Best Food Site",
-  "url": "https:\/\/www.example.com\/recipe",
-  "slug": "example-recipe-slug",
-  "description": "Example Recipe Description",
-  "publishedDate": "2023-02-08T15:00:39+00:00",
-  "updatedDate": "2023-02-08T17:00:39+00:00",
-  "locale": "en",
-  "drm": {
-    "status": 1,
-    "notes": "Recipe can be used Worldwide",
-    "creator": "unknown",
-    "agency": "unknown",
-    "damId": ""
-  },
-  "author": {
-    "name": "Firstname Lastname",
-    "email": "example@email.com",
-    "url": "https:\/\/www.example.com",
-    "image": "https:\/\/www.example.com\/image.jpg"
-  },
-  "heroImage": {
-    "url": "https:\/\/www.example.com\/image.jpg",
-    "alt": "Hero Image",
-    "title": "Image title",
-    "width": 800,
-    "height": 600,
-    "isUpscaled": false,
-    "srcImage": "",
-    "exif": [],
-    "labels": [],
-    "objects": [],
+    "BASE_DTO_VERSION": "1.0.5",
+    "type": "recipe",
+    "trackingId": "CS-2d5bf4a54bd6a70411bbe0fd0eea85fc",
+    "version": 2,
+    "clientRef": "ABC123",
+    "title": "Example Recipe",
+    "siteName": "Best Food Site",
+    "url": "https:\/\/www.example.com\/recipe",
+    "slug": "example-recipe-slug",
+    "description": "Example Recipe Description",
+    "publishedDate": "2023-02-08T15:00:39+00:00",
+    "updatedDate": "2023-02-08T17:00:39+00:00",
+    "locale": "en",
     "drm": {
-      "status": 1,
-      "notes": "Free to use worldwide",
-      "creator": "Copyright Holder",
-      "agency": "Copyright Agency",
-      "damId": "12345"
-    }
-  },
-  "thumbnailImage": {
-    "url": "https:\/\/www.example.com\/image.jpg",
-    "alt": "Thumb Image",
-    "title": "Image title",
-    "width": 80,
-    "height": 60,
-    "isUpscaled": false,
-    "srcImage": "",
-    "exif": [],
-    "labels": [],
-    "objects": [],
-    "drm": {
-      "status": 2,
-      "notes": "Restricted to UK only",
-      "creator": "Copyright Holder",
-      "agency": "Copyright Agency",
-      "damId": "12346"
-    }
-  },
-  "tags": [
-    {
-      "name": "recipe tag 1",
-      "slug": "recipe-tag-1",
-      "notes": "tag notes"
+        "status": 1,
+        "notes": "Recipe can be used Worldwide",
+        "creator": "unknown",
+        "agency": "unknown",
+        "damId": ""
     },
-    {
-      "name": "recipe tag 2",
-      "slug": "recipe-tag-2",
-      "notes": "tag notes"
-    }
-  ],
-  "categories": [
-    {
-      "name": "Recipes",
-      "slug": "recipes-slug",
-      "notes": "category notes"
+    "author": {
+        "name": "Firstname Lastname",
+        "email": "example@email.com",
+        "url": "https:\/\/www.example.com",
+        "image": "https:\/\/www.example.com\/image.jpg"
     },
-    {
-      "name": "Food",
-      "slug": "food-slug",
-      "notes": "category notes"
-    }
-  ],
-  "RECIPE_DTO_VERSION": "1.0.6",
-  "ingredients": [
-    {
-      "name": "first Ingredient",
-      "quantity": "1.5",
-      "unit": "kg",
-      "slug": "my-ingredient",
-      "notes": "My Notes",
-      "group": "sauce"
+    "heroImage": {
+        "url": "https:\/\/www.example.com\/image.jpg",
+        "alt": "Hero Image",
+        "title": "Image title",
+        "width": 800,
+        "height": 600,
+        "isUpscaled": false,
+        "isPlaceholder": false,
+        "srcImage": "https:\/\/www.example.com\/src-image.jpg",
+        "exif": {
+            "camera": "Canon EOS 5D Mark IV",
+            "lens": "EF24-70mm f\/2.8L II USM"
+        },
+        "labels": [
+            "food",
+            "recipe"
+        ],
+        "objects": [
+            "plate",
+            "fork"
+        ],
+        "assetId": "CS-12345",
+        "drm": {
+            "status": 1,
+            "notes": "Free to use worldwide",
+            "creator": "Copyright Holder",
+            "agency": "Copyright Agency",
+            "damId": "12345"
+        }
     },
-    {
-      "name": "second Ingredient",
-      "quantity": "2",
-      "unit": "kg",
-      "slug": "my-ingredient",
-      "notes": "My Notes",
-      "group": "pasta"
-    }
-  ],
-  "methodSteps": [
-    {
-      "stepNumber": 1,
-      "description": "first step"
+    "thumbnailImage": {
+        "url": "https:\/\/www.example.com\/thumb-image.jpg",
+        "alt": "Thumbnail Image",
+        "title": "Thumbnail Image title",
+        "width": 80,
+        "height": 60,
+        "isUpscaled": false,
+        "isPlaceholder": false,
+        "srcImage": "",
+        "exif": [],
+        "labels": [],
+        "objects": [],
+        "assetId": "",
+        "drm": {
+            "status": 2,
+            "notes": "Restricted to UK only",
+            "creator": "Copyright Holder",
+            "agency": "Copyright Agency",
+            "damId": "12346"
+        }
     },
-    {
-      "stepNumber": 2,
-      "description": "second step"
-    }
-  ],
-  "nutrition": [
-    {
-      "label": "Calories",
-      "value": "100",
-      "unit": "kcal",
-      "high": false,
-      "low": false
+    "tags": [
+        {
+            "name": "recipe tag 1",
+            "slug": "recipe-tag-1",
+            "notes": "tag notes"
+        },
+        {
+            "name": "recipe tag 2",
+            "slug": "recipe-tag-2",
+            "notes": "tag notes"
+        }
+    ],
+    "categories": [
+        {
+            "name": "Recipes",
+            "slug": "recipes-slug",
+            "notes": "category notes"
+        },
+        {
+            "name": "Food",
+            "slug": "food-slug",
+            "notes": "category notes"
+        }
+    ],
+    "RECIPE_DTO_VERSION": "1.0.6",
+    "ingredients": [
+        {
+            "name": "first Ingredient",
+            "quantity": "1.5",
+            "unit": "kg",
+            "slug": "my-ingredient",
+            "notes": "My Notes",
+            "group": "sauce"
+        },
+        {
+            "name": "second Ingredient",
+            "quantity": "2",
+            "unit": "kg",
+            "slug": "my-ingredient",
+            "notes": "My Notes",
+            "group": "pasta"
+        }
+    ],
+    "methodSteps": [
+        {
+            "stepNumber": 1,
+            "description": "first step"
+        },
+        {
+            "stepNumber": 2,
+            "description": "second step"
+        }
+    ],
+    "nutrition": [
+        {
+            "label": "Calories",
+            "value": "100",
+            "unit": "kcal",
+            "high": false,
+            "low": false
+        },
+        {
+            "label": "Salt",
+            "value": "100",
+            "unit": "g",
+            "high": false,
+            "low": false
+        }
+    ],
+    "timing": {
+        "cookingMax": 20,
+        "maxCookingTime": 20,
+        "cookingMin": 10,
+        "minCookingTime": 10,
+        "preparationMax": 5,
+        "maxPreparationTime": 5,
+        "preparationMin": 3,
+        "minPreparationTime": 3,
+        "note": "",
+        "total": 45,
+        "totalTime": 45
     },
-    {
-      "label": "Salt",
-      "value": "100",
-      "unit": "g",
-      "high": false,
-      "low": false
-    }
-  ],
-  "timing": {
-    "cookingMax": 20,
-    "maxCookingTime": 20,
-    "cookingMin": 10,
-    "minCookingTime": 10,
-    "preparationMax": 5,
-    "maxPreparationTime": 5,
-    "preparationMin": 3,
-    "minPreparationTime": 3,
-    "note": "",
-    "total": 45,
-    "totalTime": 45
-  },
-  "skillLevel": "easy",
-  "servings": 4,
-  "cuisines": [
-    {
-      "name": "British",
-      "slug": "british-cuisine"
-    },
-    {
-      "name": "Indian",
-      "slug": "indian-cuisine"
-    }
-  ],
-  "diets": [
-    {
-      "name": "Vegetarian",
-      "slug": "vegetarian-diet"
-    },
-    {
-      "name": "Vegan",
-      "slug": "vegan-diet"
-    }
-  ],
-  "ingredientsGroups": ["sauce", "pasta"]
+    "skillLevel": "easy",
+    "servings": 4,
+    "introduction": "Introduction to the recipe",
+    "summary": "Summary of the recipe",
+    "cuisines": [
+        {
+            "name": "British",
+            "slug": "british-cuisine"
+        },
+        {
+            "name": "Indian",
+            "slug": "indian-cuisine"
+        }
+    ],
+    "diets": [
+        {
+            "name": "Vegetarian",
+            "slug": "vegetarian-diet"
+        },
+        {
+            "name": "Vegan",
+            "slug": "vegan-diet"
+        }
+    ],
+    "ingredientsGroups": [
+        "sauce",
+        "pasta"
+    ],
+    "servingsDisplayText": ""
 }
 ```
 </details>
@@ -337,117 +357,133 @@ echo $articleDTO->toJSON();
 
 ```json
 {
-  "BASE_DTO_VERSION": "1.0.5",
-  "type": "article",
-  "trackingId": "CS-2d5bf4a54bd6a70411bbe0fd0eea85fc",
-  "clientRef": "ABC123",
-  "title": "Example Article Title",
-  "siteName": "Good News Site",
-  "url": "https:\/\/www.example.com\/recipe",
-  "slug": "example-article-slug",
-  "description": "Example Article Description",
-  "publishedDate": "2023-02-08T15:00:39+00:00",
-  "updatedDate": "2023-02-08T17:00:39+00:00",
-  "locale": "en",
-  "drm": {
-    "status": 1,
-    "notes": "Article can be used Worldwide",
-    "creator": "unknown",
-    "agency": "unknown",
-    "damId": ""
-  },
-  "author": {
-    "name": "Firstname Lastname",
-    "email": "example@email.com",
-    "url": "https:\/\/www.example.com",
-    "image": "https:\/\/www.example.com\/image.jpg"
-  },
-  "heroImage": {
-    "url": "https:\/\/www.example.com\/image.jpg",
-    "alt": "Hero Image",
-    "title": "Image title",
-    "width": 800,
-    "height": 600,
-    "isUpscaled": false,
-    "srcImage": "",
-    "exif": [],
-    "labels": [],
-    "objects": [],
+    "BASE_DTO_VERSION": "1.0.5",
+    "type": "article",
+    "trackingId": "CS-2d5bf4a54bd6a70411bbe0fd0eea85fc",
+    "version": 3,
+    "clientRef": "ABC123",
+    "title": "Example Article Title",
+    "siteName": "Good News Site",
+    "url": "https:\/\/www.example.com\/recipe",
+    "slug": "example-article-slug",
+    "description": "Example Article Description",
+    "publishedDate": "2023-02-08T15:00:39+00:00",
+    "updatedDate": "2023-02-08T17:00:39+00:00",
+    "locale": "en",
     "drm": {
-      "status": 1,
-      "notes": "Free to use worldwide",
-      "creator": "Copyright Holder",
-      "agency": "Copyright Agency",
-      "damId": "12345"
-    }
-  },
-  "thumbnailImage": {
-    "url": "https:\/\/www.example.com\/image.jpg",
-    "alt": "Thumb Image",
-    "title": "Image title",
-    "width": 80,
-    "height": 60,
-    "isUpscaled": false,
-    "srcImage": "",
-    "exif": [],
-    "labels": [],
-    "objects": [],
-    "drm": {
-      "status": 2,
-      "notes": "Restricted to UK only",
-      "creator": "Copyright Holder",
-      "agency": "Copyright Agency",
-      "damId": "12346"
-    }
-  },
-  "tags": [
-    {
-      "name": "article tag 1",
-      "slug": "article-tag-1",
-      "notes": "optional tag notes"
-    },
-    {
-      "name": "article tag 2",
-      "slug": "article-tag-2",
-      "notes": "optional tag notes"
-    }
-  ],
-  "categories": [
-    {
-      "name": "TV",
-      "slug": "tv",
-      "notes": "optional category notes"
-    },
-    {
-      "name": "News",
-      "slug": "news",
-      "notes": "optional category notes"
-    }
-  ],
-  "ARTICLE_DTO_VERSION": "1.0.1",
-  "text": "Example Article Body with full markup",
-  "html": "<p>Example Article Body with full markup<\/p>",
-  "embedImages": [
-    {
-      "url": "https:\/\/www.example.com\/image.jpg",
-      "alt": "Article Image",
-      "title": "Article title",
-      "width": 800,
-      "height": 600,
-      "isUpscaled": false,
-      "srcImage": "",
-      "exif": [],
-      "labels": [],
-      "objects": [],
-      "drm": {
         "status": 1,
-        "notes": "Free to use worldwide",
-        "creator": "Copyright Holder",
-        "agency": "Copyright Agency",
-        "damId": "12345"
-      }
-    }
-  ]
+        "notes": "Article can be used Worldwide",
+        "creator": "unknown",
+        "agency": "unknown",
+        "damId": ""
+    },
+    "author": {
+        "name": "Firstname Lastname",
+        "email": "example@email.com",
+        "url": "https:\/\/www.example.com",
+        "image": "https:\/\/www.example.com\/image.jpg"
+    },
+    "heroImage": {
+        "url": "https:\/\/www.example.com\/image.jpg",
+        "alt": "Hero Image",
+        "title": "Image title",
+        "width": 800,
+        "height": 600,
+        "isUpscaled": false,
+        "isPlaceholder": false,
+        "srcImage": "https:\/\/www.example.com\/src-image.jpg",
+        "exif": {
+            "camera": "Canon EOS 5D Mark IV",
+            "lens": "EF24-70mm f\/2.8L II USM"
+        },
+        "labels": [
+            "food",
+            "recipe"
+        ],
+        "objects": [
+            "plate",
+            "fork"
+        ],
+        "assetId": "asset-12345",
+        "drm": {
+            "status": 1,
+            "notes": "Free to use worldwide",
+            "creator": "Copyright Holder",
+            "agency": "Copyright Agency",
+            "damId": "12345"
+        }
+    },
+    "thumbnailImage": {
+        "url": "https:\/\/www.example.com\/thumb-image.jpg",
+        "alt": "Thumbnail Image",
+        "title": "Thumbnail Image title",
+        "width": 80,
+        "height": 60,
+        "isUpscaled": false,
+        "isPlaceholder": false,
+        "srcImage": "",
+        "exif": [],
+        "labels": [],
+        "objects": [],
+        "assetId": "",
+        "drm": {
+            "status": 2,
+            "notes": "Restricted to UK only",
+            "creator": "Copyright Holder",
+            "agency": "Copyright Agency",
+            "damId": "12346"
+        }
+    },
+    "tags": [
+        {
+            "name": "article tag 1",
+            "slug": "article-tag-1",
+            "notes": "optional tag notes"
+        },
+        {
+            "name": "article tag 2",
+            "slug": "article-tag-2",
+            "notes": "optional tag notes"
+        }
+    ],
+    "categories": [
+        {
+            "name": "TV",
+            "slug": "tv",
+            "notes": "optional category notes"
+        },
+        {
+            "name": "News",
+            "slug": "news",
+            "notes": "optional category notes"
+        }
+    ],
+    "ARTICLE_DTO_VERSION": "1.0.1",
+    "text": "Example Article Body with full markup",
+    "html": "<p>Example Article Body with full markup<\/p>",
+    "embedImages": [
+        {
+            "url": "https:\/\/www.example.com\/image.jpg",
+            "alt": "Article Image",
+            "title": "Article title",
+            "width": 800,
+            "height": 600,
+            "isUpscaled": false,
+            "isPlaceholder": false,
+            "srcImage": "",
+            "exif": [],
+            "labels": [],
+            "objects": [],
+            "assetId": "",
+            "drm": {
+                "status": 1,
+                "notes": "Free to use worldwide",
+                "creator": "Copyright Holder",
+                "agency": "Copyright Agency",
+                "damId": "12345"
+            }
+        }
+    ]
 }
 ```
 </details>
