@@ -23,17 +23,20 @@ class RecipeDTO extends BaseDTO
     public string $RECIPE_DTO_VERSION = '1.0.6';
 
     public string $type = 'recipe';
-    public array $ingredients;
-    public array $methodSteps;
-    public array $nutrition;
+    public array $ingredients = [];
+    public array $methodSteps = [];
+    public array $nutrition = [];
     public Timing $timing;
-    public string $skillLevel;
-    public int $servings;
+    public string $skillLevel = '';
+    public int $servings = 1;
 
     // Optional Fields
+    public string $introduction = '';
+    public string $summary = '';
     public array $cuisines = [];
     public array $diets = [];
     public array $ingredientsGroups = [];
+    public string $servingsDisplayText = '';
 
     protected array $validators = ['ingredients', 'methodSteps', 'timing', 'skillLevel', 'servings'];
 
@@ -142,6 +145,36 @@ class RecipeDTO extends BaseDTO
         $this->ingredientsGroups = $ingredientsGroups;
     }
 
+    public function getIntroduction(): string
+    {
+        return $this->introduction;
+    }
+
+    public function setIntroduction(string $introduction): void
+    {
+        $this->introduction = $introduction;
+    }
+
+    public function getSummary(): string
+    {
+        return $this->summary;
+    }
+
+    public function setSummary(string $summary): void
+    {
+        $this->summary = $summary;
+    }
+
+    public function getServingsDisplayText(): string
+    {
+        return $this->servingsDisplayText;
+    }
+
+    public function setServingsDisplayText(string $servingsDisplayText): void
+    {
+        $this->servingsDisplayText = $servingsDisplayText;
+    }
+
 
     /**
      * Map JSON Object to RecipeDTO
@@ -200,6 +233,18 @@ class RecipeDTO extends BaseDTO
             note: $data->timing->note,
             total: $data->timing->total,
             totalTime: $data->timing->totalTime));
+
+        if(isset($data->introduction)) {
+            $this->setIntroduction($data->introduction);
+        }
+
+        if(isset($data->summary)) {
+            $this->setSummary($data->summary);
+        }
+
+        if(isset($data->servingsDisplayText)) {
+            $this->setServingsDisplayText($data->servingsDisplayText);
+        }
 
     }
 

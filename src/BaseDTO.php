@@ -19,6 +19,7 @@ abstract class BaseDTO
 
     public string $type = 'base';
     public string $trackingId;
+    public int $version = 1;
     public string $clientRef;
     public string $title;
     public string $siteName;
@@ -222,6 +223,15 @@ abstract class BaseDTO
         $this->trackingId = 'CS-' . md5($url);
     }
 
+    public function getVersion(): int
+    {
+        return $this->version;
+    }
+
+    public function setVersion(int $version): void
+    {
+        $this->version = $version;
+    }
 
 
 
@@ -236,6 +246,7 @@ abstract class BaseDTO
 
         $this->setAuthor(new Author(name: $data->author->name, email: $data->author->email, url: $data->author->url, image: $data->author->image));
         $this->setClientRef($data->clientRef);
+        $this->setVersion($data->version ?? 1);
         $this->setDrm(new DRM(status: $data->drm->status, notes: $data->drm->notes));
         $this->setLocale($data->locale);
         $this->setSlug($data->slug);
@@ -257,7 +268,9 @@ abstract class BaseDTO
             srcImage: $data->heroImage->srcImage ?? '',
             exif: $data->heroImage->exif ?? [],
             labels: $data->heroImage->labels ?? [],
-            objects: $data->heroImage->objects ?? []
+            objects: $data->heroImage->objects ?? [],
+            assetId: $data->heroImage->assetId ?? '',
+            isPlaceholder: $data->heroImage->isPlaceholder ?? false,
         ));
 
         $this->setThumbnailImage(new Image(url: $data->thumbnailImage->url, alt: $data->thumbnailImage->alt,
@@ -271,7 +284,9 @@ abstract class BaseDTO
             srcImage: $data->thumbnailImage->srcImage ?? '',
             exif: $data->thumbnailImage->exif ?? [],
             labels: $data->thumbnailImage->labels ?? [],
-            objects: $data->thumbnailImage->objects ?? []
+            objects: $data->thumbnailImage->objects ?? [],
+            assetId: $data->thumbnailImage->assetId ?? '',
+            isPlaceholder: $data->thumbnailImage->isPlaceholder ?? false,
         ));
 
         foreach($data->tags as $tag) {
