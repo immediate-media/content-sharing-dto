@@ -359,5 +359,73 @@ class RecipeDTOTest extends TestCase
     }
 
 
+    public function testValidator()
+    {
+        
+        $recipeDTO1 = new RecipeDTO();
+        $recipeDTO1->setVersion(2);
+        $recipeDTO1->setTrackingId('CS-2d5bf4a54bd6a70411bbe0fd0eea85fc');
+        $recipeDTO1->setClientRef('ABC123');
+        $recipeDTO1->setTitle('Example Recipe');
+        $recipeDTO1->setSiteName('Best Food Site');
+        $recipeDTO1->setUrl('https://www.example.com/recipe');
+        $recipeDTO1->setSlug('example-recipe-slug');
+        $recipeDTO1->setDescription('Example Recipe Description');
+        $recipeDTO1->setPublishedDate('2023-02-08T15:00:39+00:00');
+        $recipeDTO1->setUpdatedDate('2023-02-08T17:00:39+00:00');
+        $recipeDTO1->setLocale('en');
+        $recipeDTO1->setDrm(new DRM(status: DRM::GREEN, notes: 'Recipe can be used Worldwide', creator: 'unknown', agency: 'unknown', damId: ''));
+        $recipeDTO1->setAuthor(new Author(name: 'Firstname Lastname', email: 'example@email.com', url: 'https://www.example.com', image: 'https://www.example.com/image.jpg'));
+        $recipeDTO1->setHeroImage(new Image(
+            url: 'https://www.example.com/image.jpg',
+            alt: 'Hero Image',
+            title: 'Image title',
+            width: 800, height: 600,
+            drm: new DRM(status: DRM::GREEN, notes: 'Free to use worldwide', creator: 'Copyright Holder', agency: 'Copyright Agency', damId: '12345'),
+            isUpscaled: false,
+            srcImage: '',
+            exif: [],
+            labels: [],
+            objects: [],
+            assetId: 'CS-12343973947',
+            isPlaceholder: false
+        ));
+        $recipeDTO1->setThumbnailImage(new Image(
+            url: 'https://www.example.com/image.jpg',
+            alt: 'Thumb Image',
+            title: 'Image title',
+            width: 80, height: 60,
+            drm: new DRM(status: DRM::YELLOW, notes: 'Restricted to UK only', creator: 'Copyright Holder', agency: 'Copyright Agency', damId: '12346'),
+            isUpscaled: false,
+            srcImage: '',
+            exif: [],
+            labels: [],
+            objects: []
+        ));
+        $recipeDTO1->setTags(new Tag(name: 'recipe tag 1', slug: 'recipe-tag-1', notes: 'tag notes'));
+        $recipeDTO1->setTags(new Tag(name: 'recipe tag 2', slug: 'recipe-tag-2', notes: 'tag notes'));
+        $recipeDTO1->setCategories(new Category(name: 'Recipes', slug: 'recipes-slug', notes: 'category notes'));
+        $recipeDTO1->setCategories(new Category(name: 'Food', slug: 'food-slug', notes: 'category notes'));
+        $recipeDTO1->setVersion(2);
+        $recipeDTO1->setIngredients(new Ingredient(name: 'first Ingredient', quantity: '1.5', unit: 'kg', slug: 'my-ingredient', notes: 'My Notes', group: 'sauce'));
+        $recipeDTO1->setIngredients(new Ingredient(name: 'second Ingredient', quantity: '2', unit: 'kg', slug: 'my-ingredient', notes: 'My Notes', group: 'pasta'));
+        $recipeDTO1->setMethodSteps(new MethodStep(stepNumber: 1, description: 'first step'));
+        $recipeDTO1->setMethodSteps(new MethodStep(stepNumber: 2, description: 'second step'));
+        $recipeDTO1->setNutrition(new Nutrition(label: 'Calories', value: '100', unit: 'kcal', high: false, low: false));
+        $recipeDTO1->setNutrition(new Nutrition(label: 'Salt', value: '100', unit: 'g', high: false, low: false));
+        $recipeDTO1->setTiming(new Timing(cookingMax: 20, maxCookingTime: 20, cookingMin: 10, minCookingTime: 10, preparationMax: 5, maxPreparationTime: 5, preparationMin: 3, minPreparationTime: 3, note: '', total: 45, totalTime: 45));
+        $recipeDTO1->setSkillLevel('easy');
+        $recipeDTO1->setServings(4);
+        $recipeDTO1->setCuisine(new Cuisine(name: 'British', slug: 'british-cuisine'));
+        $recipeDTO1->setCuisine(new Cuisine(name: 'Indian', slug: 'indian-cuisine'));
+        $recipeDTO1->setDiet(new Diet(name: 'Vegetarian', slug: 'vegetarian-diet'));
+        $recipeDTO1->setDiet(new Diet(name: 'Vegan', slug: 'vegan-diet'));
+        $recipeDTO1->setIngredientsGroups(['sauce', 'pasta']);
+        $recipeDTO1->setIntroduction('Introduction text');
+        $recipeDTO1->setSummary('Summary text');
+        $recipeDTO1->setServingsDisplayText('Serves 4');
+
+        $this->assertTrue($recipeDTO1->validate());
+    }
 
 }

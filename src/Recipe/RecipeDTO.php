@@ -23,12 +23,12 @@ class RecipeDTO extends BaseDTO
     public string $RECIPE_DTO_VERSION = '1.0.6';
 
     public string $type = 'recipe';
-    public array $ingredients;
-    public array $methodSteps;
-    public array $nutrition;
+    public array $ingredients = [];
+    public array $methodSteps = [];
+    public array $nutrition = [];
     public Timing $timing;
-    public string $skillLevel;
-    public int $servings;
+    public string $skillLevel = '';
+    public int $servings = 1;
 
     // Optional Fields
     public string $introduction = '';
