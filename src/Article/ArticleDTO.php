@@ -3,8 +3,6 @@
 namespace ImmediateMedia\ContentSharingDto\Article;
 
 use ImmediateMedia\ContentSharingDto\BaseDTO;
-use ImmediateMedia\ContentSharingDto\Generic\DRM;
-use ImmediateMedia\ContentSharingDto\Generic\Image;
 
 /**
  * Class ArticleDTO
