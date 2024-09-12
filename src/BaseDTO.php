@@ -235,7 +235,15 @@ abstract class BaseDTO
         $this->version = $version;
     }
 
+    public function getEmbedImages(): array
+    {
+        return $this->embedImages;
+    }
 
+    public function setEmbedImage(Image $image): void
+    {
+        $this->embedImages[] = $image;
+    }
 
     /**
      * Map JSON Object to BaseDTO
@@ -337,15 +345,4 @@ abstract class BaseDTO
     {
         return get_object_vars($this);
     }
-
-    public function getEmbedImages(): array
-    {
-        return $this->embedImages;
-    }
-
-    public function setEmbedImage(Image $image): void
-    {
-        $this->embedImages[] = $image;
-    }
-
 }
