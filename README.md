@@ -36,6 +36,7 @@ $recipeDTO->setTitle('Example Recipe');
 $recipeDTO->setDescription('Example Recipe Description');
 $recipeDTO->setUrl('https://www.example.com/recipe');
 
+// NB: This image is optional and can be set conditionally
 $recipeDTO->setHeroImage(new Image(
     url: 'https://www.example.com/image.jpg',
     alt: 'Hero Image',
@@ -43,6 +44,7 @@ $recipeDTO->setHeroImage(new Image(
     width: 800, height: 600,
     drm: new DRM(status: DRM::GREEN, notes: 'Free to use worldwide', creator: 'Copyright Holder', agency: 'Copyright Agency', damId: '12345')));
 
+// NB: This image is optional and can be set conditionally
 $recipeDTO->setThumbnailImage(new Image(
     url: 'https://www.example.com/image.jpg',
     alt: 'Thumb Image',
@@ -60,6 +62,7 @@ $recipeDTO->setMethodSteps(new MethodStep(stepNumber: 2, description: 'second st
 $recipeDTO->setNutrition(new Nutrition(label: 'Calories', value: '100', unit: Nutrition::KCALS, high: false, low: false));
 $recipeDTO->setNutrition(new Nutrition(label: 'Salt', value: '100', unit: Nutrition::GRAMS, high: false, low: false));
 
+// NB: These tags are optional and can be set conditionally
 $recipeDTO->setTags(new Tag(name: 'recipe tag 1', slug: 'recipe-tag-1', notes: 'tag notes'));
 $recipeDTO->setTags(new Tag(name: 'recipe tag 2', slug: 'recipe-tag-2', notes: 'tag notes'));
 
@@ -311,6 +314,7 @@ $articleDTO->setTitle('Example Article Title');
 $articleDTO->setDescription('Example Article Description');
 $articleDTO->setUrl('https://www.example.com/recipe');
 
+// NB: This image is optional and can be set conditionally
 $articleDTO->setHeroImage(new Image(
     url: 'https://www.example.com/image.jpg',
     alt: 'Hero Image',
@@ -318,6 +322,7 @@ $articleDTO->setHeroImage(new Image(
     width: 800, height: 600,
     drm: new DRM(status: DRM::GREEN, notes: 'Free to use worldwide', creator: 'Copyright Holder', agency: 'Copyright Agency', damId: '12345')));
 
+// NB: This image is optional and can be set conditionally
 $articleDTO->setThumbnailImage(new Image(
     url: 'https://www.example.com/image.jpg',
     alt: 'Thumb Image',
@@ -325,6 +330,7 @@ $articleDTO->setThumbnailImage(new Image(
     width: 80, height: 60,
     drm: new DRM(status: DRM::YELLOW, notes: 'Restricted to UK only', creator: 'Copyright Holder', agency: 'Copyright Agency', damId: '12346')));
 
+// NB: These tags are optional and can be set conditionally
 $articleDTO->setTags(new Tag(name: 'article tag 1', slug: 'article-tag-1', notes: 'optional tag notes'));
 $articleDTO->setTags(new Tag(name: 'article tag 2', slug: 'article-tag-2', notes: 'optional tag notes'));
 
@@ -382,7 +388,7 @@ echo $articleDTO->toJSON();
         "email": "example@email.com",
         "url": "https:\/\/www.example.com",
         "image": "https:\/\/www.example.com\/image.jpg"
-    },
+    },    
     "heroImage": {
         "url": "https:\/\/www.example.com\/image.jpg",
         "alt": "Hero Image",
