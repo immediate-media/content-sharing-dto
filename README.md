@@ -35,6 +35,8 @@ $recipeDTO->setUpdatedDate('2023-02-08T17:00:39+00:00');
 $recipeDTO->setTitle('Example Recipe');
 $recipeDTO->setDescription('Example Recipe Description');
 $recipeDTO->setUrl('https://www.example.com/recipe');
+$recipeDTO->setIntroduction('This is an introduction to the recipe.');
+$recipeDTO->setSummary('This is a summary of the recipe.');
 
 // NB: This image is optional and can be set conditionally
 $recipeDTO->setHeroImage(new Image(
@@ -85,6 +87,8 @@ $recipeDTO->validate();
 
 // Returns the DTO as a JSON string
 echo $recipeDTO->toJSON();
+
+
 
 
 
@@ -338,6 +342,7 @@ $articleDTO->setCategories(new Category(name: 'TV', slug: 'tv', notes: 'optional
 $articleDTO->setCategories(new Category(name: 'News', slug: 'news', notes: 'optional category notes'));
 
 $articleDTO->setHtml('<p>Example Article Body with full markup</p>');
+$articleDTO->setMarkdown('Example Article Body in Markdown');
 
 $articleDTO->setEmbedImage(new Image(
     url: 'https://www.example.com/image.jpg',
@@ -355,6 +360,8 @@ echo $articleDTO->toJSON();
 
 
 
+
+
 ```
 </details>
 
@@ -364,6 +371,7 @@ echo $articleDTO->toJSON();
 ```json
 {
     "BASE_DTO_VERSION": "1.0.5",
+    "ARTICLE_DTO_VERSION": "1.0.1",
     "type": "article",
     "trackingId": "CS-2d5bf4a54bd6a70411bbe0fd0eea85fc",
     "version": 3,
@@ -388,7 +396,7 @@ echo $articleDTO->toJSON();
         "email": "example@email.com",
         "url": "https:\/\/www.example.com",
         "image": "https:\/\/www.example.com\/image.jpg"
-    },    
+    },
     "heroImage": {
         "url": "https:\/\/www.example.com\/image.jpg",
         "alt": "Hero Image",
@@ -464,9 +472,9 @@ echo $articleDTO->toJSON();
             "notes": "optional category notes"
         }
     ],
-    "ARTICLE_DTO_VERSION": "1.0.1",
     "text": "Example Article Body with full markup",
     "html": "<p>Example Article Body with full markup<\/p>",
+    "markdown": "Example Article Body in Markdown",
     "embedImages": [
         {
             "url": "https:\/\/www.example.com\/image.jpg",
@@ -508,3 +516,4 @@ $recipeDTO->map($jsonData);
 $recipeDTO->validate();
 ```
 </details>
+
