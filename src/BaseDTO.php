@@ -42,7 +42,7 @@ abstract class BaseDTO
     public array $embedImages = [];
 
     protected array $baseValidators = ['clientRef', 'title', 'siteName', 'url', 'slug', 'description', 'publishedDate',
-        'updatedDate', 'locale', 'drm', 'author', 'heroImage', 'thumbnailImage', 'tags', 'categories'];
+        'updatedDate', 'locale', 'drm', 'author'];
 
     public function validate(): bool
     {
