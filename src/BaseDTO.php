@@ -7,6 +7,7 @@ use ImmediateMedia\ContentSharingDto\Generic\Category;
 use ImmediateMedia\ContentSharingDto\Generic\DRM;
 use ImmediateMedia\ContentSharingDto\Generic\Image;
 use ImmediateMedia\ContentSharingDto\Generic\Tag;
+use ImmediateMedia\ContentSharingDto\Generic\Meta;
 
 /**
  * Class BaseDTO
@@ -35,6 +36,7 @@ abstract class BaseDTO
     public Author $author;
     public Image $heroImage;
     public Image $thumbnailImage;
+    public ?Meta $meta;
 
     public array $tags = [];
     public array $categories = [];
@@ -297,6 +299,22 @@ abstract class BaseDTO
             $this->setCategories(new Category(name: $category->name, slug: $category->slug, notes: $category->notes));
         }
 
+        if (isset($data->meta) && is_object($data->meta)) {
+            $this->setMeta(new Meta(
+                metaTitle: $data->meta->metaTitle ?? '',
+                metaDescription: $data->meta->metaDescription ?? ''
+            ));
+        }
+    }
+
+    public function getMeta(): ?Meta
+    {
+        return $this->meta;
+    }
+
+    public function setMeta(Meta $meta): void
+    {
+        $this->meta = $meta;
     }
 
     public function toJSON($flags = 0): string
