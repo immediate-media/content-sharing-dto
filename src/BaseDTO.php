@@ -41,8 +41,10 @@ abstract class BaseDTO
     public array $tags = [];
     public array $categories = [];
 
+    public array $embedImages = [];
+
     protected array $baseValidators = ['clientRef', 'title', 'siteName', 'url', 'slug', 'description', 'publishedDate',
-        'updatedDate', 'locale', 'drm', 'author', 'heroImage', 'thumbnailImage', 'tags', 'categories'];
+        'updatedDate', 'locale', 'drm', 'author', 'categories'];
 
     public function validate(): bool
     {
@@ -235,7 +237,15 @@ abstract class BaseDTO
         $this->version = $version;
     }
 
+    public function getEmbedImages(): array
+    {
+        return $this->embedImages;
+    }
 
+    public function setEmbedImage(Image $image): void
+    {
+        $this->embedImages[] = $image;
+    }
 
     /**
      * Map JSON Object to BaseDTO
@@ -299,6 +309,33 @@ abstract class BaseDTO
             $this->setCategories(new Category(name: $category->name, slug: $category->slug, notes: $category->notes));
         }
 
+        if(isset($data->embedImages)) {
+            foreach ($data->embedImages as $image)
+            {
+                $this->setEmbedImage(new Image(
+                    $image->url ?? '',
+                    $image->alt ?? '',
+                    $image->title ?? '',
+                    $image->width ?? 0,
+                    $image->height ?? 0,
+                    new DRM(
+                        $image->drm->status ?? '',
+                        $image->drm->notes ?? '',
+                        $image->drm->creator ?? '',
+                        $image->drm->agency ?? '',
+                        $image->drm->damId ?? ''
+                    ),
+                    $image->isUpscaled ?? false,
+                    $image->srcImage ?? '',
+                    $image->exif ?? [],
+                    $image->labels ?? [],
+                    $image->objects ?? [],
+                    $image->assetId ?? '',
+                    $image->isPlaceholder ?? false
+                )
+                );
+            }            
+        }
         if (isset($data->meta) && is_object($data->meta)) {
             $this->setMeta(new Meta(
                 metaTitle: $data->meta->metaTitle ?? '',
@@ -326,5 +363,4 @@ abstract class BaseDTO
     {
         return get_object_vars($this);
     }
-
 }

@@ -3,8 +3,6 @@
 namespace ImmediateMedia\ContentSharingDto\Article;
 
 use ImmediateMedia\ContentSharingDto\BaseDTO;
-use ImmediateMedia\ContentSharingDto\Generic\DRM;
-use ImmediateMedia\ContentSharingDto\Generic\Image;
 
 /**
  * Class ArticleDTO
@@ -20,7 +18,6 @@ class ArticleDTO extends BaseDTO
     public string $text;
     public string $html;
     public string $markdown;
-    public array $embedImages = [];
 
     protected array $validators = ['html'];
 
@@ -55,19 +52,6 @@ class ArticleDTO extends BaseDTO
         $this->markdown = $markdown;
     }
 
-    public function getEmbedImages(): array
-    {
-        return $this->embedImages;
-    }
-
-    public function setEmbedImage(Image $image): void
-    {
-        $this->embedImages[] = $image;
-    }
-
-
-
-
     /**
      * Map JSON Object to ArticleDTO
      * @param string $jsonData ArticleJson
@@ -89,38 +73,5 @@ class ArticleDTO extends BaseDTO
         if(isset($data->markdown)) {
             $this->setMarkdown($data->markdown);
         }
-
-        if(isset($data->embedImages)) {
-            foreach ($data->embedImages as $image)
-            {
-                $this->setEmbedImage(new Image(
-                    $image->url ?? '',
-                    $image->alt ?? '',
-                    $image->title ?? '',
-                    $image->width ?? 0,
-                    $image->height ?? 0,
-                    new DRM(
-                        $image->drm->status ?? '',
-                        $image->drm->notes ?? '',
-                        $image->drm->creator ?? '',
-                        $image->drm->agency ?? '',
-                        $image->drm->damId ?? ''
-                    ),
-                    $image->isUpscaled ?? false,
-                    $image->srcImage ?? '',
-                    $image->exif ?? [],
-                    $image->labels ?? [],
-                    $image->objects ?? [],
-                    $image->assetId ?? '',
-                    $image->isPlaceholder ?? false
-                )
-                );
-            }
-            
-        }
-
     }
-
-
-
 }
