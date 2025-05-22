@@ -7,7 +7,8 @@ use ImmediateMedia\ContentSharingDto\Generic\Category;
 use ImmediateMedia\ContentSharingDto\Generic\DRM;
 use ImmediateMedia\ContentSharingDto\Generic\Image;
 use ImmediateMedia\ContentSharingDto\Generic\Tag;
-use ImmediateMedia\ContentSharingDto\Generic\Meta;
+use ImmediateMedia\ContentSharingDto\Generic\SEO;
+use ImmediateMedia\ContentSharingDto\Generic\OpenGraph;
 
 /**
  * Class BaseDTO
@@ -36,7 +37,7 @@ abstract class BaseDTO
     public Author $author;
     public Image $heroImage;
     public Image $thumbnailImage;
-    public ?Meta $meta;
+    public ?SEO $seo = null;
 
     public array $tags = [];
     public array $categories = [];
@@ -336,22 +337,35 @@ abstract class BaseDTO
                 );
             }            
         }
-        if (isset($data->meta) && is_object($data->meta)) {
-            $this->setMeta(new Meta(
-                metaTitle: $data->meta->metaTitle ?? '',
-                metaDescription: $data->meta->metaDescription ?? ''
+
+        if (isset($data->seo) && is_object($data->seo)) {
+            $openGraphImage = isset($data->seo->openGraph->image) ? new Image(
+                url: $data->seo->openGraph->image->url,
+                alt: $data->seo->openGraph->image->alt,
+                title: $data->seo->openGraph->image->title,
+                width: $data->seo->openGraph->image->width,
+                height: $data->seo->openGraph->image->height,
+                drm: new DRM(status: DRM::RED, notes: 'OpenGraph Image DRM')
+            ) : null;
+
+            $openGraph = new OpenGraph($data->seo->openGraph?->title ?? '', $data->seo->openGraph?->description ?? '', $openGraphImage);
+
+            $this->setSEO(new SEO(
+                metaTitle: $data->seo?->metaTitle ?? '',
+                metaDescription: $data->seo?->metaDescription ?? '',
+                openGraph: $openGraph
             ));
         }
     }
 
-    public function getMeta(): ?Meta
+    public function getSEO(): ?SEO
     {
-        return $this->meta;
+        return $this->seo;
     }
 
-    public function setMeta(Meta $meta): void
+    public function setSEO(SEO $seo): void
     {
-        $this->meta = $meta;
+        $this->seo = $seo;
     }
 
     public function toJSON($flags = 0): string
