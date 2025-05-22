@@ -82,6 +82,24 @@ $recipeDTO->setCuisine(new Cuisine(name: 'Indian', slug: 'indian-cuisine'));
 $recipeDTO->setDiet(new Diet(name: 'Vegetarian', slug: 'vegetarian-diet'));
 $recipeDTO->setDiet(new Diet(name: 'Vegan', slug: 'vegan-diet'));
 
+// NB: This is optional and can be set conditionally
+$recipeDTO->setSEO(new SEO(
+    metaTitle: 'Example Recipe SEO Title',
+    metaDescription: 'Example Recipe SEO Description',
+    openGraph: new OpenGraph(
+        title: 'Example Recipe OpenGraph Title',
+        description: 'Example Recipe OpenGraph Description',
+        image: new Image(
+            url: 'https://www.example.com/og-image.jpg',
+            alt: 'OpenGraph Image',
+            title: 'OpenGraph Image Title',
+            width: 1200,
+            height: 630,
+            drm: new DRM(status: DRM::GREEN, notes: 'Free to use worldwide')
+        )
+    )
+));
+
 // Throws exception if the DTO is not valid
 $recipeDTO->validate();
 
@@ -238,6 +256,35 @@ echo $recipeDTO->toJSON();
   "skillLevel": "easy",
   "slug": "example-recipe-slug",
   "summary": "Summary of the recipe",
+  "seo": {
+    "metaTitle": "Example Recipe SEO Title",
+    "metaDescription": "Example Recipe SEO Description",
+    "openGraph": {
+      "title": "Example Recipe OpenGraph Title",
+      "description": "Example Recipe OpenGraph Description",
+      "image": {
+        "url": "https://www.example.com/og-image.jpg",
+        "alt": "OpenGraph Image",
+        "title": "OpenGraph Image Title",
+        "width": 1200,
+        "height": 630,
+        "isUpscaled": false,
+        "isPlaceholder": false,
+        "srcImage": "",
+        "exif": [],
+        "labels": [],
+        "objects": [],
+        "assetId": "",
+        "drm": {
+          "status": 1,
+          "notes": "Free to use worldwide",
+          "creator": "unknown",
+          "agency": "unknown",
+          "damId": ""
+        }
+      }
+    }
+  },
   "tags": [
     {
       "name": "recipe tag 1",
@@ -352,6 +399,24 @@ $articleDTO->setEmbedImage(new Image(
     width: 800, height: 600,
     drm: new DRM(status: DRM::GREEN, notes: 'Free to use worldwide', creator: 'Copyright Holder', agency: 'Copyright Agency', damId: '12345')));
 
+// NB: This is optional and can be set conditionally
+$articleDTO->setSEO(new SEO(
+    metaTitle: 'Example Article SEO Title',
+    metaDescription: 'Example Article SEO Description',
+    openGraph: new OpenGraph(
+        title: 'Example Article OpenGraph Title',
+        description: 'Example Article OpenGraph Description',
+        image: new Image(
+            url: 'https://www.example.com/og-article-image.jpg',
+            alt: 'OpenGraph Article Image',
+            title: 'OpenGraph Article Image Title',
+            width: 1200,
+            height: 630,
+            drm: new DRM(status: DRM::GREEN, notes: 'Free to use worldwide')
+        )
+    )
+));
+
 // Throws exception if the DTO is not valid
 $articleDTO->validate();
 
@@ -458,6 +523,35 @@ echo $articleDTO->toJSON();
   "publishedDate": "2023-02-08T15:00:39+00:00",
   "siteName": "Good News Site",
   "slug": "example-article-slug",
+  "seo": {
+    "metaTitle": "Example Article SEO Title",
+    "metaDescription": "Example Article SEO Description",
+    "openGraph": {
+      "title": "Example Article OpenGraph Title",
+      "description": "Example Article OpenGraph Description",
+      "image": {
+        "url": "https://www.example.com/og-article-image.jpg",
+        "alt": "OpenGraph Article Image",
+        "title": "OpenGraph Article Image Title",
+        "width": 1200,
+        "height": 630,
+        "isUpscaled": false,
+        "isPlaceholder": false,
+        "srcImage": "",
+        "exif": [],
+        "labels": [],
+        "objects": [],
+        "assetId": "",
+        "drm": {
+          "status": 1,
+          "notes": "Free to use worldwide",
+          "creator": "unknown",
+          "agency": "unknown",
+          "damId": ""
+        }
+      }
+    }
+  },
   "tags": [
     {
       "name": "article tag 1",
