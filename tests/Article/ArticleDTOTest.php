@@ -8,6 +8,8 @@ use ImmediateMedia\ContentSharingDto\Generic\Category;
 use ImmediateMedia\ContentSharingDto\Generic\DRM;
 use ImmediateMedia\ContentSharingDto\Generic\Image;
 use ImmediateMedia\ContentSharingDto\Generic\Tag;
+use ImmediateMedia\ContentSharingDto\Generic\SEO;
+use ImmediateMedia\ContentSharingDto\Generic\OpenGraph;
 
 use PHPUnit\Framework\TestCase;
 
@@ -200,6 +202,317 @@ class ArticleDTOTest extends TestCase
         $mappedArticleDTO->map($jsonData);
 
         $this->assertEquals($articleDTO, $mappedArticleDTO);
+    }
+
+    public function testSEOMapping()
+    {
+        $articleDTO = new ArticleDTO();
+        // Set mandatory fields for ArticleDTO
+        $articleDTO->setClientRef('SEO_CLIENT_REF');
+        $articleDTO->setTitle('SEO Test Article');
+        $articleDTO->setSiteName('SEO Test Site');
+        $articleDTO->setUrl('https://www.example.com/seo-test');
+        $articleDTO->setSlug('seo-test-slug');
+        $articleDTO->setDescription('SEO test description');
+        $articleDTO->setPublishedDate('2023-01-01T00:00:00+00:00');
+        $articleDTO->setUpdatedDate('2023-01-01T00:00:00+00:00');
+        $articleDTO->setLocale('en-GB');
+        $articleDTO->setDrm(new DRM(status: DRM::GREEN, notes: 'Test DRM'));
+        $articleDTO->setAuthor(new Author(name: 'Test Author', email: 'test@example.com', url: 'https://example.com/author', image: 'https://example.com/author.jpg'));
+        $articleDTO->setCategories(new Category(name: 'Test Category', slug: 'test-category', notes: 'Test category notes'));
+        // It is important to set hero and thumbnail images as they are used in the base DTO mapping logic
+        $articleDTO->setHeroImage(new Image(url: 'https://example.com/hero.jpg', alt: 'Hero', title: 'Hero Title', width: 100, height: 100, drm: new DRM(status: DRM::GREEN, notes: 'Test DRM')));
+        $articleDTO->setThumbnailImage(new Image(url: 'https://example.com/thumb.jpg', alt: 'Thumb', title: 'Thumb Title', width: 50, height: 50, drm: new DRM(status: DRM::GREEN, notes: 'Test DRM')));
+
+
+        $openGraphImage = new Image(
+            url: 'https://www.example.com/og-image.jpg',
+            alt: 'OpenGraph Image Alt',
+            title: 'OpenGraph Image Title',
+            width: 1200,
+            height: 630,
+            drm: new DRM(status: DRM::GREEN, notes: 'OG Image DRM')
+        );
+        $openGraph = new OpenGraph(
+            title: 'Test OpenGraph Title',
+            description: 'Test OpenGraph Description',
+            image: $openGraphImage
+        );
+
+        $seo = new SEO(
+            metaTitle: 'Test Meta Title',
+            metaDescription: 'Test Meta Description',
+            openGraph: $openGraph
+        );
+
+        $articleDTO->setSEO($seo);
+
+        $jsonData = $articleDTO->toJson();
+        $mappedArticleDTO = new ArticleDTO();
+        $mappedArticleDTO->map($jsonData);
+
+        $this->assertNotNull($mappedArticleDTO->getSEO(), "SEO object should be populated");
+        $this->assertEquals('Test Meta Title', $mappedArticleDTO->getSEO()->getMetaTitle());
+        $this->assertEquals('Test Meta Description', $mappedArticleDTO->getSEO()->getMetaDescription());
+
+        $mappedOpenGraph = $mappedArticleDTO->getSEO()->getOpenGraph();
+        $this->assertNotNull($mappedOpenGraph, "OpenGraph object should be populated in SEO");
+        $this->assertEquals('Test OpenGraph Title', $mappedOpenGraph->getTitle());
+        $this->assertEquals('Test OpenGraph Description', $mappedOpenGraph->getDescription());
+        $this->assertNotNull($mappedOpenGraph->getImage(), "Image object should be populated in OpenGraph");
+        $this->assertEquals('https://www.example.com/og-image.jpg', $mappedOpenGraph->getImage()->url);
+        $this->assertEquals('OpenGraph Image Alt', $mappedOpenGraph->getImage()->alt);
+        $this->assertEquals('OpenGraph Image Title', $mappedOpenGraph->getImage()->title);
+        $this->assertEquals(1200, $mappedOpenGraph->getImage()->width);
+        $this->assertEquals(630, $mappedOpenGraph->getImage()->height);
+        $this->assertEquals(DRM::RED, $mappedOpenGraph->getImage()->getDrm()->getStatus());
+        $this->assertEquals('OpenGraph Image DRM', $mappedOpenGraph->getImage()->getDrm()->getNotes());
+    }
+
+    public function testSEOMappingMissingSEO()
+    {
+        $articleDTO = new ArticleDTO();
+        // Set mandatory fields for ArticleDTO
+        $articleDTO->setClientRef('SEO_MISSING_CLIENT_REF');
+        $articleDTO->setTitle('SEO Missing Test Article');
+        $articleDTO->setSiteName('SEO Missing Test Site');
+        $articleDTO->setUrl('https://www.example.com/seo-missing-test');
+        $articleDTO->setSlug('seo-missing-test-slug');
+        $articleDTO->setDescription('SEO missing test description');
+        $articleDTO->setPublishedDate('2023-01-01T00:00:00+00:00');
+        $articleDTO->setUpdatedDate('2023-01-01T00:00:00+00:00');
+        $articleDTO->setLocale('en-GB');
+        $articleDTO->setDrm(new DRM(status: DRM::GREEN, notes: 'Test DRM'));
+        $articleDTO->setAuthor(new Author(name: 'Test Author', email: 'test@example.com', url: 'https://example.com/author', image: 'https://example.com/author.jpg'));
+        $articleDTO->setCategories(new Category(name: 'Test Category', slug: 'test-category', notes: 'Test category notes'));
+        $articleDTO->setHeroImage(new Image(url: 'https://example.com/hero.jpg', alt: 'Hero', title: 'Hero Title', width: 100, height: 100, drm: new DRM(status: DRM::GREEN, notes: 'Test DRM')));
+        $articleDTO->setThumbnailImage(new Image(url: 'https://example.com/thumb.jpg', alt: 'Thumb', title: 'Thumb Title', width: 50, height: 50, drm: new DRM(status: DRM::GREEN, notes: 'Test DRM')));
+
+        // SEO object is not set on $articleDTO
+
+        $jsonData = $articleDTO->toJson();
+        // Manually remove SEO from JSON to simulate it missing
+        $dataArray = json_decode($jsonData, true);
+        unset($dataArray['seo']);
+        $jsonWithoutSEO = json_encode($dataArray);
+
+        $mappedArticleDTO = new ArticleDTO();
+        $mappedArticleDTO->map($jsonWithoutSEO);
+
+        $this->assertNull($mappedArticleDTO->getSEO(), "SEO object should be null when missing from JSON");
+    }
+
+    public function testSEOMappingMissingOpenGraph()
+    {
+        $articleDTO = new ArticleDTO();
+        // Set mandatory fields
+        $articleDTO->setClientRef('OG_MISSING_CLIENT_REF');
+        $articleDTO->setTitle('OG Missing Test Article');
+        $articleDTO->setSiteName('OG Missing Test Site');
+        $articleDTO->setUrl('https://www.example.com/og-missing-test');
+        $articleDTO->setSlug('og-missing-test-slug');
+        $articleDTO->setDescription('OG missing test description');
+        $articleDTO->setPublishedDate('2023-01-01T00:00:00+00:00');
+        $articleDTO->setUpdatedDate('2023-01-01T00:00:00+00:00');
+        $articleDTO->setLocale('en-GB');
+        $articleDTO->setDrm(new DRM(status: DRM::GREEN, notes: 'Test DRM'));
+        $articleDTO->setAuthor(new Author(name: 'Test Author', email: 'test@example.com', url: 'https://example.com/author', image: 'https://example.com/author.jpg'));
+        $articleDTO->setCategories(new Category(name: 'Test Category', slug: 'test-category', notes: 'Test category notes'));
+        $articleDTO->setHeroImage(new Image(url: 'https://example.com/hero.jpg', alt: 'Hero', title: 'Hero Title', width: 100, height: 100, drm: new DRM(status: DRM::GREEN, notes: 'Test DRM')));
+        $articleDTO->setThumbnailImage(new Image(url: 'https://example.com/thumb.jpg', alt: 'Thumb', title: 'Thumb Title', width: 50, height: 50, drm: new DRM(status: DRM::GREEN, notes: 'Test DRM')));
+
+        // SEO is present, but OpenGraph is not explicitly set within SEO
+        $seo = new SEO(
+            metaTitle: 'Test Meta Title',
+            metaDescription: 'Test Meta Description',
+            openGraph: null
+        );
+
+        $articleDTO->setSEO($seo);
+
+        $jsonData = $articleDTO->toJson();
+        // Simulate OpenGraph missing in JSON, though PHP might make it null by default
+        $dataArray = json_decode($jsonData, true);
+        unset($dataArray['seo']['openGraph']);
+        $jsonWithoutOpenGraph = json_encode($dataArray);
+
+
+        $mappedArticleDTO = new ArticleDTO();
+        $mappedArticleDTO->map($jsonWithoutOpenGraph);
+
+        $this->assertNotNull($mappedArticleDTO->getSEO(), "SEO object should be populated");
+        $this->assertEquals('Test Meta Title', $mappedArticleDTO->getSEO()->getMetaTitle());
+        $this->assertEquals('Test Meta Description', $mappedArticleDTO->getSEO()->getMetaDescription());
+
+        $mappedOpenGraph = $mappedArticleDTO->getSEO()->getOpenGraph();
+        $this->assertNotNull($mappedOpenGraph, "OpenGraph object should still be created even if missing from JSON");
+        $this->assertEquals('', $mappedOpenGraph->getTitle(), "OpenGraph title should be empty string when OG is missing");
+        $this->assertEquals('', $mappedOpenGraph->getDescription(), "OpenGraph description should be empty string when OG is missing");
+        $this->assertNull($mappedOpenGraph->getImage(), "OpenGraph image should be null when OG is missing");
+    }
+
+    public function testSEOMappingMissingOpenGraphImage()
+    {
+        $articleDTO = new ArticleDTO();
+        // Set mandatory fields
+        $articleDTO->setClientRef('OG_IMG_MISSING_CLIENT_REF');
+        $articleDTO->setTitle('OG Image Missing Test Article');
+        $articleDTO->setSiteName('OG Image Missing Test Site');
+        $articleDTO->setUrl('https://www.example.com/og-image-missing-test');
+        $articleDTO->setSlug('og-image-missing-test-slug');
+        // ... (fill in other mandatory fields as in previous tests)
+        $articleDTO->setDescription('OG image missing test description');
+        $articleDTO->setPublishedDate('2023-01-01T00:00:00+00:00');
+        $articleDTO->setUpdatedDate('2023-01-01T00:00:00+00:00');
+        $articleDTO->setLocale('en-GB');
+        $articleDTO->setDrm(new DRM(status: DRM::GREEN, notes: 'Test DRM'));
+        $articleDTO->setAuthor(new Author(name: 'Test Author', email: 'test@example.com', url: 'https://example.com/author', image: 'https://example.com/author.jpg'));
+        $articleDTO->setCategories(new Category(name: 'Test Category', slug: 'test-category', notes: 'Test category notes'));
+        $articleDTO->setHeroImage(new Image(url: 'https://example.com/hero.jpg', alt: 'Hero', title: 'Hero Title', width: 100, height: 100, drm: new DRM(status: DRM::GREEN, notes: 'Test DRM')));
+        $articleDTO->setThumbnailImage(new Image(url: 'https://example.com/thumb.jpg', alt: 'Thumb', title: 'Thumb Title', width: 50, height: 50, drm: new DRM(status: DRM::GREEN, notes: 'Test DRM')));
+
+        $openGraph = new OpenGraph(
+            title: 'Test OpenGraph Title',
+            description: 'Test OpenGraph Description',
+            image: null
+        );
+
+        $seo = new SEO(
+            metaTitle: 'Test Meta Title',
+            metaDescription: 'Test Meta Description',
+            openGraph: $openGraph
+        );
+        $articleDTO->setSEO($seo);
+
+        $jsonData = $articleDTO->toJson();
+        // Simulate image missing in JSON
+        $dataArray = json_decode($jsonData, true);
+        unset($dataArray['seo']['openGraph']['image']);
+        $jsonWithoutOpenGraphImage = json_encode($dataArray);
+
+        $mappedArticleDTO = new ArticleDTO();
+        $mappedArticleDTO->map($jsonWithoutOpenGraphImage);
+
+        $this->assertNotNull($mappedArticleDTO->getSEO(), "SEO object should be populated");
+        $mappedOpenGraph = $mappedArticleDTO->getSEO()->getOpenGraph();
+        $this->assertNotNull($mappedOpenGraph, "OpenGraph object should be populated");
+        $this->assertEquals('Test OpenGraph Title', $mappedOpenGraph->getTitle());
+        $this->assertEquals('Test OpenGraph Description', $mappedOpenGraph->getDescription());
+        $this->assertNull($mappedOpenGraph->getImage(), "OpenGraph image should be null when missing from JSON");
+    }
+
+    public function testSEOMappingMissingOpenGraphProperties()
+    {
+        $articleDTO = new ArticleDTO();
+        // Set mandatory fields
+        $articleDTO->setClientRef('OG_PROPS_MISSING_CLIENT_REF');
+        $articleDTO->setTitle('OG Props Missing Test Article');
+        // ... (fill in other mandatory fields)
+        $articleDTO->setSiteName('OG Props Missing Test Site');
+        $articleDTO->setUrl('https://www.example.com/og-props-missing-test');
+        $articleDTO->setSlug('og-props-missing-test-slug');
+        $articleDTO->setDescription('OG props missing test description');
+        $articleDTO->setPublishedDate('2023-01-01T00:00:00+00:00');
+        $articleDTO->setUpdatedDate('2023-01-01T00:00:00+00:00');
+        $articleDTO->setLocale('en-GB');
+        $articleDTO->setDrm(new DRM(status: DRM::GREEN, notes: 'Test DRM'));
+        $articleDTO->setAuthor(new Author(name: 'Test Author', email: 'test@example.com', url: 'https://example.com/author', image: 'https://example.com/author.jpg'));
+        $articleDTO->setCategories(new Category(name: 'Test Category', slug: 'test-category', notes: 'Test category notes'));
+        $articleDTO->setHeroImage(new Image(url: 'https://example.com/hero.jpg', alt: 'Hero', title: 'Hero Title', width: 100, height: 100, drm: new DRM(status: DRM::GREEN, notes: 'Test DRM')));
+        $articleDTO->setThumbnailImage(new Image(url: 'https://example.com/thumb.jpg', alt: 'Thumb', title: 'Thumb Title', width: 50, height: 50, drm: new DRM(status: DRM::GREEN, notes: 'Test DRM')));
+
+        $openGraphImage = new Image(url: 'https://www.example.com/og-image.jpg', alt: 'OpenGraph Image Alt', title: 'OpenGraph Image Title', width: 1200, height: 630, drm: new DRM(status: DRM::GREEN, notes: 'OG Image DRM'));
+        // Intentionally create OpenGraph with a null title to test mapping
+        $openGraph = new OpenGraph(
+            title: null, // Test case for missing title
+            description: 'Test OpenGraph Description',
+            image: $openGraphImage
+        );
+        $seo = new SEO(
+            metaTitle: 'Test Meta Title',
+            metaDescription: 'Test Meta Description',
+            openGraph: $openGraph
+        );
+        $articleDTO->setSEO($seo);
+
+        $jsonData = $articleDTO->toJson();
+        // Simulate title missing in JSON for OpenGraph
+        $dataArray = json_decode($jsonData, true);
+        unset($dataArray['seo']['openGraph']['title']);
+        // Also test with description missing
+        // unset($dataArray['seo']['openGraph']['description']);
+        $jsonWithMissingOGTitle = json_encode($dataArray);
+
+
+        $mappedArticleDTO = new ArticleDTO();
+        $mappedArticleDTO->map($jsonWithMissingOGTitle);
+
+        $this->assertNotNull($mappedArticleDTO->getSEO(), "SEO object should be populated");
+        $mappedOpenGraph = $mappedArticleDTO->getSEO()->getOpenGraph();
+        $this->assertNotNull($mappedOpenGraph, "OpenGraph object should be populated");
+        $this->assertEquals('', $mappedOpenGraph->getTitle(), "OpenGraph title should be empty string if missing in JSON");
+        $this->assertEquals('Test OpenGraph Description', $mappedOpenGraph->getDescription()); // Assuming description is still there
+        $this->assertNotNull($mappedOpenGraph->getImage(), "OpenGraph image should be populated");
+        $this->assertEquals('https://www.example.com/og-image.jpg', $mappedOpenGraph->getImage()->url);
+        // Note: The mapping logic in BaseDTO hardcodes OpenGraph Image DRM to RED
+        $this->assertEquals(DRM::RED, $mappedOpenGraph->getImage()->getDrm()->getStatus());
+    }
+
+    public function testSEOMappingMissingSEOProperties()
+    {
+        $articleDTO = new ArticleDTO();
+        // Set mandatory fields
+        $articleDTO->setClientRef('SEO_PROPS_MISSING_CLIENT_REF');
+        $articleDTO->setTitle('SEO Props Missing Test Article');
+        // ... (fill in other mandatory fields)
+        $articleDTO->setSiteName('SEO Props Missing Test Site');
+        $articleDTO->setUrl('https://www.example.com/seo-props-missing-test');
+        $articleDTO->setSlug('seo-props-missing-test-slug');
+        $articleDTO->setDescription('SEO props missing test description');
+        $articleDTO->setPublishedDate('2023-01-01T00:00:00+00:00');
+        $articleDTO->setUpdatedDate('2023-01-01T00:00:00+00:00');
+        $articleDTO->setLocale('en-GB');
+        $articleDTO->setDrm(new DRM(status: DRM::GREEN, notes: 'Test DRM'));
+        $articleDTO->setAuthor(new Author(name: 'Test Author', email: 'test@example.com', url: 'https://example.com/author', image: 'https://example.com/author.jpg'));
+        $articleDTO->setCategories(new Category(name: 'Test Category', slug: 'test-category', notes: 'Test category notes'));
+        $articleDTO->setHeroImage(new Image(url: 'https://example.com/hero.jpg', alt: 'Hero', title: 'Hero Title', width: 100, height: 100, drm: new DRM(status: DRM::GREEN, notes: 'Test DRM')));
+        $articleDTO->setThumbnailImage(new Image(url: 'https://example.com/thumb.jpg', alt: 'Thumb', title: 'Thumb Title', width: 50, height: 50, drm: new DRM(status: DRM::GREEN, notes: 'Test DRM')));
+
+
+        $openGraphImage = new Image(url: 'https://www.example.com/og-image.jpg', alt: 'OpenGraph Image Alt', title: 'OpenGraph Image Title', width: 1200, height: 630, drm: new DRM(status: DRM::GREEN, notes: 'OG Image DRM'));
+        $openGraph = new OpenGraph(
+            title: 'Test OpenGraph Title',
+            description: 'Test OpenGraph Description',
+            image: $openGraphImage
+        );
+        // Intentionally create SEO with a null metaTitle
+        $seo = new SEO(
+            metaTitle: null, // Test case for missing metaTitle
+            metaDescription: 'Test Meta Description',
+            openGraph: $openGraph
+        );
+        $articleDTO->setSEO($seo);
+
+        $jsonData = $articleDTO->toJson();
+        // Simulate metaTitle missing in JSON for SEO
+        $dataArray = json_decode($jsonData, true);
+        unset($dataArray['seo']['metaTitle']);
+        // Also test with metaDescription missing
+        // unset($dataArray['seo']['metaDescription']);
+        $jsonWithMissingSEOTitle = json_encode($dataArray);
+
+        $mappedArticleDTO = new ArticleDTO();
+        $mappedArticleDTO->map($jsonWithMissingSEOTitle);
+
+        $this->assertNotNull($mappedArticleDTO->getSEO(), "SEO object should be populated");
+        $this->assertEquals('', $mappedArticleDTO->getSEO()->getMetaTitle(), "SEO metaTitle should be empty string if missing in JSON");
+        $this->assertEquals('Test Meta Description', $mappedArticleDTO->getSEO()->getMetaDescription()); // Assuming metaDescription is still there
+
+        $mappedOpenGraph = $mappedArticleDTO->getSEO()->getOpenGraph();
+        $this->assertNotNull($mappedOpenGraph, "OpenGraph object should be populated");
+        $this->assertEquals('Test OpenGraph Title', $mappedOpenGraph->getTitle());
+        // Note: The mapping logic in BaseDTO hardcodes OpenGraph Image DRM to RED
+        $this->assertEquals(DRM::RED, $mappedOpenGraph->getImage()->getDrm()->getStatus());
     }
 
 }
